@@ -47,6 +47,8 @@
             </form>
         </div>
         
+        <img src="imagens/logouff.png" alt="" class="rounded" width="10" height="10">
+        
             <!-- BOOTSTRAP SCRIPTS -->
         <!-- JQuery -->
         <script type="text/javascript" src="bootstrap/js/jquery-3.3.1.min.js"></script>

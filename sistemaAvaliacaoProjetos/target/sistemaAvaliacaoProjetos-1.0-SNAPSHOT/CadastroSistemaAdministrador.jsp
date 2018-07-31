@@ -40,7 +40,7 @@
             <div class="card-body px-lg-5 pt-0">
 
                 <!-- Form -->
-                <form class="text-center" style="color: #757575;">
+                <form class="text-center" style="color: #757575;" action="CadastroSistemaAdministradorServlet" method="POST">
                     <br>
                     <div class="form-row">
                         <font size="5" face="Arial">
@@ -117,18 +117,7 @@
                         <!-- Switch -->
                         <div class="switch mdb-color-switch">
                             <label>
-                                <input type="checkbox" checked="checked">
-                                <span class="lever"></span>
-                                Relatórios  Parciais
-                            </label>
-                        </div>
-                    </div>
-                    <div  class="form-row">
-                        <!-- Switch -->
-                        <div class="switch mdb-color-switch">
-                            <label>
-                                <input type="checkbox" checked="checked">
-                                <span class="lever"></span>
+                                <input type="checkbox" id="relatorioParcial" valor="sim">
                                 Tarefas de desenvolvimento
                             </label>
                         </div>
@@ -137,9 +126,26 @@
                         <!-- Switch -->
                         <div class="switch mdb-color-switch">
                             <label>
-                                <input type="checkbox" checked="checked">
-                                <span class="lever"></span>
-                                Apresentação de resultados
+                                <input type="checkbox" name="" value="">
+                                Relatórios parciais
+                            </label>
+                        </div>
+                    </div>
+                    <div  class="form-row">
+                        <!-- Switch -->
+                        <div class="switch mdb-color-switch">
+                            <label>
+                                <input type="checkbox" name="" value="">
+                                XXXX
+                            </label>
+                        </div>
+                    </div>
+                    <div  class="form-row">
+                        <!-- Switch -->
+                        <div class="switch mdb-color-switch">
+                            <label>
+                                <input type="checkbox">
+                                XXXX
                             </label>
                         </div>
                     </div>

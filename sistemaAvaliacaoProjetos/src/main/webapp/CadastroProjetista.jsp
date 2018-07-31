@@ -40,7 +40,7 @@
             <div class="card-body px-lg-5 pt-0">
 
                 <!-- Form -->
-                <form class="text-center" style="color: #757575;">
+                <form class="text-center" style="color: #757575;" action="CadastroProjetistaServlet" method="POST">
                     <br>
                     <div class="form-row">
                         <font size="5" face="Arial">
@@ -51,7 +51,7 @@
                     <!-- Nome do projetista -->
                     <div class="md-form">
                         <input type="text" id="nomeProjetista" class="form-control">
-                        <label for="nomeAdministradorSistema">Nome</label>
+                        <label for="nomeProjetista">Nome</label>
                         <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
                             Digite algo entre 2 e 50 caracateres
                         </small>
@@ -59,10 +59,10 @@
                     
                     <div class="form-row">
                         <div class="col">
-                            <!-- E-mail do responsavel pelo sistema -->
+                            <!-- E-mail do Projetista -->
                             <div class="md-form">
-                                <input type="text" id="emailAdministradorSistema" class="form-control">
-                                <label for="emailAdministradorSistema">E-mail</label>
+                                <input type="text" id="emailProjetista" class="form-control">
+                                <label for="emailProjetista">E-mail</label>
                                 <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
                                     Digite algo entre 2 e 50 caracateres
                                 </small>
@@ -91,24 +91,31 @@
                         </font>
                     </div>
                     <br>
-                    <!-- Nome do Sistema de Projetos -->
+                    <!-- Nome do Projeto -->
                     <div class="md-form mt-0">
-                        <input type="text" id="nomeSistemaProjetos" class="form-control">
-                        <label for="nomeSistemaProjetos">Nome do Sistema de Projetos</label>
+                        <input type="text" id="nomeProjetos" class="form-control">
+                        <label for="nomeProjetos">Nome do Projeto</label>
                         <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
                             Digite algo entre 2 e 50 caracateres
                         </small>
                     </div>
                     
-                    <!-- Area de atuação do Sistema de Projetos -->
-                    <div class="md-form mt-0">
-                        <input type="text" id="areaAtuacaoSistemaProjetos" class="form-control">
-                        <label for="areaAtuacaoSistemaProjetos">Área Atuação do Sistema de Projetos</label>
+                    <!-- Descrição do Projeto -->
+                    <div class="form-row">
+                        <p>Descrição</p>
+                        <textarea class="form-control rounded-0" id="descricao" rows="10"></textarea>
                         <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
-                            Digite algo entre 2 e 50 caracateres
+                            Digite algo entre 500 e 1000 caracateres
                         </small>
                     </div>
                     
+                    <!-- Duração do Projeto -->
+                    <div class="md-form mt-0">
+                        <input type="text" id="duracao" class="form-control">
+                        <label for="duracao">Duração</label>     
+                    </div>
+                    
+                    <br>
                     <div class="form-row">
                         <strong>Requisitos para os alunos:</strong>
                     </div>
