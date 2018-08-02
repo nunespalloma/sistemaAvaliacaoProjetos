@@ -1,0 +1,17 @@
+<%-- any content can be specified here e.g.: --%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Bootstrap Code -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap Code -->
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core" %> 
+        
+<!-- Bootstrap Code -->
+<link rel="stylesheet" href="bootstrap/css/font-awesome.min.css">
+<!-- Bootstrap core CSS -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-datepicker.min.css" >
+<!-- Material Design Bootstrap -->
+<link href="bootstrap/css/mdb.min.css" rel="stylesheet">
+<!-- Your custom styles (optional) -->
+<link href="bootstrap/css/style.css" rel="stylesheet">

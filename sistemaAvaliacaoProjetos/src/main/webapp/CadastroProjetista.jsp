@@ -8,33 +8,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- Bootstrap Code -->
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- Bootstrap Code -->
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core" %> 
+        <%@include file="head.jspf"%> 
         <title>Cadastro Projetista</title>
-        
-        <!-- Bootstrap Code -->
-        <link rel="stylesheet" href="bootstrap/css/font-awesome.min.css">
-        <!-- Bootstrap core CSS -->
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="bootstrap/css/bootstrap-datepicker.min.css" >
-        <!-- Material Design Bootstrap -->
-        <link href="bootstrap/css/mdb.min.css" rel="stylesheet">
-        <!-- Your custom styles (optional) -->
-        <link href="bootstrap/css/style.css" rel="stylesheet">
     </head>
     <body>
+        <%@include file="navbar.jspf"%>
                 <!-- Material form register -->
         <div class="card">
-
-            <h5 class="card-header indigo white-text text-center py-4">
-                <font size="8" face="Arial">
-                    <strong>Cadastro</strong>
+            <h1 class="text-center indigo-text py-4">
+                <font size="10" face="Calibri">
+                    <strong>CADASTRO</strong>
                 </font>
-            </h5>
+            </h1>
 
             <!--Card content-->
             <div class="card-body px-lg-5 pt-0">
@@ -42,10 +27,10 @@
                 <!-- Form -->
                 <form class="text-center" style="color: #757575;" action="CadastroProjetistaServlet" method="POST">
                     <br>
-                    <div class="form-row">
-                        <font size="5" face="Arial">
+                    <div class="form-row indigo-text">
+                        <font size="5" face="Calibri">
                             <strong>PROJETISTA</strong>
-                        </font> 
+                        </font>
                     </div>
 
                     <!-- Nome do projetista -->
@@ -85,8 +70,8 @@
                     <br>
                     <br>
                     <br>
-                    <div class="form-row">
-                        <font size="5" face="Arial">
+                    <div class="form-row indigo-text">
+                        <font size="5" face="Calibri">
                             <strong>PROJETO</strong>
                         </font>
                     </div>
@@ -164,14 +149,7 @@
         </div>
         <!-- Material form register -->
         
-        <!-- BOOTSTRAP SCRIPTS -->
-        <!-- JQuery -->
-        <script type="text/javascript" src="bootstrap/js/jquery-3.3.1.min.js"></script>
-        <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="bootstrap/js/popper.min.js"></script>
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-        <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="bootstrap/js/mdb.min.js"></script>
+        <%@include file="footer.jspf"%>
+        <%@include file="finalBody.jspf"%>
     </body>
 </html>

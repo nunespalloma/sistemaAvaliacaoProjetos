@@ -8,31 +8,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- Bootstrap Code -->
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- Bootstrap Code -->
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core" %> 
+        <%@include file="head.jspf"%>
         <title>Login</title>
-        
-        <!-- Bootstrap Code -->
-        <link rel="stylesheet" href="bootstrap/css/font-awesome.min.css">
-        <!-- Bootstrap core CSS -->
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="bootstrap/css/bootstrap-datepicker.min.css" >
-        <!-- Material Design Bootstrap -->
-        <link href="bootstrap/css/mdb.min.css" rel="stylesheet">
-        <!-- Your custom styles (optional) -->
-        <link href="bootstrap/css/style.css" rel="stylesheet">
     </head>
     <body>
+        <%@include file="navbar.jspf"%>
                 <!-- Material form login -->
         <div class="card">
 
-          <h5 class="card-header indigo white-text text-center py-4">
-            <strong>Sign in</strong>
-          </h5>
+            <h1 class="text-center indigo-text py-4">
+                <font size="10" face="Calibri">
+                <strong>LOGIN</strong>
+                </font>
+            </h1>
 
           <!--Card content-->
           <div class="card-body px-lg-5 pt-0">
@@ -62,15 +50,15 @@
 
         </div>
         <!-- Material form login -->
-        
-            <!-- BOOTSTRAP SCRIPTS -->
-        <!-- JQuery -->
-        <script type="text/javascript" src="bootstrap/js/jquery-3.3.1.min.js"></script>
-        <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="bootstrap/js/popper.min.js"></script>
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-        <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="bootstrap/js/mdb.min.js"></script>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <%@include file="footer.jspf"%>
+        <%@include file="finalBody.jspf"%>
     </body>
 </html>
