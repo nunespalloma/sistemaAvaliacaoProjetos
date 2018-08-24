@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <p>O presente site pretende possibilitar o gerenciamento de projetos de inovação.</p>
             <p>O gerenciamento mencionado ocorrerá usando como base a metodologia chamada Design Science Research.</p>
-            <p>Desenvolvido por aluna da Universidade Federal Fluminense.</p>
+            <p>Desenvolvido pela Universidade Federal Fluminense.</p>
         </div>
         <br>
         <br>
