@@ -17,8 +17,7 @@ import javax.persistence.Id;
  *
  * @author palloma
  */
-public class Administrador implements Serializable{
-    
+public class Avaliador implements Serializable{
     //identificador pra inserir a classe no banco quando a mesma for serializada
     private static final long serialVersionUID = 1L;
     
@@ -35,11 +34,13 @@ public class Administrador implements Serializable{
     @Column(nullable = false)
     private String senha;
     
-    Administrador(){
+    //adicionar projeto como atributo de aluno!
+    
+    Avaliador(){
         
     }
     
-    public Administrador(String nome, String email, String senha) {
+    public Avaliador(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -76,5 +77,4 @@ public class Administrador implements Serializable{
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
 }
