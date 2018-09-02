@@ -46,7 +46,12 @@
                         </tr>
                 </table>
             </div>
-            
+            <br>
+            <br>
+            <br>
+            <form action="ProjetistaServlet" method="POST">
+                <button class="btn btn-indigo my-4 btn-block" type="submit">Novo Formulário</button>
+            </form>
             <br>
             <br>
             <br>
