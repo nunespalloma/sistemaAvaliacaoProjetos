@@ -55,7 +55,7 @@
                     <!-- Default input -->
                     <div class="form-group col-md-6">
                         <label for="inputIdentidade">Identidade</label>
-                        <input type="text" class="form-control" id="inputIdentidade" placeholder="Matrícula Identidade">
+                        <input type="text" class="form-control" id="inputIdentidade" placeholder="Identidade">
                     </div>
                     <!-- Default input -->
                     <div class="form-group col-md-6">

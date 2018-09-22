@@ -35,7 +35,7 @@
 
                     <!-- Nome do projetista -->
                     <div class="md-form">
-                        <input type="text" id="nomeProjetista" class="form-control">
+                        <input type="text" name="nomeProjetista" id="nomeProjetista" class="form-control">
                         <label for="nomeProjetista">Nome</label>
                         <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
                             Digite algo entre 2 e 50 caracateres
@@ -46,7 +46,7 @@
                         <div class="col">
                             <!-- E-mail do Projetista -->
                             <div class="md-form">
-                                <input type="text" id="emailProjetista" class="form-control">
+                                <input type="text" name="emailProjetista" id="emailProjetista" class="form-control">
                                 <label for="emailProjetista">E-mail</label>
                                 <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
                                     Digite algo entre 2 e 50 caracateres
@@ -56,8 +56,8 @@
                         <div class="col">
                             <!-- Password -->
                             <div class="md-form">
-                                <input type="password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock">
-                                <label for="materialRegisterFormPassword">Password</label>
+                                <input type="password" name="senhaProjetista" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock">
+                                <label for="materialRegisterFormPassword">Senha</label>
                                 <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
                                     Digite pelo menos 8 caracteres e 1 digito
                                 </small>
@@ -66,17 +66,21 @@
                     </div>
                     <br>
                     <br>
+                    <!--
                     <br>
                     <br>
                     <br>
                     <br>
+                    
                     <div class="form-row indigo-text">
                         <font size="5" face="Calibri">
                             <strong>PROJETO</strong>
                         </font>
                     </div>
                     <br>
+                    -->
                     <!-- Nome do Projeto -->
+                    <!--
                     <div class="md-form mt-0">
                         <input type="text" id="nomeProjetos" class="form-control">
                         <label for="nomeProjetos">Nome do Projeto</label>
@@ -84,8 +88,9 @@
                             Digite algo entre 2 e 50 caracateres
                         </small>
                     </div>
-                    
+                    -->
                     <!-- Descrição do Projeto -->
+                    <!--
                     <div class="form-row">
                         <p>Descrição</p>
                         <textarea class="form-control rounded-0" id="descricao" rows="10"></textarea>
@@ -93,8 +98,9 @@
                             Digite algo entre 500 e 1000 caracateres
                         </small>
                     </div>
-                    
+                    -->
                     <!-- Duração do Projeto -->
+                    <!--
                     <div class="md-form mt-0">
                         <input type="text" id="duracao" class="form-control">
                         <label for="duracao">Duração</label>     
@@ -106,7 +112,9 @@
                     </div>
                     <br>
                     <div class="form-row">
+                    -->
                         <!-- Switch -->
+                        <!--
                         <div class="switch mdb-color-switch">
                             <label>
                                 <input type="checkbox" checked="checked">
@@ -116,7 +124,9 @@
                         </div>
                     </div>
                     <div  class="form-row">
+                        -->
                         <!-- Switch -->
+                        <!--
                         <div class="switch mdb-color-switch">
                             <label>
                                 <input type="checkbox" checked="checked">
@@ -126,7 +136,9 @@
                         </div>
                     </div>
                     <div  class="form-row">
+                        -->
                         <!-- Switch -->
+                        <!--
                         <div class="switch mdb-color-switch">
                             <label>
                                 <input type="checkbox" checked="checked">
@@ -135,7 +147,8 @@
                             </label>
                         </div>
                     </div>
-
+                    
+                    -->
                     <!-- Sign up button -->
                     <button class="btn btn-indigo my-4 btn-block" type="submit">Sign in</button>
 
