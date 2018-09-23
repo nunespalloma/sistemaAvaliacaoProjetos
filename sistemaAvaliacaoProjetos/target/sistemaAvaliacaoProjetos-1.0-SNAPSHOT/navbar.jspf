@@ -29,6 +29,7 @@
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="CadastroSistemaAdministrador.jsp">Sistema e Administrador</a>
                     <a class="dropdown-item" href="CadastroProjetista.jsp">Projetista</a>
+                    <a class="dropdown-item" href="CadastroOrientador.jsp">Orientador</a>
                 </div>
             </li>
                 
