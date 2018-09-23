@@ -30,6 +30,7 @@
                     <a class="dropdown-item" href="CadastroSistemaAdministrador.jsp">Sistema e Administrador</a>
                     <a class="dropdown-item" href="CadastroProjetista.jsp">Projetista</a>
                     <a class="dropdown-item" href="CadastroOrientador.jsp">Orientador</a>
+                    <a class="dropdown-item" href="CadastroAvaliador.jsp">Avaliador</a>
                 </div>
             </li>
                 

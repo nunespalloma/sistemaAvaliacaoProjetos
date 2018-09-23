@@ -7,6 +7,7 @@ br\com\uff\sistemaAvaliacaoProjetos\model\entity\Projetista.class
 br\com\uff\sistemaAvaliacaoProjetos\view\PrincipalServlet.class
 br\com\uff\sistemaAvaliacaoProjetos\view\FormularioServlet.class
 br\com\uff\sistemaAvaliacaoProjetos\model\dao\GenericDAO.class
+br\com\uff\sistemaAvaliacaoProjetos\view\CadastroAvaliadorServlet.class
 br\com\uff\sistemaAvaliacaoProjetos\model\dao\PersistenceManager.class
 br\com\uff\sistemaAvaliacaoProjetos\model\entity\Formulario.class
 br\com\uff\sistemaAvaliacaoProjetos\view\PreCadastroServlet.class
@@ -20,7 +21,9 @@ br\com\uff\sistemaAvaliacaoProjetos\model\dao\AvaliadorDAO.class
 br\com\uff\sistemaAvaliacaoProjetos\model\entity\Orientador.class
 br\com\uff\sistemaAvaliacaoProjetos\view\CadastroSistemaAdministradorServlet.class
 br\com\uff\sistemaAvaliacaoProjetos\model\dao\OrientadorDAO.class
+br\com\uff\sistemaAvaliacaoProjetos\view\LoginServlet.class
 br\com\uff\sistemaAvaliacaoProjetos\model\entity\Projeto.class
 br\com\uff\sistemaAvaliacaoProjetos\model\entity\Sistema.class
 br\com\uff\sistemaAvaliacaoProjetos\model\dao\ProjetoDAO.class
 br\com\uff\sistemaAvaliacaoProjetos\model\entity\Administrador.class
+br\com\uff\sistemaAvaliacaoProjetos\view\CadastroOrientadorServlet.class

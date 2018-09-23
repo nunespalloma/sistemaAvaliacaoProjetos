@@ -17,6 +17,7 @@ import javax.persistence.Id;
  *
  * @author palloma
  */
+@Entity
 public class Avaliador implements Serializable{
     //identificador pra inserir a classe no banco quando a mesma for serializada
     private static final long serialVersionUID = 1L;
