@@ -35,7 +35,10 @@
 
                     <!-- Nome do projetista -->
                     <div class="md-form">
-                        <input type="text" name="nomeProjetista" id="nomeProjetista" class="form-control">
+                        <input type="text" name="nomeProjetista" id="nomeProjetista" class="form-control ${requestScope.nomeProjetistaStatus}" value="${param.nomeProjetista}">
+                        <div class="invalid-feedback">
+                            ${requestScope.nomeProjetistaMsgErro}
+                        </div>
                         <label for="nomeProjetista">Nome</label>
                         <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
                             Digite algo entre 2 e 50 caracateres
@@ -46,7 +49,10 @@
                         <div class="col">
                             <!-- E-mail do Projetista -->
                             <div class="md-form">
-                                <input type="text" name="emailProjetista" id="emailProjetista" class="form-control">
+                                <input type="text" name="emailProjetista" id="emailProjetista" class="form-control ${requestScope.emailProjetistaStatus}" value="${param.emailProjetista}">
+                                <div class="invalid-feedback">
+                                    ${requestScope.emailProjetistaMsgErro}
+                                </div>
                                 <label for="emailProjetista">E-mail</label>
                                 <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
                                     Digite algo entre 2 e 50 caracateres
@@ -56,10 +62,13 @@
                         <div class="col">
                             <!-- Password -->
                             <div class="md-form">
-                                <input type="password" name="senhaProjetista" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock">
+                                <input type="password" name="senhaProjetista" id="materialRegisterFormPassword" class="form-control ${requestScope.senhaProjetistaStatus}" aria-describedby="materialRegisterFormPasswordHelpBlock">
+                                <div class="invalid-feedback">
+                                    ${requestScope.senhaProjetistaMsgErro}
+                                </div>
                                 <label for="materialRegisterFormPassword">Senha</label>
                                 <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-                                    Digite pelo menos 8 caracteres e 1 digito
+                                    Digite pelo menos 8 caracteres
                                 </small>
                             </div>
                         </div>

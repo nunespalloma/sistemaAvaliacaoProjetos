@@ -1,6 +1,7 @@
 br\com\uff\sistemaAvaliacaoProjetos\view\ProjetistaServlet.class
 br\com\uff\sistemaAvaliacaoProjetos\controller\FormularioController.class
 br\com\uff\sistemaAvaliacaoProjetos\view\CadastroProjetistaServlet.class
+br\com\uff\sistemaAvaliacaoProjetos\utils\ValidUtils.class
 br\com\uff\sistemaAvaliacaoProjetos\controller\OrientadorController.class
 br\com\uff\sistemaAvaliacaoProjetos\model\entity\Projetista.class
 br\com\uff\sistemaAvaliacaoProjetos\view\PrincipalServlet.class

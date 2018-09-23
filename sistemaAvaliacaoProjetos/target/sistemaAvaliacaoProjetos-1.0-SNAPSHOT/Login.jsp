@@ -26,18 +26,24 @@
           <div class="card-body px-lg-5 pt-0">
 
             <!-- Form -->
-            <form class="text-center" style="color: #757575;">
+            <form action="LoginServlet" method="POST" class="text-center" style="color: #757575;">
 
               <!-- Email -->
               <div class="md-form">
-                <input type="email" id="materialLoginFormEmail" class="form-control">
-                <label for="materialLoginFormEmail">E-mail</label>
+                    <input type="email" id="materialLoginFormEmail" name="email" class="form-control ${requestScope.emailStatus}" value="${param.email}">
+                    <div class="invalid-feedback">
+                        ${requestScope.emailMsgErro}
+                    </div>
+                    <label for="materialLoginFormEmail">E-mail</label>
               </div>
 
               <!-- Password -->
               <div class="md-form">
-                <input type="password" id="materialLoginFormPassword" class="form-control">
-                <label for="materialLoginFormPassword">Password</label>
+                    <input type="password" id="materialLoginFormPassword" name="senha" class="form-control ${requestScope.senhaStatus}">
+                    <div class="invalid-feedback">
+                        ${requestScope.senhaMsgErro}
+                    </div>
+                    <label for="materialLoginFormPassword">Password</label>
               </div>
 
               <!-- Sign in button -->
