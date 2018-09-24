@@ -16,10 +16,10 @@ br\com\uff\sistemaAvaliacaoProjetos\controller\ProjetistaController.class
 br\com\uff\sistemaAvaliacaoProjetos\model\entity\Avaliador.class
 br\com\uff\sistemaAvaliacaoProjetos\model\dao\ProjetistaDAO.class
 br\com\uff\sistemaAvaliacaoProjetos\controller\AvaliadorController.class
+br\com\uff\sistemaAvaliacaoProjetos\controller\AdministradorController.class
 br\com\uff\sistemaAvaliacaoProjetos\controller\ProjetoController.class
 br\com\uff\sistemaAvaliacaoProjetos\model\dao\AvaliadorDAO.class
 br\com\uff\sistemaAvaliacaoProjetos\model\entity\Orientador.class
-br\com\uff\sistemaAvaliacaoProjetos\view\CadastroSistemaAdministradorServlet.class
 br\com\uff\sistemaAvaliacaoProjetos\model\dao\OrientadorDAO.class
 br\com\uff\sistemaAvaliacaoProjetos\view\LoginServlet.class
 br\com\uff\sistemaAvaliacaoProjetos\model\entity\Projeto.class
@@ -27,3 +27,5 @@ br\com\uff\sistemaAvaliacaoProjetos\model\entity\Sistema.class
 br\com\uff\sistemaAvaliacaoProjetos\model\dao\ProjetoDAO.class
 br\com\uff\sistemaAvaliacaoProjetos\model\entity\Administrador.class
 br\com\uff\sistemaAvaliacaoProjetos\view\CadastroOrientadorServlet.class
+br\com\uff\sistemaAvaliacaoProjetos\model\dao\AdministradorDAO.class
+br\com\uff\sistemaAvaliacaoProjetos\view\CadastroAdministradorServlet.class

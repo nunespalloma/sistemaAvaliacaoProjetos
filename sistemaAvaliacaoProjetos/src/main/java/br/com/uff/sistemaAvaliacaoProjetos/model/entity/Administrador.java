@@ -17,6 +17,7 @@ import javax.persistence.Id;
  *
  * @author palloma
  */
+@Entity
 public class Administrador implements Serializable{
     
     //identificador pra inserir a classe no banco quando a mesma for serializada

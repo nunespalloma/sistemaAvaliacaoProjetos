@@ -27,7 +27,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastro</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="CadastroSistemaAdministrador.jsp">Sistema e Administrador</a>
+                    <a class="dropdown-item" href="CadastroAdministrador.jsp">Administrador</a>
                     <a class="dropdown-item" href="CadastroProjetista.jsp">Projetista</a>
                     <a class="dropdown-item" href="CadastroOrientador.jsp">Orientador</a>
                     <a class="dropdown-item" href="CadastroAvaliador.jsp">Avaliador</a>
