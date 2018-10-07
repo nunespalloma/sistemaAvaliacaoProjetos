@@ -37,7 +37,7 @@ public class Avaliador implements Serializable{
     
     //adicionar projeto como atributo de aluno!
     
-    Avaliador(){
+    public Avaliador(){
         
     }
     

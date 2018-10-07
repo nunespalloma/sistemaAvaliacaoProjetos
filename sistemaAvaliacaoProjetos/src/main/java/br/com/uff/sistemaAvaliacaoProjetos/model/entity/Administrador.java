@@ -36,7 +36,7 @@ public class Administrador implements Serializable{
     @Column(nullable = false)
     private String senha;
     
-    Administrador(){
+    public Administrador(){
         
     }
     

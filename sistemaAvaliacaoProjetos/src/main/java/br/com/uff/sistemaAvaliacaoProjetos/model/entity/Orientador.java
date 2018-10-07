@@ -37,7 +37,7 @@ public class Orientador implements Serializable{
     
     //adicionar projeto como atributo de aluno!
     
-    Orientador(){
+    public Orientador(){
         
     }
     

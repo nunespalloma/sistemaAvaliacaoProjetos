@@ -39,7 +39,7 @@ public class Projetista implements Serializable{
     
     //adicionar projeto como atributo de aluno!
     
-    Projetista(){
+    public Projetista(){
         
     }
     
