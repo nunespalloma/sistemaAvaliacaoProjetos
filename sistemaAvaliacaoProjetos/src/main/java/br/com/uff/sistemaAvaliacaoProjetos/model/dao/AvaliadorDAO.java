@@ -32,4 +32,17 @@ public class AvaliadorDAO extends GenericDAO<Avaliador>{
         
     }
     
+    public boolean buscaVerificacaoEmailCadastrado (Avaliador avaliador) {
+        try {
+            Avaliador avaliadorBD = (Avaliador) manager.createQuery(
+                    "SELECT a FROM Avaliador a WHERE a.email = :email")
+                    .setParameter("email", avaliador.getEmail())
+                    .getSingleResult();
+            
+            return true;
+        } catch (NoResultException nre) {
+            return false;
+        }
+        
+    }
 }

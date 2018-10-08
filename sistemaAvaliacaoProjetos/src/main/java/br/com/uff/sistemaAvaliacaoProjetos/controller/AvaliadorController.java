@@ -31,6 +31,11 @@ public class AvaliadorController {
         return avaliadorDAO.buscaVerificacaoLogin(avaliador);
     }
     
+    public static boolean buscaVerificacaoEmailCadastrado (Avaliador avaliador) {
+        AvaliadorDAO avaliadorDAO = new AvaliadorDAO();
+        return avaliadorDAO.buscaVerificacaoEmailCadastrado(avaliador);
+    }
+    
     public static void insertAvaliador(Avaliador avaliador) {
         GenericDAO<Avaliador> avaliadorDAO = PersistenceManager.createGenericDAO(Avaliador.class);
         try {

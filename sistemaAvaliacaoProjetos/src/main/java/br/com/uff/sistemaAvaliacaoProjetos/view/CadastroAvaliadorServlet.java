@@ -106,11 +106,17 @@ public class CadastroAvaliadorServlet extends HttpServlet {
         if (valid) {
             Avaliador avaliador = new Avaliador(nome,email,senha);
             try {
-                AvaliadorController.insertAvaliador(avaliador);
+                if (!AvaliadorController.buscaVerificacaoEmailCadastrado(avaliador)) {
+                    AvaliadorController.insertAvaliador(avaliador);
+                    req.getRequestDispatcher("Avaliador.jsp").forward(req, resp);
+                }else {
+                    req.setAttribute("cadastroMsgErro", "Email de Avaliador já cadastrado!");
+                    req.getRequestDispatcher("CadastroAvaliador.jsp").forward(req, resp);
+                }
             }catch (Exception e) {
                 e.printStackTrace();
             }
-            req.getRequestDispatcher("Avaliador.jsp").forward(req, resp);
+            
         }else {
             //reportar erro dispachando para a jsp.
             req.getRequestDispatcher("CadastroAvaliador.jsp").forward(req, resp);
