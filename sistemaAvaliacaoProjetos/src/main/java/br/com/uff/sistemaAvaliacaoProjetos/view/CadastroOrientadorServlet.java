@@ -7,6 +7,7 @@ package br.com.uff.sistemaAvaliacaoProjetos.view;
 
 import br.com.uff.sistemaAvaliacaoProjetos.controller.OrientadorController;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Orientador;
+import br.com.uff.sistemaAvaliacaoProjetos.utils.FormatarDadosUtils;
 import br.com.uff.sistemaAvaliacaoProjetos.utils.ValidUtils;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -24,12 +25,31 @@ public class CadastroOrientadorServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String nome = req.getParameter("nomeOrientador").toUpperCase().trim();
+        String matricula = req.getParameter("matriculaOrientador").toUpperCase().trim();
+        String cpf = req.getParameter("cpfOrientador").toUpperCase().trim();
+        String identidade = req.getParameter("identidadeOrientador").toUpperCase().trim();
+        String telefone = req.getParameter("telefoneOrientador").toUpperCase().trim();
+        String urlCurriculoLattes = req.getParameter("urlCurriculoLattesOrientador").toUpperCase().trim();
+        String departamento = req.getParameter("departamentoOrientador").toUpperCase().trim();
         String email = req.getParameter("emailOrientador").toUpperCase().trim(); //pego o que tem no name do input da jsp Cadastro Orientador.
         String senha = req.getParameter("senhaOrientador").toUpperCase().trim();
         boolean valid = true;
         String nomeOrientadorStatus;
         String nomeOrientadorMsgErro;
+        String matriculaOrientadorStatus;
+        String matriculaOrientadorMsgErro;
+        String cpfOrientadorStatus;
+        String cpfOrientadorMsgErro;
+        String identidadeOrientadorStatus;
+        String identidadeOrientadorMsgErro;
+        String telefoneOrientadorStatus;
+        String telefoneOrientadorMsgErro;
+        String urlCurriculoLattesOrientadorStatus;
+        String urlCurriculoLattesOrientadorMsgErro;
+        String departamentoOrientadorStatus;
+        String departamentoOrientadorMsgErro;
         String emailOrientadorStatus;
         String emailOrientadorMsgErro;
         String senhaOrientadorStatus;
@@ -53,6 +73,108 @@ public class CadastroOrientadorServlet extends HttpServlet {
             nomeOrientadorMsgErro = "Nome nulo ou vazio.".toUpperCase();
             req.setAttribute("nomeOrientadorStatus", nomeOrientadorStatus);
             req.setAttribute("nomeOrientadorMsgErro", nomeOrientadorMsgErro);
+        }
+        
+        //Validação de matricula
+        if (ValidUtils.validMatriculaNull(matricula)) {
+            if (ValidUtils.validMatriculaSize(matricula)) {
+                matriculaOrientadorStatus = "is-valid";
+                req.setAttribute("matriculaOrientadorStatus", matriculaOrientadorStatus);
+            }else {
+                valid = false;
+                matriculaOrientadorStatus = "is-invalid";
+                matriculaOrientadorMsgErro = "Tamanho da matricula inválido.".toUpperCase();
+                req.setAttribute("matriculaOrientadorStatus", matriculaOrientadorStatus);
+                req.setAttribute("matriculaOrientadorMsgErro", matriculaOrientadorMsgErro);
+            }
+        }else {
+            valid = false;
+            matriculaOrientadorStatus = "is-invalid";
+            matriculaOrientadorMsgErro = "Matricula nulo ou vazio.".toUpperCase();
+            req.setAttribute("matriculaOrientadorStatus", matriculaOrientadorStatus);
+            req.setAttribute("matriculaOrientadorMsgErro", matriculaOrientadorMsgErro);
+        }
+        
+        //Validação de cpf
+        if (ValidUtils.validCpfNull(cpf)) {
+            if (ValidUtils.validCpfSize(cpf)) {
+                cpfOrientadorStatus = "is-valid";
+                req.setAttribute("cpfOrientadorStatus", cpfOrientadorStatus);
+            }else {
+                valid = false;
+                cpfOrientadorStatus = "is-invalid";
+                cpfOrientadorMsgErro = "Tamanho do cpf inválido.".toUpperCase();
+                req.setAttribute("cpfOrientadorStatus", cpfOrientadorStatus);
+                req.setAttribute("cpfOrientadorMsgErro", cpfOrientadorMsgErro);
+            }
+        }else {
+            valid = false;
+            cpfOrientadorStatus = "is-invalid";
+            cpfOrientadorMsgErro = "Cpf nulo ou vazio.".toUpperCase();
+            req.setAttribute("cpfOrientadorStatus", cpfOrientadorStatus);
+            req.setAttribute("cpfOrientadorMsgErro", cpfOrientadorMsgErro);
+        }
+        
+        //Validação de identidade
+        if (ValidUtils.validIdentidadeNull(identidade)) {
+            if (ValidUtils.validIdentidadeSize(identidade)) {
+                identidadeOrientadorStatus = "is-valid";
+                req.setAttribute("identidadeOrientadorStatus", identidadeOrientadorStatus);
+            }else {
+                valid = false;
+                identidadeOrientadorStatus = "is-invalid";
+                identidadeOrientadorMsgErro = "Tamanho da identidade inválido.".toUpperCase();
+                req.setAttribute("identidadeOrientadorStatus", identidadeOrientadorStatus);
+                req.setAttribute("identidadeOrientadorMsgErro", identidadeOrientadorMsgErro);
+            }
+        }else {
+            valid = false;
+            identidadeOrientadorStatus = "is-invalid";
+            identidadeOrientadorMsgErro = "Identidade nulo ou vazio.".toUpperCase();
+            req.setAttribute("identidadeOrientadorStatus", identidadeOrientadorStatus);
+            req.setAttribute("identidadeOrientadorMsgErro", identidadeOrientadorMsgErro);
+        }
+        
+        //Validação de telefone
+        if (ValidUtils.validTelefoneNull(telefone)) {
+            if (ValidUtils.validTelefoneSize(telefone)) {
+                telefoneOrientadorStatus = "is-valid";
+                req.setAttribute("telefoneOrientadorStatus", telefoneOrientadorStatus);
+            }else {
+                valid = false;
+                telefoneOrientadorStatus = "is-invalid";
+                telefoneOrientadorMsgErro = "Tamanho do telefone inválido.".toUpperCase();
+                req.setAttribute("telefoneOrientadorStatus", telefoneOrientadorStatus);
+                req.setAttribute("telefoneOrientadorMsgErro", telefoneOrientadorMsgErro);
+            }
+        }else {
+            valid = false;
+            telefoneOrientadorStatus = "is-invalid";
+            telefoneOrientadorMsgErro = "Telefone nulo ou vazio.".toUpperCase();
+            req.setAttribute("telefoneOrientadorStatus", telefoneOrientadorStatus);
+            req.setAttribute("telefoneOrientadorMsgErro", telefoneOrientadorMsgErro);
+        }
+        
+        //Validação de link curriculo Lattes
+        
+        //Validação de departamento
+        if (ValidUtils.validDepartamentoNull(departamento)) {
+            if (ValidUtils.validDepartamentoSize(departamento)) {
+                departamentoOrientadorStatus = "is-valid";
+                req.setAttribute("departamentoOrientadorStatus", departamentoOrientadorStatus);
+            }else {
+                valid = false;
+                departamentoOrientadorStatus = "is-invalid";
+                departamentoOrientadorMsgErro = "Tamanho do departamento inválido.".toUpperCase();
+                req.setAttribute("departamentoOrientadorStatus", departamentoOrientadorStatus);
+                req.setAttribute("departamentoOrientadorMsgErro", departamentoOrientadorMsgErro);
+            }
+        }else {
+            valid = false;
+            departamentoOrientadorStatus = "is-invalid";
+            departamentoOrientadorMsgErro = "Departamento nulo ou vazio.".toUpperCase();
+            req.setAttribute("departamentoOrientadorStatus", departamentoOrientadorStatus);
+            req.setAttribute("departamentoOrientadorMsgErro", departamentoOrientadorMsgErro);
         }
         
         //Validação de email
@@ -104,7 +226,9 @@ public class CadastroOrientadorServlet extends HttpServlet {
         }
         
         if (valid) {
-            Orientador orientador = new Orientador(nome,email,senha);
+            Orientador orientador = new Orientador(FormatarDadosUtils.filtrarMatricula(matricula), 
+                    FormatarDadosUtils.filtrarCpf(cpf), FormatarDadosUtils.filtrarIdentidade(identidade), 
+                    FormatarDadosUtils.filtrarTelefone(telefone), urlCurriculoLattes, departamento, nome, email, senha);
             try {
                 if (!OrientadorController.buscaVerificacaoEmailCadastrado(orientador)) {
                     OrientadorController.insertOrientador(orientador);

@@ -6,10 +6,13 @@
 package br.com.uff.sistemaAvaliacaoProjetos.model.entity;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -24,29 +27,8 @@ public class Formulario implements Serializable{
     @GeneratedValue
     private int id;
     
-    @Column(nullable = false)
-    private String nomeOrientador;
-    
-    @Column(nullable = false)
-    private String emailOrientador;
-    
-    @Column(nullable = false)
-    private String matriculaSIAPEOrientador;
-    
-    @Column(nullable = false)
-    private String cpfOrientador ;
-    
-    @Column(nullable = false)
-    private String identidadeOrientador;
-    
-    @Column(nullable = false)
-    private String telefoneOrientador;
-    
-    @Column(nullable = false)
-    private String linkLattesOrientador;
-    
-    @Column(nullable = false)
-    private String departamentoOrientador;
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private Orientador orientador;
     
     @Column(nullable = false)
     private String nomeProjeto;
@@ -85,15 +67,8 @@ public class Formulario implements Serializable{
         
     }
     
-    public Formulario(String nomeOrientador, String emailOrientador, String matriculaSIAPEOrientador, String cpfOrientador, String identidadeOrientador, String telefoneOrientador, String linkLattesOrientador, String departamentoOrientador, String nomeProjeto, String areaOrigemProjeto, String areaAtuacaoProjeto, String destinacaoProjeto, String tipoProjeto, String resultadosContinuacaoProjeto, String problemaProjeto, String solucaoProjeto, String resumoCurriculoOrientador, String potencialProjeto, String planoTrabalhoBolsista) {
-        this.nomeOrientador = nomeOrientador;
-        this.emailOrientador = emailOrientador;
-        this.matriculaSIAPEOrientador = matriculaSIAPEOrientador;
-        this.cpfOrientador = cpfOrientador;
-        this.identidadeOrientador = identidadeOrientador;
-        this.telefoneOrientador = telefoneOrientador;
-        this.linkLattesOrientador = linkLattesOrientador;
-        this.departamentoOrientador = departamentoOrientador;
+    public Formulario(Orientador orientador, String nomeProjeto, String areaOrigemProjeto, String areaAtuacaoProjeto, String destinacaoProjeto, String tipoProjeto, String resultadosContinuacaoProjeto, String problemaProjeto, String solucaoProjeto, String resumoCurriculoOrientador, String potencialProjeto, String planoTrabalhoBolsista) {
+        this.orientador = orientador;
         this.nomeProjeto = nomeProjeto;
         this.areaOrigemProjeto = areaOrigemProjeto;
         this.areaAtuacaoProjeto = areaAtuacaoProjeto;
@@ -115,68 +90,12 @@ public class Formulario implements Serializable{
         this.id = id;
     }
 
-    public String getNomeOrientador() {
-        return nomeOrientador;
+    public Orientador getOrientador() {
+        return orientador;
     }
 
-    public void setNomeOrientador(String nomeOrientador) {
-        this.nomeOrientador = nomeOrientador;
-    }
-
-    public String getEmailOrientador() {
-        return emailOrientador;
-    }
-
-    public void setEmailOrientador(String emailOrientador) {
-        this.emailOrientador = emailOrientador;
-    }
-
-    public String getMatriculaSIAPEOrientador() {
-        return matriculaSIAPEOrientador;
-    }
-
-    public void setMatriculaSIAPEOrientador(String matriculaSIAPEOrientador) {
-        this.matriculaSIAPEOrientador = matriculaSIAPEOrientador;
-    }
-
-    public String getCpfOrientador() {
-        return cpfOrientador;
-    }
-
-    public void setCpfOrientador(String cpfOrientador) {
-        this.cpfOrientador = cpfOrientador;
-    }
-
-    public String getIdentidadeOrientador() {
-        return identidadeOrientador;
-    }
-
-    public void setIdentidadeOrientador(String identidadeOrientador) {
-        this.identidadeOrientador = identidadeOrientador;
-    }
-
-    public String getTelefoneOrientador() {
-        return telefoneOrientador;
-    }
-
-    public void setTelefoneOrientador(String telefoneOrientador) {
-        this.telefoneOrientador = telefoneOrientador;
-    }
-
-    public String getLinkLattesOrientador() {
-        return linkLattesOrientador;
-    }
-
-    public void setLinkLattesOrientador(String linkLattesOrientador) {
-        this.linkLattesOrientador = linkLattesOrientador;
-    }
-
-    public String getDepartamentoOrientador() {
-        return departamentoOrientador;
-    }
-
-    public void setDepartamentoOrientador(String departamentoOrientador) {
-        this.departamentoOrientador = departamentoOrientador;
+    public void setOrientador(Orientador orientador) {
+        this.orientador = orientador;
     }
 
     public String getNomeProjeto() {
@@ -266,7 +185,5 @@ public class Formulario implements Serializable{
     public void setPlanoTrabalhoBolsista(String planoTrabalhoBolsista) {
         this.planoTrabalhoBolsista = planoTrabalhoBolsista;
     }
-    
-    
     
 }

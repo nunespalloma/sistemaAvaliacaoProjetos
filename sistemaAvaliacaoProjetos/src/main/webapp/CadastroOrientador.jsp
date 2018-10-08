@@ -47,6 +47,88 @@
                     
                     <div class="form-row">
                         <div class="col">
+                            <!-- Matricula do Orientador -->
+                            <div class="md-form">
+                                <input type="text" name="matriculaOrientador" id="matriculaOrientador" class="form-control ${requestScope.matriculaOrientadorStatus}" value="${param.matriculaOrientador}">
+                                <div class="invalid-feedback">
+                                    ${requestScope.matriculaOrientadorMsgErro}
+                                </div>
+                                <label for="matriculaOrientador">Matrícula SIAPE</label>
+                                <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+                                    Digite algo entre 2 e 50 caracateres
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!-- CPF do Orientador -->
+                            <div class="md-form">
+                                <input type="text" name="cpfOrientador" id="cpfOrientador" class="form-control ${requestScope.cpfOrientadorStatus}" value="${param.cpfOrientador}">
+                                <div class="invalid-feedback">
+                                    ${requestScope.cpfOrientadorMsgErro}
+                                </div>
+                                <label for="cpfOrientador">CPF</label>
+                                <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                                    Digite pelo menos 11 caracteres
+                                </small>
+                            </div>
+                        </div>
+                    </div>    
+                    
+                    <div class="form-row">
+                        <div class="col">
+                            <!-- Identidade do Orientador -->
+                            <div class="md-form">
+                                <input type="text" name="identidadeOrientador" id="identidadeOrientador" class="form-control ${requestScope.identidadeOrientadorStatus}" value="${param.identidadeOrientador}">
+                                <div class="invalid-feedback">
+                                    ${requestScope.identidadeOrientadorMsgErro}
+                                </div>
+                                <label for="identidadeOrientador">Identidade</label>
+                                <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+                                    Digite pelo menos 10 caracateres
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!-- Telefone do Orientador -->
+                            <div class="md-form">
+                                <input type="text" name="telefoneOrientador" id="telefoneOrientador" class="form-control ${requestScope.telefoneOrientadorStatus}" value="${param.telefoneOrientador}">
+                                <div class="invalid-feedback">
+                                    ${requestScope.telefoneOrientadorMsgErro}
+                                </div>
+                                <label for="telefoneOrientador">Telefone</label>
+                                <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                                    Digite algo entre 8 e 13 caracteres
+                                </small>
+                            </div>
+                        </div>
+                    </div>            
+                    
+                    <!-- Link do Curriculo Lattes do Orientador -->
+                    <div class="md-form">
+                        <input type="text" name="urlCurriculoLattesOrientador" id="urlCurriculoLattesOrientador" class="form-control ${requestScope.urlCurriculoLattesOrientadorStatus}" value="${param.urlCurriculoLattesOrientador}">
+                        <div class="invalid-feedback">
+                            ${requestScope.urlCurriculoLattesOrientadorMsgErro}
+                        </div>
+                        <label for="urlCurriculoLattesOrientador">Link do Curriculo Lattes</label>
+                        <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+                            Digite a url do curriculo Lattes caracateres
+                        </small>
+                    </div>
+                    
+                    <!-- Departamento do Orientador -->
+                    <div class="md-form">
+                        <input type="text" name="departamentoOrientador" id="departamentoOrientador" class="form-control ${requestScope.departamentoOrientadorStatus}" value="${param.departamentoOrientador}">
+                        <div class="invalid-feedback">
+                            ${requestScope.departamentoOrientadorMsgErro}
+                        </div>
+                        <label for="departamentoOrientador">Departamento</label>
+                        <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+                            Digite algo entre 2 e 50 caracateres
+                        </small>
+                    </div>    
+                                
+                    <div class="form-row">
+                        <div class="col">
                             <!-- E-mail do Orientador -->
                             <div class="md-form">
                                 <input type="text" name="emailOrientador" id="emailOrientador" class="form-control ${requestScope.emailOrientadorStatus}" value="${param.emailOrientador}">
@@ -60,7 +142,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <!-- Password -->
+                            <!-- Password do Orientador -->
                             <div class="md-form">
                                 <input type="password" name="senhaOrientador" id="materialRegisterFormPassword" class="form-control ${requestScope.senhaOrientadorStatus}" aria-describedby="materialRegisterFormPasswordHelpBlock">
                                 <div class="invalid-feedback">
