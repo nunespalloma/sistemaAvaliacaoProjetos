@@ -6,6 +6,7 @@
 package br.com.uff.sistemaAvaliacaoProjetos.controller;
 
 import br.com.uff.sistemaAvaliacaoProjetos.model.dao.GenericDAO;
+import br.com.uff.sistemaAvaliacaoProjetos.model.dao.OrientadorDAO;
 import br.com.uff.sistemaAvaliacaoProjetos.model.dao.PersistenceManager;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Orientador;
 import java.util.List;
@@ -24,7 +25,12 @@ public class OrientadorController {
         GenericDAO<Orientador> orientadorDAO = PersistenceManager.createGenericDAO(Orientador.class);
         return orientadorDAO.select(orientador.getId());
     }
-
+    
+    public static boolean buscaVerificacaoLogin (Orientador orientador) {
+        OrientadorDAO orientadorDAO = new OrientadorDAO();
+        return orientadorDAO.buscaVerificacaoLogin(orientador);
+    }
+    
     public static void insertOrientador(Orientador orientador) {
         GenericDAO<Orientador> orientadorDAO = PersistenceManager.createGenericDAO(Orientador.class);
         try {

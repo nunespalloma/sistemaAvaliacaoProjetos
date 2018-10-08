@@ -6,6 +6,7 @@
 package br.com.uff.sistemaAvaliacaoProjetos.view;
 
 import br.com.uff.sistemaAvaliacaoProjetos.controller.AdministradorController;
+import br.com.uff.sistemaAvaliacaoProjetos.controller.OrientadorController;
 import br.com.uff.sistemaAvaliacaoProjetos.controller.ProjetistaController;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Administrador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Avaliador;
@@ -100,7 +101,12 @@ public class LoginServlet extends HttpServlet {
                 Orientador orientador = new Orientador();
                 orientador.setEmail(email);
                 orientador.setSenha(senha);
-                
+                if (OrientadorController.buscaVerificacaoLogin(orientador)) {
+                    req.getRequestDispatcher("Orientador.jsp").forward(req, resp);
+                }else {
+                    req.setAttribute("loginMsgErro", "Email ou senha não encontrados de Orientador!");
+                    req.getRequestDispatcher("Login.jsp").forward(req, resp);
+                }
             }else if (usuario.equals("PROJETISTA")) {
                 Projetista projetista = new Projetista();
                 projetista.setEmail(email);
