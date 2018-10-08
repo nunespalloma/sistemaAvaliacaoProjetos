@@ -104,13 +104,20 @@ public class CadastroAdministradorServlet extends HttpServlet {
         }
         
         if (valid) {
-            Administrador avaliador = new Administrador(nome,email,senha);
+            Administrador administrador = new Administrador(nome,email,senha);
             try {
-                AdministradorController.insertAdministrador(avaliador);
+                if (!AdministradorController.buscaVerificacaoEmailCadastrado(administrador)) {
+                    AdministradorController.insertAdministrador(administrador);
+                    req.getRequestDispatcher("Administrador.jsp").forward(req, resp);
+                }else {
+                    req.setAttribute("cadastroMsgErro", "Email de Administrador já cadastrado!");
+                    req.getRequestDispatcher("CadastroAdministrador.jsp").forward(req, resp);
+                }
+
             }catch (Exception e) {
                 e.printStackTrace();
             }
-            req.getRequestDispatcher("Administrador.jsp").forward(req, resp);
+
         }else {
             //reportar erro dispachando para a jsp.
             req.getRequestDispatcher("CadastroAdministrador.jsp").forward(req, resp);

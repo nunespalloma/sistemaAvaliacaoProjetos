@@ -31,4 +31,18 @@ public class AdministradorDAO extends GenericDAO<Administrador>{
         }
         
     }
+    
+    public boolean buscaVerificacaoEmailCadastrado (Administrador administrador) {
+        try {
+            Administrador administradorBD = (Administrador) manager.createQuery(
+                    "SELECT a FROM Administrador a WHERE a.email = :email")
+                    .setParameter("email", administrador.getEmail())
+                    .getSingleResult();
+            
+            return true;
+        } catch (NoResultException nre) {
+            return false;
+        }
+        
+    }
 }

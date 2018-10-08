@@ -72,6 +72,7 @@
                             </div>
                         </div>
                     </div>
+                    <h6 class="text-center" style="color: #ff0219">${requestScope.cadastroMsgErro}</h6>
                     <br>
                     <br>
                     

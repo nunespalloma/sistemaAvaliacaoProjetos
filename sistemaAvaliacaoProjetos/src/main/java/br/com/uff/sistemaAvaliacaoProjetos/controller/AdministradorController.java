@@ -31,6 +31,11 @@ public class AdministradorController {
         return administradorDAO.buscaVerificacaoLogin(administrador);
     }
     
+    public static boolean buscaVerificacaoEmailCadastrado (Administrador administrador) {
+        AdministradorDAO administradorDAO = new AdministradorDAO();
+        return administradorDAO.buscaVerificacaoEmailCadastrado(administrador);
+    }
+    
     public static void insertAdministrador(Administrador administrador) {
         GenericDAO<Administrador> administradorDAO = PersistenceManager.createGenericDAO(Administrador.class);
         try {
