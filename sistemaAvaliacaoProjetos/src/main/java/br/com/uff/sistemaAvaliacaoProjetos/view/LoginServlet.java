@@ -92,7 +92,12 @@ public class LoginServlet extends HttpServlet {
                 Administrador administrador = new Administrador();
                 administrador.setEmail(email);
                 administrador.setSenha(senha);
-
+                if (AdministradorController.buscaVerificacaoLogin(administrador)) {
+                    req.getRequestDispatcher("Administrador.jsp").forward(req, resp);
+                }else {
+                    req.setAttribute("loginMsgErro", "Email ou senha não encontrados de Administrador!");
+                    req.getRequestDispatcher("Login.jsp").forward(req, resp);
+                }
             }else if (usuario.equals("AVALIADOR")) {
                 Avaliador avaliador = new Avaliador();
                 avaliador.setEmail(email);
