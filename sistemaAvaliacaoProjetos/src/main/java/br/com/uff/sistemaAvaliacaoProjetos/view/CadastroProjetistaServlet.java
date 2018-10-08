@@ -106,11 +106,18 @@ public class CadastroProjetistaServlet extends HttpServlet {
         if (valid) {
             Projetista projetista = new Projetista(nome,email,senha);
             try {
-                ProjetistaController.insertProjetista(projetista);
+                if (!ProjetistaController.buscaVerificacaoEmailCadastrado(projetista)) {
+                    ProjetistaController.insertProjetista(projetista);
+                    req.getRequestDispatcher("Projetista.jsp").forward(req, resp);
+                }else {
+                    req.setAttribute("cadastroMsgErro", "Email de Projetista já cadastrado!");
+                    req.getRequestDispatcher("CadastroProjetista.jsp").forward(req, resp);
+                }
+                
             }catch (Exception e) {
                 e.printStackTrace();
             }
-            req.getRequestDispatcher("Projetista.jsp").forward(req, resp);
+            
         }else {
             //reportar erro dispachando para a jsp.
             req.getRequestDispatcher("CadastroProjetista.jsp").forward(req, resp);
