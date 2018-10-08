@@ -31,6 +31,11 @@ public class OrientadorController {
         return orientadorDAO.buscaVerificacaoLogin(orientador);
     }
     
+    public static boolean buscaVerificacaoEmailCadastrado (Orientador orientador) {
+        OrientadorDAO orientadorDAO = new OrientadorDAO();
+        return orientadorDAO.buscaVerificacaoEmailCadastrado(orientador);
+    }
+    
     public static void insertOrientador(Orientador orientador) {
         GenericDAO<Orientador> orientadorDAO = PersistenceManager.createGenericDAO(Orientador.class);
         try {

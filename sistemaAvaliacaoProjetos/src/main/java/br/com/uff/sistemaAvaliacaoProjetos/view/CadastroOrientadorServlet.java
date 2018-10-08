@@ -106,11 +106,17 @@ public class CadastroOrientadorServlet extends HttpServlet {
         if (valid) {
             Orientador orientador = new Orientador(nome,email,senha);
             try {
-                OrientadorController.insertOrientador(orientador);
+                if (!OrientadorController.buscaVerificacaoEmailCadastrado(orientador)) {
+                    OrientadorController.insertOrientador(orientador);
+                    req.getRequestDispatcher("Orientador.jsp").forward(req, resp);
+                }else {
+                    req.setAttribute("cadastroMsgErro", "Email de Orientador já cadastrado!");
+                    req.getRequestDispatcher("CadastroOrientador.jsp").forward(req, resp);
+                }
             }catch (Exception e) {
                 e.printStackTrace();
             }
-            req.getRequestDispatcher("Orientador.jsp").forward(req, resp);
+            
         }else {
             //reportar erro dispachando para a jsp.
             req.getRequestDispatcher("CadastroOrientador.jsp").forward(req, resp);
