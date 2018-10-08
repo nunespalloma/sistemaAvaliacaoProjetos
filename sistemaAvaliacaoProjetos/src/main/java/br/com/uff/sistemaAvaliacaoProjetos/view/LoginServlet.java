@@ -6,6 +6,7 @@
 package br.com.uff.sistemaAvaliacaoProjetos.view;
 
 import br.com.uff.sistemaAvaliacaoProjetos.controller.AdministradorController;
+import br.com.uff.sistemaAvaliacaoProjetos.controller.ProjetistaController;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Administrador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Avaliador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Orientador;
@@ -104,11 +105,18 @@ public class LoginServlet extends HttpServlet {
                 Projetista projetista = new Projetista();
                 projetista.setEmail(email);
                 projetista.setSenha(senha);
-                
+                if (ProjetistaController.buscaVerificacaoLogin(projetista)) {
+                    req.getRequestDispatcher("Projetista.jsp").forward(req, resp);
+                }else {
+                    req.setAttribute("loginMsgErro", "Email ou senha não encontrados de Projetista!");
+                    req.getRequestDispatcher("Login.jsp").forward(req, resp);
+                }
             }else {
                 //throw new Exception().printStackTrace();
-            }   
-            req.getRequestDispatcher(".jsp").forward(req, resp);
+            }
+            //String jspDispachada = usuario.toLowerCase();
+                    //jspDispachada = jspDispachada.substring(0, 1).toUpperCase().concat(jspDispachada.substring(1));
+                    //req.getRequestDispatcher(jspDispachada+".jsp").forward(req, resp);
         }else {
             //reportar erro dispachando para a jsp.
             req.getRequestDispatcher("Login.jsp").forward(req, resp);

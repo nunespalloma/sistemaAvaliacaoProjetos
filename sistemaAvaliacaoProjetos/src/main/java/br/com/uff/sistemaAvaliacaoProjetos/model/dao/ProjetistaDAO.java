@@ -6,6 +6,7 @@
 package br.com.uff.sistemaAvaliacaoProjetos.model.dao;
 
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projetista;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -14,5 +15,20 @@ import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projetista;
 public class ProjetistaDAO extends GenericDAO<Projetista>{
     public ProjetistaDAO() {
         super(Projetista.class, PersistenceManager.getEntityManager());
+    }
+    
+    public boolean buscaVerificacaoLogin (Projetista projetista) {
+        try {
+            Projetista projetistaBD = (Projetista) manager.createQuery(
+                    "SELECT p FROM Projetista p WHERE p.email = :email AND p.senha = :senha")
+                    .setParameter("email", projetista.getEmail())
+                    .setParameter("senha", projetista.getSenha())
+                    .getSingleResult();
+            
+            return true;
+        } catch (NoResultException nre) {
+            return false;
+        }
+        
     }
 }

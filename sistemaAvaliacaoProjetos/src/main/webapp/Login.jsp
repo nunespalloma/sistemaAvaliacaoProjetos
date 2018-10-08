@@ -45,6 +45,7 @@
                     </div>
                     <label for="materialLoginFormPassword">Password</label>
                 </div>
+                <h6 class="text-center" style="color: #ff0219">${requestScope.loginMsgErro}</h6>
                 <br>
                 <div class="form-row">
                     <strong>Como: </strong>

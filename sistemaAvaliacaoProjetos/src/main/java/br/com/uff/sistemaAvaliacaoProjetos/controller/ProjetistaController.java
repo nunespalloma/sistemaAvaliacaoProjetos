@@ -7,6 +7,7 @@ package br.com.uff.sistemaAvaliacaoProjetos.controller;
 
 import br.com.uff.sistemaAvaliacaoProjetos.model.dao.GenericDAO;
 import br.com.uff.sistemaAvaliacaoProjetos.model.dao.PersistenceManager;
+import br.com.uff.sistemaAvaliacaoProjetos.model.dao.ProjetistaDAO;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projetista;
 import java.util.List;
 
@@ -24,7 +25,12 @@ public class ProjetistaController {
         GenericDAO<Projetista> projetistaDAO = PersistenceManager.createGenericDAO(Projetista.class);
         return projetistaDAO.select(projetista.getId());
     }
-
+    
+    public static boolean buscaVerificacaoLogin (Projetista projetista) {
+        ProjetistaDAO projetistaDAO = new ProjetistaDAO();
+        return projetistaDAO.buscaVerificacaoLogin(projetista);
+    }
+    
     public static void insertProjetista(Projetista projetista) {
         GenericDAO<Projetista> projetistaDAO = PersistenceManager.createGenericDAO(Projetista.class);
         try {
