@@ -5,6 +5,7 @@
  */
 package br.com.uff.sistemaAvaliacaoProjetos.controller;
 
+import br.com.uff.sistemaAvaliacaoProjetos.model.dao.AvaliadorDAO;
 import br.com.uff.sistemaAvaliacaoProjetos.model.dao.GenericDAO;
 import br.com.uff.sistemaAvaliacaoProjetos.model.dao.PersistenceManager;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Avaliador;
@@ -24,7 +25,12 @@ public class AvaliadorController {
         GenericDAO<Avaliador> avaliadorDAO = PersistenceManager.createGenericDAO(Avaliador.class);
         return avaliadorDAO.select(avaliador.getId());
     }
-
+    
+    public static boolean buscaVerificacaoLogin (Avaliador avaliador) {
+        AvaliadorDAO avaliadorDAO = new AvaliadorDAO();
+        return avaliadorDAO.buscaVerificacaoLogin(avaliador);
+    }
+    
     public static void insertAvaliador(Avaliador avaliador) {
         GenericDAO<Avaliador> avaliadorDAO = PersistenceManager.createGenericDAO(Avaliador.class);
         try {

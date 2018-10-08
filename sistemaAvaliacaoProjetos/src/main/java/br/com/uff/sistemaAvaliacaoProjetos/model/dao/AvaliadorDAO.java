@@ -6,6 +6,7 @@
 package br.com.uff.sistemaAvaliacaoProjetos.model.dao;
 
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Avaliador;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -15,4 +16,20 @@ public class AvaliadorDAO extends GenericDAO<Avaliador>{
     public AvaliadorDAO() {
         super(Avaliador.class, PersistenceManager.getEntityManager());
     }
+    
+    public boolean buscaVerificacaoLogin (Avaliador avaliador) {
+        try {
+            Avaliador avaliadorBD = (Avaliador) manager.createQuery(
+                    "SELECT a FROM Avaliador a WHERE a.email = :email AND a.senha = :senha")
+                    .setParameter("email", avaliador.getEmail())
+                    .setParameter("senha", avaliador.getSenha())
+                    .getSingleResult();
+            
+            return true;
+        } catch (NoResultException nre) {
+            return false;
+        }
+        
+    }
+    
 }
