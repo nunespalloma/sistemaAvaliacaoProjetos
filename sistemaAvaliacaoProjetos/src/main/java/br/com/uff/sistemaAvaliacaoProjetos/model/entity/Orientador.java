@@ -57,8 +57,7 @@ public class Orientador implements Serializable{
     private String senha;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orientador")
-    private List<Formulario> formularios;
-    //adicionar projeto como atributo de aluno!
+    private List<Projeto> projetos;
     
     public Orientador(){
         
@@ -76,8 +75,6 @@ public class Orientador implements Serializable{
         this.senha = senha;
     }
     
-    
-
     public int getId() {
         return id;
     }
@@ -157,4 +154,13 @@ public class Orientador implements Serializable{
     public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
+
+    public List<Projeto> getProjetos() {
+        return projetos;
+    }
+
+    public void setProjetos(List<Projeto> projetos) {
+        this.projetos = projetos;
+    }
+    
 }

@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
  *
  * @author palloma
  */
-@Entity
+//@Entity
 public class Formulario implements Serializable{
     //identificador pra inserir a classe no banco quando a mesma for serializada
     private static final long serialVersionUID = 1L;
@@ -27,8 +27,8 @@ public class Formulario implements Serializable{
     @GeneratedValue
     private int id;
     
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private Orientador orientador;
+    //@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    //private Orientador orientador;
     
     @Column(nullable = false)
     private String nomeProjeto;
@@ -63,12 +63,14 @@ public class Formulario implements Serializable{
     @Column(length = 2000, nullable = false)
     private String planoTrabalhoBolsista;
     
+    //private Projeto projeto;
+    
     Formulario(){
         
     }
     
     public Formulario(Orientador orientador, String nomeProjeto, String areaOrigemProjeto, String areaAtuacaoProjeto, String destinacaoProjeto, String tipoProjeto, String resultadosContinuacaoProjeto, String problemaProjeto, String solucaoProjeto, String resumoCurriculoOrientador, String potencialProjeto, String planoTrabalhoBolsista) {
-        this.orientador = orientador;
+        //this.orientador = orientador;
         this.nomeProjeto = nomeProjeto;
         this.areaOrigemProjeto = areaOrigemProjeto;
         this.areaAtuacaoProjeto = areaAtuacaoProjeto;
@@ -89,7 +91,7 @@ public class Formulario implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
-
+/*
     public Orientador getOrientador() {
         return orientador;
     }
@@ -97,7 +99,7 @@ public class Formulario implements Serializable{
     public void setOrientador(Orientador orientador) {
         this.orientador = orientador;
     }
-
+*/
     public String getNomeProjeto() {
         return nomeProjeto;
     }

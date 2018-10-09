@@ -31,6 +31,11 @@ public class OrientadorController {
         return orientadorDAO.buscaVerificacaoLogin(orientador);
     }
     
+    public static Orientador buscaOrientadorPorLogin (Orientador orientador) {
+        OrientadorDAO orientadorDAO = new OrientadorDAO();
+        return orientadorDAO.buscaOrientadorPorLogin(orientador);
+    }
+    
     public static boolean buscaVerificacaoEmailCadastrado (Orientador orientador) {
         OrientadorDAO orientadorDAO = new OrientadorDAO();
         return orientadorDAO.buscaVerificacaoEmailCadastrado(orientador);

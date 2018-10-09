@@ -6,10 +6,14 @@
 package br.com.uff.sistemaAvaliacaoProjetos.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 //import javax.persistence.OneToMany;
 //import javax.persistence.OneToOne;
 
@@ -38,6 +42,36 @@ public class Projeto implements Serializable{
     private String duracao;
     
     @Column(nullable = false)
+    private String areaOrigemProjeto;
+    
+    @Column(nullable = false)
+    private String areaAtuacaoProjeto;
+    
+    @Column(nullable = false)
+    private String destinacaoProjeto;
+    
+    @Column(nullable = false)
+    private String tipoProjeto;
+    
+    @Column(length = 2000, nullable = false)
+    private String resultadosContinuacaoProjeto;
+    
+    @Column(length = 2000, nullable = false)
+    private String problemaProjeto;
+    
+    @Column(length = 2000, nullable = false)
+    private String solucaoProjeto;
+    
+    @Column(length = 2000, nullable = false)
+    private String resumoCurriculoOrientador;
+    
+    @Column(length = 2000, nullable = false)
+    private String potencialProjeto;
+    
+    @Column(length = 2000, nullable = false)
+    private String planoTrabalhoBolsista;
+    
+    @Column(nullable = false)
     private boolean requisitoRelatoriosParciais;
     
     @Column(nullable = false)
@@ -46,18 +80,40 @@ public class Projeto implements Serializable{
     @Column(nullable = false)
     private boolean requisitoApresentacaoResultados;
     
-    Projeto(){
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private Orientador orientador;
+    
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private Projetista projetista;
+    
+    //private Formulario formulario;
+    
+    public Projeto(){
         
     }
-    
-    public Projeto(String nome, String descricao, String duracao, boolean requisitoRelatoriosParciais, boolean requisitoTarefasDesenvolvimento, boolean requisitoApresentacaoResultados) {
+
+    public Projeto(String nome, String descricao, String duracao, String areaOrigemProjeto, String areaAtuacaoProjeto, String destinacaoProjeto, String tipoProjeto, String resultadosContinuacaoProjeto, String problemaProjeto, String solucaoProjeto, String resumoCurriculoOrientador, String potencialProjeto, String planoTrabalhoBolsista, boolean requisitoRelatoriosParciais, boolean requisitoTarefasDesenvolvimento, boolean requisitoApresentacaoResultados, Orientador orientador, Projetista projetista) {
         this.nome = nome;
         this.descricao = descricao;
         this.duracao = duracao;
+        this.areaOrigemProjeto = areaOrigemProjeto;
+        this.areaAtuacaoProjeto = areaAtuacaoProjeto;
+        this.destinacaoProjeto = destinacaoProjeto;
+        this.tipoProjeto = tipoProjeto;
+        this.resultadosContinuacaoProjeto = resultadosContinuacaoProjeto;
+        this.problemaProjeto = problemaProjeto;
+        this.solucaoProjeto = solucaoProjeto;
+        this.resumoCurriculoOrientador = resumoCurriculoOrientador;
+        this.potencialProjeto = potencialProjeto;
+        this.planoTrabalhoBolsista = planoTrabalhoBolsista;
         this.requisitoRelatoriosParciais = requisitoRelatoriosParciais;
         this.requisitoTarefasDesenvolvimento = requisitoTarefasDesenvolvimento;
         this.requisitoApresentacaoResultados = requisitoApresentacaoResultados;
+        this.orientador = orientador;
+        this.projetista = projetista;
     }
+    
+    
 
     public int getId() {
         return id;
@@ -115,6 +171,100 @@ public class Projeto implements Serializable{
         this.requisitoApresentacaoResultados = requisitoApresentacaoResultados;
     }
 
-    
-    
+    public String getAreaOrigemProjeto() {
+        return areaOrigemProjeto;
+    }
+
+    public void setAreaOrigemProjeto(String areaOrigemProjeto) {
+        this.areaOrigemProjeto = areaOrigemProjeto;
+    }
+
+    public String getAreaAtuacaoProjeto() {
+        return areaAtuacaoProjeto;
+    }
+
+    public void setAreaAtuacaoProjeto(String areaAtuacaoProjeto) {
+        this.areaAtuacaoProjeto = areaAtuacaoProjeto;
+    }
+
+    public String getDestinacaoProjeto() {
+        return destinacaoProjeto;
+    }
+
+    public void setDestinacaoProjeto(String destinacaoProjeto) {
+        this.destinacaoProjeto = destinacaoProjeto;
+    }
+
+    public String getTipoProjeto() {
+        return tipoProjeto;
+    }
+
+    public void setTipoProjeto(String tipoProjeto) {
+        this.tipoProjeto = tipoProjeto;
+    }
+
+    public String getResultadosContinuacaoProjeto() {
+        return resultadosContinuacaoProjeto;
+    }
+
+    public void setResultadosContinuacaoProjeto(String resultadosContinuacaoProjeto) {
+        this.resultadosContinuacaoProjeto = resultadosContinuacaoProjeto;
+    }
+
+    public String getProblemaProjeto() {
+        return problemaProjeto;
+    }
+
+    public void setProblemaProjeto(String problemaProjeto) {
+        this.problemaProjeto = problemaProjeto;
+    }
+
+    public String getSolucaoProjeto() {
+        return solucaoProjeto;
+    }
+
+    public void setSolucaoProjeto(String solucaoProjeto) {
+        this.solucaoProjeto = solucaoProjeto;
+    }
+
+    public String getResumoCurriculoOrientador() {
+        return resumoCurriculoOrientador;
+    }
+
+    public void setResumoCurriculoOrientador(String resumoCurriculoOrientador) {
+        this.resumoCurriculoOrientador = resumoCurriculoOrientador;
+    }
+
+    public String getPotencialProjeto() {
+        return potencialProjeto;
+    }
+
+    public void setPotencialProjeto(String potencialProjeto) {
+        this.potencialProjeto = potencialProjeto;
+    }
+
+    public String getPlanoTrabalhoBolsista() {
+        return planoTrabalhoBolsista;
+    }
+
+    public void setPlanoTrabalhoBolsista(String planoTrabalhoBolsista) {
+        this.planoTrabalhoBolsista = planoTrabalhoBolsista;
+    }
+
+    public Orientador getOrientador() {
+        return orientador;
+    }
+
+    public void setOrientador(Orientador orientador) {
+        this.orientador = orientador;
+    }
+
+    public Projetista getProjetista() {
+        return projetista;
+    }
+
+    public void setProjetista(Projetista projetista) {
+        this.projetista = projetista;
+    }
+
 }

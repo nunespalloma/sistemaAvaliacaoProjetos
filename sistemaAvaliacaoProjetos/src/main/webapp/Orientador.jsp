@@ -13,7 +13,74 @@
     </head>
     <body>
         <%@include file="navbar.jspf"%>
-        <h1>Cheguei na tela do Orientador</h1>
+        <div class="card">
+
+            <h5 class="card-header indigo white-text text-center py-4">
+                <font size="8" face="Arial">
+                    <strong>Orientador</strong>
+                </font>
+            </h5>
+            <input type="hidden" name="orientador" value="${requestScope.orientador}">
+            <br>
+            <div class="container-fluid">
+                <h1> Projetos </h1>
+            </div>
+            <br>
+            <core:choose>
+                <core:when test="${not empty requestScope.orientador.getProjetos()}">
+                    <div class="container-fluid">
+                        <table class="table">
+                            <thead class="black white-text"></thead>
+                                <tr>
+                                    <td scope="col"><h5><b> # </b></h5></td>
+                                    <td scope="col"><h5><b> NOME PROJETO </b></h5></td>
+                                    <td scope="col"><h5><b> ALUNO RESPONSÁVEL </b></h5></td>
+                                    <td scope="col"><h5><b> DESCRIÇÃO </b></h5></td>
+                                    <td scope="col"><h5><b> DURAÇÃO </b></h5></td>
+                                    <td scope="col"><h5><b> Formulario </b></h5></td>
+                                </tr>
+                                <form action="Formulario.jsp" method="POST">
+                                    <core:forEach items="${requestScope.orientador.getProjetos()}" var="projeto" varStatus="status">
+                                        <tr>
+                                            <td scope="col">${status.count}</td>
+                                            <td scope="col">${projeto.getNome()}</td>
+                                            <td scope="col">${projeto.getProjetista().getNome()}</td>
+                                            <td scope="col">${projeto.getDescricao()}</td>
+                                            <td scope="col">${projeto.getDuracao()}</td>
+                                            <core:set scope="request" var="projeto" value="${projeto}"/>
+                                            <input type="hidden" name="proj" value="${projeto}">
+                                            <td scope="col"><input type="submit" value="EDITAR"></td>
+
+                                        </tr>
+                                    </core:forEach>
+                                </form>    
+                        </table>
+                    </div>
+                </core:when>
+                <core:otherwise>
+                    <div class="container-fluid">
+                        Você não possui nenhum projeto cadastrado
+                    </div>
+                </core:otherwise>
+            </core:choose>
+            <br>
+            <br>
+            <br>
+            <form action="ProjetistaServlet" method="POST">
+                <button class="btn btn-indigo my-4 btn-block" type="submit">Novo Formulário</button>
+            </form>
+            <br>
+            <br>
+            <br>
+            <div class="container-fluid">
+                <h1>Requisitos solicitados</h1>
+            </div>
+            
+            
+            
+            <br>
+            <br>
+        </div>
         
         <%@include file="footer.jspf"%>
         <%@include file="finalBody.jspf"%>

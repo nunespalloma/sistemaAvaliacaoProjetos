@@ -6,10 +6,13 @@
 package br.com.uff.sistemaAvaliacaoProjetos.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 //import javax.persistence.OneToMany;
 //import javax.persistence.OneToOne;
 
@@ -38,6 +41,8 @@ public class Projetista implements Serializable{
     private String senha;
     
     //adicionar projeto como atributo de aluno!
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projetista")
+    List<Projeto> projetos;
     
     public Projetista(){
         
@@ -79,6 +84,14 @@ public class Projetista implements Serializable{
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public List<Projeto> getProjetos() {
+        return projetos;
+    }
+
+    public void setProjetos(List<Projeto> projetos) {
+        this.projetos = projetos;
     }
     
 }

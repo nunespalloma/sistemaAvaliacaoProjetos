@@ -32,6 +32,21 @@ public class OrientadorDAO extends GenericDAO<Orientador>{
         
     }
     
+    public Orientador buscaOrientadorPorLogin (Orientador orientador) {
+        try {
+            Orientador orientadorBD = (Orientador) manager.createQuery(
+                    "SELECT o FROM Orientador o WHERE o.email = :email AND o.senha = :senha")
+                    .setParameter("email", orientador.getEmail())
+                    .setParameter("senha", orientador.getSenha())
+                    .getSingleResult();
+            
+            return orientadorBD;
+        } catch (NoResultException nre) {
+            return null;
+        }
+        
+    }
+    
     public boolean buscaVerificacaoEmailCadastrado (Orientador orientador) {
         try {
             Orientador orientadorBD = (Orientador) manager.createQuery(

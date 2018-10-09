@@ -13,8 +13,11 @@ import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Administrador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Avaliador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Orientador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projetista;
+import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projeto;
 import br.com.uff.sistemaAvaliacaoProjetos.utils.ValidUtils;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -113,6 +116,8 @@ public class LoginServlet extends HttpServlet {
                 orientador.setEmail(email);
                 orientador.setSenha(senha);
                 if (OrientadorController.buscaVerificacaoLogin(orientador)) {
+                    orientador = OrientadorController.buscaOrientadorPorLogin(orientador);
+                    req.setAttribute("orientador", orientador);
                     req.getRequestDispatcher("Orientador.jsp").forward(req, resp);
                 }else {
                     req.setAttribute("loginMsgErro", "Email ou senha não encontrados de Orientador!");
