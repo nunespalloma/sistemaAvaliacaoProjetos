@@ -18,6 +18,7 @@ public class ProjetistaServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         req.getRequestDispatcher("Formulario.jsp").forward(req, resp);
     }
     

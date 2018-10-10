@@ -39,7 +39,7 @@
                                     <td scope="col"><h5><b> DURAÇÃO </b></h5></td>
                                     <td scope="col"><h5><b> Formulario </b></h5></td>
                                 </tr>
-                                <form action="Formulario.jsp" method="POST">
+                                <form action="EditarFormularioOrientadorServlet" method="POST">
                                     <core:forEach items="${requestScope.orientador.getProjetos()}" var="projeto" varStatus="status">
                                         <tr>
                                             <td scope="col">${status.count}</td>
@@ -47,13 +47,16 @@
                                             <td scope="col">${projeto.getProjetista().getNome()}</td>
                                             <td scope="col">${projeto.getDescricao()}</td>
                                             <td scope="col">${projeto.getDuracao()}</td>
-                                            <core:set scope="request" var="projeto" value="${projeto}"/>
-                                            <input type="hidden" name="proj" value="${projeto}">
-                                            <td scope="col"><input type="submit" value="EDITAR"></td>
-
+                                            <td scope="col">
+                                                <input type="hidden" name="idOrientador" value="${requestScope.orientador.getId()}">
+                                                <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">EDITAR</button></td>
                                         </tr>
                                     </core:forEach>
-                                </form>    
+                                </form>
+
+                            <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdProjeto}</h6>
+                            <br>
+                            <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdOrientador}</h6>
                         </table>
                     </div>
                 </core:when>
@@ -66,7 +69,8 @@
             <br>
             <br>
             <br>
-            <form action="ProjetistaServlet" method="POST">
+            <form action="OrientadorServlet" method="POST">
+                <input type="hidden" name="idOrientador" value="${requestScope.orientador.getId()}">
                 <button class="btn btn-indigo my-4 btn-block" type="submit">Novo Formulário</button>
             </form>
             <br>

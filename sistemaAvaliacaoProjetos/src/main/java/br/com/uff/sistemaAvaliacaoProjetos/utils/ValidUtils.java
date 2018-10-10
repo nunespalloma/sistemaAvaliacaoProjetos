@@ -152,4 +152,15 @@ public class ValidUtils {
         }
         return valid;
     }
+    
+    //Validação de Conversão de String para Inteiro
+    public static boolean validConvertStringToInt (String conv) {
+        try {
+            int inteiro = Integer.parseInt(conv);
+        }catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+    
 }

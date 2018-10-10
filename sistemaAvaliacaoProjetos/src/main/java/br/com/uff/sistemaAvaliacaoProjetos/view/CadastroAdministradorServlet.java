@@ -24,6 +24,7 @@ public class CadastroAdministradorServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String nome = req.getParameter("nomeAdministrador").toUpperCase().trim();
         String email = req.getParameter("emailAdministrador").toUpperCase().trim(); //pego o que tem no name do input da jsp Cadastro Administrador.
         String senha = req.getParameter("senhaAdministrador").toUpperCase().trim();

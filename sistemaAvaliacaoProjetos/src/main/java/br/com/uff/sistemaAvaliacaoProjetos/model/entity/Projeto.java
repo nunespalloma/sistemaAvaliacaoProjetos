@@ -44,6 +44,9 @@ public class Projeto implements Serializable{
     @Column(nullable = false)
     private String areaOrigemProjeto;
     
+    @Column(nullable = true)
+    private String descricaoMultidisciplinar;
+    
     @Column(nullable = false)
     private String areaAtuacaoProjeto;
     
@@ -92,11 +95,12 @@ public class Projeto implements Serializable{
         
     }
 
-    public Projeto(String nome, String descricao, String duracao, String areaOrigemProjeto, String areaAtuacaoProjeto, String destinacaoProjeto, String tipoProjeto, String resultadosContinuacaoProjeto, String problemaProjeto, String solucaoProjeto, String resumoCurriculoOrientador, String potencialProjeto, String planoTrabalhoBolsista, boolean requisitoRelatoriosParciais, boolean requisitoTarefasDesenvolvimento, boolean requisitoApresentacaoResultados, Orientador orientador, Projetista projetista) {
+    public Projeto(String nome, String descricao, String duracao, String areaOrigemProjeto, String descricaoMultidisciplinar, String areaAtuacaoProjeto, String destinacaoProjeto, String tipoProjeto, String resultadosContinuacaoProjeto, String problemaProjeto, String solucaoProjeto, String resumoCurriculoOrientador, String potencialProjeto, String planoTrabalhoBolsista, boolean requisitoRelatoriosParciais, boolean requisitoTarefasDesenvolvimento, boolean requisitoApresentacaoResultados, Orientador orientador, Projetista projetista) {
         this.nome = nome;
         this.descricao = descricao;
         this.duracao = duracao;
         this.areaOrigemProjeto = areaOrigemProjeto;
+        this.descricaoMultidisciplinar = descricaoMultidisciplinar;
         this.areaAtuacaoProjeto = areaAtuacaoProjeto;
         this.destinacaoProjeto = destinacaoProjeto;
         this.tipoProjeto = tipoProjeto;
@@ -179,6 +183,14 @@ public class Projeto implements Serializable{
         this.areaOrigemProjeto = areaOrigemProjeto;
     }
 
+    public String getDescricaoMultidisciplinar() {
+        return descricaoMultidisciplinar;
+    }
+
+    public void setDescricaoMultidisciplinar(String descricaoMultidisciplinar) {
+        this.descricaoMultidisciplinar = descricaoMultidisciplinar;
+    }
+    
     public String getAreaAtuacaoProjeto() {
         return areaAtuacaoProjeto;
     }

@@ -24,6 +24,7 @@ public class CadastroProjetistaServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String nome = req.getParameter("nomeProjetista").toUpperCase().trim();
         String email = req.getParameter("emailProjetista").toUpperCase().trim(); //pego o que tem no name do input da jsp Cadastro Projetista.
         String senha = req.getParameter("senhaProjetista").toUpperCase().trim();

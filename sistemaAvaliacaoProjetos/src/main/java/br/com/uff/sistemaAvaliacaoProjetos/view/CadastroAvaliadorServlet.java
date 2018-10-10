@@ -24,6 +24,7 @@ public class CadastroAvaliadorServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String nome = req.getParameter("nomeAvaliador").toUpperCase().trim();
         String email = req.getParameter("emailAvaliador").toUpperCase().trim(); //pego o que tem no name do input da jsp Cadastro Avaliador.
         String senha = req.getParameter("senhaAvaliador").toUpperCase().trim();

@@ -33,6 +33,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         String usuario = req.getParameter("exampleRadios").toUpperCase().trim();
         String email = req.getParameter("email").toUpperCase().trim(); //pego o que tem no name do input da jsp Cadastro .
         String senha = req.getParameter("senha").toUpperCase().trim();
