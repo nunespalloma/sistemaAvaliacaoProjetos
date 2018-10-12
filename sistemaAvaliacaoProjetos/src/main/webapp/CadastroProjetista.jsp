@@ -32,7 +32,19 @@
                             <strong>PROJETISTA</strong>
                         </font>
                     </div>
-
+                    
+                    <!-- Matricula do projetista -->
+                    <div class="md-form">
+                        <input type="text" name="matriculaProjetista" id="matriculaProjetista" class="form-control ${requestScope.matriculaProjetistaStatus}" value="${param.matriculaProjetista}">
+                        <div class="invalid-feedback">
+                            ${requestScope.matriculaProjetistaMsgErro}
+                        </div>
+                        <label for="matriculaProjetista">Matricula</label>
+                        <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+                            Digite 9 caracateres
+                        </small>
+                    </div>
+                    
                     <!-- Nome do projetista -->
                     <div class="md-form">
                         <input type="text" name="nomeProjetista" id="nomeProjetista" class="form-control ${requestScope.nomeProjetistaStatus}" value="${param.nomeProjetista}">

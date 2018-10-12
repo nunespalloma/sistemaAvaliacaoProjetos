@@ -36,6 +36,11 @@ public class ProjetistaController {
         return projetistaDAO.buscaVerificacaoEmailCadastrado(projetista);
     }
     
+    public static Projetista buscaProjetistaPorMatricula (String matricula) {
+        ProjetistaDAO projetistaDAO = new ProjetistaDAO();
+        return projetistaDAO.buscaProjetistaPorMatricula(matricula);
+    }
+    
     public static void insertProjetista(Projetista projetista) {
         GenericDAO<Projetista> projetistaDAO = PersistenceManager.createGenericDAO(Projetista.class);
         try {

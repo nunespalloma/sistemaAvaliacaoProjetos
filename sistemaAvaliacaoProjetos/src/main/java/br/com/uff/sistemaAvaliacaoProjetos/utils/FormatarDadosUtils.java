@@ -50,4 +50,12 @@ public class FormatarDadosUtils {
         }
         return telefone;
     }
+    
+    public static boolean verificaCampoGraficoGantt (String campo) {
+        if (campo == null) {
+            return false;
+        }else {
+            return true;
+        }
+    }
 }

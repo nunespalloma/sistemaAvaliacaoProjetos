@@ -10,6 +10,7 @@ import br.com.uff.sistemaAvaliacaoProjetos.controller.AvaliadorController;
 import br.com.uff.sistemaAvaliacaoProjetos.controller.OrientadorController;
 import br.com.uff.sistemaAvaliacaoProjetos.controller.ProjetistaController;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Administrador;
+import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Atividade;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Avaliador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Orientador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projetista;

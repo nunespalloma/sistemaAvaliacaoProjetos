@@ -77,7 +77,7 @@ public class CadastroOrientadorServlet extends HttpServlet {
         
         //Validação de matricula
         if (ValidUtils.validMatriculaNull(matricula)) {
-            if (ValidUtils.validMatriculaSize(matricula)) {
+            if (ValidUtils.validMatriculaOrientadorSize(matricula)) {
                 matriculaOrientadorStatus = "is-valid";
                 req.setAttribute("matriculaOrientadorStatus", matriculaOrientadorStatus);
             }else {

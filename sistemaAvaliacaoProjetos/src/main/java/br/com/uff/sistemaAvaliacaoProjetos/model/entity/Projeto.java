@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 //import javax.persistence.OneToMany;
 //import javax.persistence.OneToOne;
 
@@ -56,7 +57,7 @@ public class Projeto implements Serializable{
     @Column(nullable = false)
     private String tipoProjeto;
     
-    @Column(length = 2000, nullable = false)
+    @Column(length = 2000, nullable = true)
     private String resultadosContinuacaoProjeto;
     
     @Column(length = 2000, nullable = false)
@@ -89,13 +90,15 @@ public class Projeto implements Serializable{
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Projetista projetista;
     
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
+    private List<Atividade> atividades;
     //private Formulario formulario;
     
     public Projeto(){
         
     }
 
-    public Projeto(String nome, String descricao, String duracao, String areaOrigemProjeto, String descricaoMultidisciplinar, String areaAtuacaoProjeto, String destinacaoProjeto, String tipoProjeto, String resultadosContinuacaoProjeto, String problemaProjeto, String solucaoProjeto, String resumoCurriculoOrientador, String potencialProjeto, String planoTrabalhoBolsista, boolean requisitoRelatoriosParciais, boolean requisitoTarefasDesenvolvimento, boolean requisitoApresentacaoResultados, Orientador orientador, Projetista projetista) {
+    public Projeto(String nome, String descricao, String duracao, String areaOrigemProjeto, String descricaoMultidisciplinar, String areaAtuacaoProjeto, String destinacaoProjeto, String tipoProjeto, String resultadosContinuacaoProjeto, String problemaProjeto, String solucaoProjeto, String resumoCurriculoOrientador, String potencialProjeto, String planoTrabalhoBolsista, boolean requisitoRelatoriosParciais, boolean requisitoTarefasDesenvolvimento, boolean requisitoApresentacaoResultados, Orientador orientador, Projetista projetista, List<Atividade> atividades) {
         this.nome = nome;
         this.descricao = descricao;
         this.duracao = duracao;
@@ -115,6 +118,7 @@ public class Projeto implements Serializable{
         this.requisitoApresentacaoResultados = requisitoApresentacaoResultados;
         this.orientador = orientador;
         this.projetista = projetista;
+        this.atividades = atividades;
     }
     
     
@@ -279,4 +283,12 @@ public class Projeto implements Serializable{
         this.projetista = projetista;
     }
 
+    public List<Atividade> getAtividades() {
+        return atividades;
+    }
+
+    public void setAtividades(List<Atividade> atividades) {
+        this.atividades = atividades;
+    }
+    
 }

@@ -31,6 +31,9 @@ public class Projetista implements Serializable{
     @GeneratedValue
     private int id;
     
+    @Column(unique = true, nullable = false)
+    private String matricula;
+    
     @Column(nullable = false)
     private String nome;
     
@@ -48,7 +51,8 @@ public class Projetista implements Serializable{
         
     }
     
-    public Projetista(String nome, String email, String senha) {
+    public Projetista(String matricula, String nome, String email, String senha) {
+        this.matricula = matricula;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -60,6 +64,14 @@ public class Projetista implements Serializable{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
 
     public String getNome() {

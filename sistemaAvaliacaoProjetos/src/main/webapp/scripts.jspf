@@ -1,0 +1,21 @@
+<script>
+    
+    function ProcurarProjetistaPorMatricula(){
+        $.ajax({
+            type: 'GET',
+            url: 'ProcurarMatriculaProjetistaServlet', //Servlet
+            async: true, // habilita a função ajax() repassar os dados para a função pai
+            data: $('#matriculaProjetista').serialize(),
+            dataType: "json",
+            success: function(json){
+                $("#idProjetista").val(json.idProjetista);
+                $("#nomeProjetista").val(json.nomeProjetista);
+                $("#matriculaProjetistaStatus").val(json.matriculaProjetistaStatus);
+                $("#msgErroIdProjetista").val(json.msgErroIdProjetista);
+                document.getElementById("msgErroIdProjetista").innerHTML = json.msgErroIdProjetista;
+            }
+        });
+       
+    }
+    
+</script>

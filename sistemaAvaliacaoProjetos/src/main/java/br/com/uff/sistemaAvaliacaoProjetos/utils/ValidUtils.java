@@ -15,7 +15,7 @@ public class ValidUtils {
     //Validação de nome
     public static boolean validNameNull (String name) {
         boolean valid = false;
-        if (!name.isEmpty() && name != null && name != "" && !name.trim().equals("")) {
+        if (name != null && !name.isEmpty() && name != "" && !name.trim().equals("")) {
             valid = true;
         }
         return valid;
@@ -31,15 +31,23 @@ public class ValidUtils {
     //Validação de matricula
     public static boolean validMatriculaNull (String matricula) {
         boolean valid = false;
-        if (!matricula.isEmpty() && matricula != null && matricula != "" && !matricula.trim().equals("")) {
+        if (matricula != null && !matricula.isEmpty() && matricula != "" && !matricula.trim().equals("")) {
             valid = true;
         }
         return valid;
     }
-    public static boolean validMatriculaSize (String matricula) {
+    public static boolean validMatriculaOrientadorSize (String matricula) {
         boolean valid = false;
         matricula = FormatarDadosUtils.filtrarMatricula(matricula);
-        if (matricula.length() >= 2 && matricula.length() <= 100) {
+        if (matricula.length() == 7) {
+            valid = true;
+        }
+        return valid;
+    }
+    public static boolean validMatriculaProjetistaSize (String matricula) {
+        boolean valid = false;
+        matricula = FormatarDadosUtils.filtrarMatricula(matricula);
+        if (matricula.length() == 9) {
             valid = true;
         }
         return valid;
@@ -48,7 +56,7 @@ public class ValidUtils {
     //Validação de cpf
     public static boolean validCpfNull (String cpf) {
         boolean valid = false;
-        if (!cpf.isEmpty() && cpf != null && cpf != "" && !cpf.trim().equals("")) {
+        if (cpf != null && !cpf.isEmpty() && cpf != "" && !cpf.trim().equals("")) {
             valid = true;
         }
         return valid;
@@ -65,7 +73,7 @@ public class ValidUtils {
     //Validação de identidade
     public static boolean validIdentidadeNull (String identidade) {
         boolean valid = false;
-        if (!identidade.isEmpty() && identidade != null && identidade != "" && !identidade.trim().equals("")) {
+        if (identidade != null && !identidade.isEmpty() && identidade != "" && !identidade.trim().equals("")) {
             valid = true;
         }
         return valid;
@@ -82,7 +90,7 @@ public class ValidUtils {
     //Validação de telefone
     public static boolean validTelefoneNull (String telefone) {
         boolean valid = false;
-        if (!telefone.isEmpty() && telefone != null && telefone != "" && !telefone.trim().equals("")) {
+        if (telefone != null && !telefone.isEmpty() && telefone != "" && !telefone.trim().equals("")) {
             valid = true;
         }
         return valid;
@@ -101,7 +109,7 @@ public class ValidUtils {
     //Validação de departamento
     public static boolean validDepartamentoNull (String departamento) {
         boolean valid = false;
-        if (!departamento.isEmpty() && departamento != null && departamento != "" && !departamento.trim().equals("")) {
+        if (departamento != null && !departamento.isEmpty() && departamento != "" && !departamento.trim().equals("")) {
             valid = true;
         }
         return valid;
@@ -117,7 +125,7 @@ public class ValidUtils {
     //Validação de Email
     public static boolean validEmailNull (String email) {
         boolean valid = false;
-        if (!email.isEmpty() && email != null && email != "" && !email.trim().equals("")) {
+        if (email != null && !email.isEmpty() && email != "" && !email.trim().equals("")) {
             valid = true;
         }
         return valid;
@@ -140,7 +148,7 @@ public class ValidUtils {
     //Validação de senha
     public static boolean validPasswordNull (String password) {
         boolean valid = false;
-        if (!password.isEmpty() && password != null && password != "" && !password.trim().equals("")) {
+        if (password != null && !password.isEmpty() && password != "" && !password.trim().equals("")) {
             valid = true;
         }
         return valid;
@@ -163,4 +171,28 @@ public class ValidUtils {
         return true;
     }
     
+    //Validação botão de radio null
+    public static boolean validButtonRadioNull (String buttonRadio) {
+        boolean valid = false;
+        if (buttonRadio != null && !buttonRadio.isEmpty() && buttonRadio != "" && !buttonRadio.trim().equals("")) {
+            valid = true;
+        }
+        return valid;
+    }
+    
+    //Validação de campo de texto
+    public static boolean validTextFieldNull (String textField) {
+        boolean valid = false;
+        if (textField != null && !textField.isEmpty() && textField != "" && !textField.trim().equals("")) {
+            valid = true;
+        }
+        return valid;
+    }
+    public static boolean validTextFieldSize (String textField) {
+        boolean valid = false;
+        if (textField.length() <= 2000) {
+            valid = true;
+        }
+        return valid;
+    }
 }

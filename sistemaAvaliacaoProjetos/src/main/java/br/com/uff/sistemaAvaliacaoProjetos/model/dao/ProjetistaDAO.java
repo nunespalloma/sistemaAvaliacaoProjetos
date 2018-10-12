@@ -45,4 +45,19 @@ public class ProjetistaDAO extends GenericDAO<Projetista>{
         }
         
     }
+    
+    public Projetista buscaProjetistaPorMatricula (String matricula) {
+        try {
+            Projetista projetistaBD = (Projetista) manager.createQuery(
+                    "SELECT p FROM Projetista p WHERE p.matricula = :matricula")
+                    .setParameter("matricula", matricula)
+                    .getSingleResult();
+            
+            return projetistaBD;
+        } catch (NoResultException nre) {
+            return null;
+        }
+        
+    }
+    
 }

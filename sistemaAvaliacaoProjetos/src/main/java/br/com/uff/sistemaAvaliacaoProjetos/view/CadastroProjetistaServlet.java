@@ -25,16 +25,39 @@ public class CadastroProjetistaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
+        String matricula = req.getParameter("matriculaProjetista").toUpperCase().trim();
         String nome = req.getParameter("nomeProjetista").toUpperCase().trim();
         String email = req.getParameter("emailProjetista").toUpperCase().trim(); //pego o que tem no name do input da jsp Cadastro Projetista.
         String senha = req.getParameter("senhaProjetista").toUpperCase().trim();
         boolean valid = true;
+        String matriculaProjetistaStatus;
+        String matriculaProjetistaMsgErro;
         String nomeProjetistaStatus;
         String nomeProjetistaMsgErro;
         String emailProjetistaStatus;
         String emailProjetistaMsgErro;
         String senhaProjetistaStatus;
         String senhaProjetistaMsgErro;
+        
+        //Validação de matricula
+        if (ValidUtils.validMatriculaNull(matricula)) {
+            if (ValidUtils.validMatriculaProjetistaSize(matricula)) {
+                matriculaProjetistaStatus = "is-valid";
+                req.setAttribute("matriculaProjetistaStatus", matriculaProjetistaStatus);
+            }else {
+                valid = false;
+                matriculaProjetistaStatus = "is-invalid";
+                matriculaProjetistaMsgErro = "Tamanho da matricula inválido.".toUpperCase();
+                req.setAttribute("matriculaProjetistaStatus", matriculaProjetistaStatus);
+                req.setAttribute("matriculaProjetistaMsgErro", matriculaProjetistaMsgErro);
+            }
+        }else {
+            valid = false;
+            matriculaProjetistaStatus = "is-invalid";
+            matriculaProjetistaMsgErro = "Matricula nulo ou vazio.".toUpperCase();
+            req.setAttribute("matriculaProjetistaStatus", matriculaProjetistaStatus);
+            req.setAttribute("matriculaProjetistaMsgErro", matriculaProjetistaMsgErro);
+        }
         
         //Validação de nome
         if (ValidUtils.validNameNull(nome)) {
@@ -105,7 +128,7 @@ public class CadastroProjetistaServlet extends HttpServlet {
         }
         
         if (valid) {
-            Projetista projetista = new Projetista(nome,email,senha);
+            Projetista projetista = new Projetista(matricula,nome,email,senha);
             try {
                 if (!ProjetistaController.buscaVerificacaoEmailCadastrado(projetista)) {
                     ProjetistaController.insertProjetista(projetista);
