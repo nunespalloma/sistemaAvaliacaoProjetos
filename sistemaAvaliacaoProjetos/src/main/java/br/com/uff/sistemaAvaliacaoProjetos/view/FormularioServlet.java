@@ -37,6 +37,7 @@ public class FormularioServlet extends HttpServlet {
         String idOrientadorString = req.getParameter("idOrientador");
         String idProjetoString = req.getParameter("idProjeto");
         String idProjetistaString = req.getParameter("idProjetista");
+        String loginProjetista = req.getParameter("loginProjetista");
         String nomeProjetista = req.getParameter("nomeProjetista");
         String nomeProjeto = req.getParameter("nomeProjeto");
         String descricaoProjeto = req.getParameter("descricaoProjeto");
@@ -259,8 +260,6 @@ public class FormularioServlet extends HttpServlet {
             matriculaProjetistaStatus = "is-invalid";
             req.setAttribute("matriculaProjetistaStatus", matriculaProjetistaStatus);
         }
-        System.out.println("idProjetista: "+idProjetistaString);
-        System.out.println("nomeProjetista: "+nomeProjetista);
         //Validação nomeProjeto
         if (ValidUtils.validNameNull(nomeProjeto)) {
             if (ValidUtils.validNameSize(nomeProjeto)) {
@@ -794,21 +793,29 @@ public class FormularioServlet extends HttpServlet {
             projeto.setProjetista(projetista);
             try {
                 if (ValidUtils.validConvertStringToInt(idProjetoString) && !idProjetoString.equals("0")) {
-                    ProjetoController.updateProjeto(projeto);
+                    //ProjetoController.updateProjeto(projeto);
                 }else {
-                    ProjetoController.insertProjeto(projeto);
+                    //ProjetoController.insertProjeto(projeto);
                     orientador.getProjetos().add(projeto);
                 }
             }catch (Exception e) {
                 e.printStackTrace();
             }
-            orientador = OrientadorController.findOrientador(orientador);
-            req.setAttribute("orientador", orientador);
-            req.getRequestDispatcher("Orientador.jsp").forward(req, resp);
+            if (loginProjetista.equals("true")) {
+                projetista = ProjetistaController.findProjetista(projetista);
+                req.setAttribute("projetista", projetista);
+                req.getRequestDispatcher("Projetista.jsp").forward(req, resp);
+            }else {
+                orientador = OrientadorController.findOrientador(orientador);
+                req.setAttribute("orientador", orientador);
+                req.getRequestDispatcher("Orientador.jsp").forward(req, resp);
+            }
+            
         }else {
             //reportar erro dispachando para a jsp.
             req.setAttribute("orientador", orientador);
             req.setAttribute("projeto", projeto);
+            req.setAttribute("loginProjetista", loginProjetista);
             req.getRequestDispatcher("Formulario.jsp").forward(req, resp);
         }
     }

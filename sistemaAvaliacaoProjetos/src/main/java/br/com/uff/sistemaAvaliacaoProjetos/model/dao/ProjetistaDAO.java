@@ -32,6 +32,21 @@ public class ProjetistaDAO extends GenericDAO<Projetista>{
         
     }
     
+    public Projetista buscaProjetistaPorLogin (Projetista projetista) {
+        try {
+            Projetista projetistaBD = (Projetista) manager.createQuery(
+                    "SELECT p FROM Projetista p WHERE p.email = :email AND p.senha = :senha")
+                    .setParameter("email", projetista.getEmail())
+                    .setParameter("senha", projetista.getSenha())
+                    .getSingleResult();
+            
+            return projetistaBD;
+        } catch (NoResultException nre) {
+            return null;
+        }
+        
+    }
+    
     public boolean buscaVerificacaoEmailCadastrado (Projetista projetista) {
         try {
             Projetista projetistaBD = (Projetista) manager.createQuery(

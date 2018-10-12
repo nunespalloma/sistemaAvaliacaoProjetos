@@ -21,46 +21,61 @@
                     <strong>Projetista</strong>
                 </font>
             </h5>
-            
+            <input type="hidden" name="projetista" value="${requestScope.projetista}">
             <br>
             <div class="container-fluid">
                 <h1> Projetos </h1>
             </div>
             <br>
             
-            <div class="container-fluid">
-                <table class="table">
-                    <thead class="black white-text"></thead>
-                        <tr>
-                            <td scope="col"><h5><b> NOME PROJETO </b></h5></td>
-                            <td scope="col"><h5><b> ALUNO RESPONSÁVEL </b></h5></td>
-                            <td scope="col"><h5><b> DESCRIÇÃO </b></h5></td>
-                            <td scope="col"><h5><b> DURAÇÃO </b></h5></td>
-                            <td scope="col"><h5><b> SISTEMA AO QUAL PERTENCE </b></h5></td>
-                        </tr>
-                        <tr>
-                            <td scope="col">XXX</td>
-                            <td scope="col">XXX</td>
-                            <td scope="col">XXX</td>
-                            <td scope="col">XXX</td>
-                        </tr>
-                </table>
-            </div>
-            <br>
-            <br>
-            <br>
-            <form action="ProjetistaServlet" method="POST">
-                <button class="btn btn-indigo my-4 btn-block" type="submit">Novo Formulário</button>
-            </form>
+            <core:choose>
+                <core:when test="${not empty requestScope.projetista.getProjetos()}">
+                    <div class="container-fluid">
+                        <table class="table">
+                            <thead class="black white-text"></thead>
+                                <tr>
+                                    <td scope="col"><h5><b> # </b></h5></td>
+                                    <td scope="col"><h5><b> NOME PROJETO </b></h5></td>
+                                    <td scope="col"><h5><b> ORIENTADOR RESPONSÁVEL </b></h5></td>
+                                    <td scope="col"><h5><b> DESCRIÇÃO </b></h5></td>
+                                    <td scope="col"><h5><b> DURAÇÃO </b></h5></td>
+                                    <td scope="col"><h5><b> Formulario </b></h5></td>
+                                </tr>
+                                <form action="EditarFormularioProjetistaServlet" method="POST">
+                                    <core:forEach items="${requestScope.projetista.getProjetos()}" var="projeto" varStatus="status">
+                                        <tr>
+                                            <td scope="col">${status.count}</td>
+                                            <td scope="col">${projeto.getNome()}</td>
+                                            <td scope="col">${projeto.getOrientador().getNome()}</td>
+                                            <td scope="col">${projeto.getDescricao()}</td>
+                                            <td scope="col">${projeto.getDuracao()}</td>
+                                            <td scope="col">
+                                            <input type="hidden" name="idProjetista" value="${requestScope.projetista.getId()}">
+                                            <input type="hidden" name="idOrientador" value="${projeto.getOrientador().getId()}">
+                                            <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">EDITAR</button></td>
+                                        </tr>
+                                    </core:forEach>
+                                </form>
+
+                            <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdProjeto}</h6>
+                            <br>
+                            <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdProjetista}</h6>
+                        </table>
+                    </div>
+                </core:when>
+                <core:otherwise>
+                    <div class="container-fluid">
+                        Você não possui nenhum projeto cadastrado
+                    </div>
+                </core:otherwise>
+            </core:choose>
+            
             <br>
             <br>
             <br>
             <div class="container-fluid">
                 <h1>Requisitos solicitados</h1>
             </div>
-            
-            
-            
             <br>
             <br>
         </div>

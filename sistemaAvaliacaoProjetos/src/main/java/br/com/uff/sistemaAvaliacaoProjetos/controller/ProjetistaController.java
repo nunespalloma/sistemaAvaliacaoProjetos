@@ -31,6 +31,11 @@ public class ProjetistaController {
         return projetistaDAO.buscaVerificacaoLogin(projetista);
     }
     
+    public static Projetista buscaProjetistaPorLogin (Projetista projetista) {
+        ProjetistaDAO projetistaDAO = new ProjetistaDAO();
+        return projetistaDAO.buscaProjetistaPorLogin(projetista);
+    }
+    
     public static boolean buscaVerificacaoEmailCadastrado (Projetista projetista) {
         ProjetistaDAO projetistaDAO = new ProjetistaDAO();
         return projetistaDAO.buscaVerificacaoEmailCadastrado(projetista);

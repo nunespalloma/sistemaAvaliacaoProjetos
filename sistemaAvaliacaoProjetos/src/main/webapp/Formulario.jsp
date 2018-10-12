@@ -21,6 +21,7 @@
 
             <!-- Form -->
             <form action="FormularioServlet" method="POST" style="color: #757575;">
+                <input type="hidden" name="loginProjetista" value="${requestScope.loginProjetista}">
                 <input type="hidden" name="idOrientador" value="${requestScope.orientador.getId()}">
                 <input type="hidden" name="idProjeto" value="${requestScope.projeto.getId()}">
                 <h2><b>Dados do Orientador:</b></h2>
@@ -93,9 +94,9 @@
                     <div class="input-group col">
                         <label class="input-group" for="matriculaProjetista">Matrícula do Projetista</label>
                         
-                        <input type="text" class="input-group form-control ${matriculaProjetistaStatus}" id="matriculaProjetista" name="matriculaProjetista" value="${ not empty requestScope.projeto ? requestScope.projeto.getProjetista().getMatricula() : param.matriculaProjetista}" placeholder="Matrícula do Projetista">
+                        <input type="text" class="input-group form-control ${matriculaProjetistaStatus}" id="matriculaProjetista" name="matriculaProjetista" value="${ not empty requestScope.projeto ? requestScope.projeto.getProjetista().getMatricula() : param.matriculaProjetista}" placeholder="Matrícula do Projetista" ${not empty requestScope.loginProjetista ? 'readonly' : ''}>
                         <span class="input-group-btn"> 
-                            <button type="button" class="btn btn-info btn-block form-control" name="btnProcurarProjetistaPorMatricula" onclick="javascript:ProcurarProjetistaPorMatricula()">BUSCAR</button>
+                            <button type="button" class="btn btn-info btn-block form-control" name="btnProcurarProjetistaPorMatricula" onclick="javascript:ProcurarProjetistaPorMatricula()" ${not empty requestScope.loginProjetista ? 'disabled' : ''}>BUSCAR</button>
                         </span>
                     </div>
                     <!-- Default input -->
