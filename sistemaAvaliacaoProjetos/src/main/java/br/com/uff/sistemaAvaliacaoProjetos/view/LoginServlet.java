@@ -116,6 +116,7 @@ public class LoginServlet extends HttpServlet {
                 if (OrientadorController.buscaVerificacaoLogin(orientador)) {
                     orientador = OrientadorController.buscaOrientadorPorLogin(orientador);
                     req.setAttribute("orientador", orientador);
+                    req.getSession().setAttribute("login", orientador);
                     req.getRequestDispatcher("Orientador.jsp").forward(req, resp);
                 }else {
                     req.setAttribute("loginMsgErro", "Email ou senha não encontrados de Orientador!");
@@ -128,6 +129,7 @@ public class LoginServlet extends HttpServlet {
                 if (ProjetistaController.buscaVerificacaoLogin(projetista)) {
                     projetista = ProjetistaController.buscaProjetistaPorLogin(projetista);
                     req.setAttribute("projetista", projetista);
+                    req.getSession().setAttribute("login", projetista);
                     req.getRequestDispatcher("Projetista.jsp").forward(req, resp);
                 }else {
                     req.setAttribute("loginMsgErro", "Email ou senha não encontrados de Projetista!");

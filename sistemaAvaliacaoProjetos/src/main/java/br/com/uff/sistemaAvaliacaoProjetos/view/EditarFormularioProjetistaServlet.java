@@ -81,7 +81,6 @@ public class EditarFormularioProjetistaServlet extends HttpServlet {
             }
             req.setAttribute("orientador", orientador);
             req.setAttribute("projeto", projeto);
-            req.setAttribute("loginProjetista", true);
             req.getRequestDispatcher("Formulario.jsp").forward(req, resp);
         }else {
             req.getRequestDispatcher("Projetista.jsp").forward(req, resp);

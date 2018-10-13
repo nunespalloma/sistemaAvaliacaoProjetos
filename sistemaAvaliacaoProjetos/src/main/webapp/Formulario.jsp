@@ -1,4 +1,5 @@
 <%@page import="br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projeto"%>
+<%@page import="br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projetista"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,7 +22,6 @@
 
             <!-- Form -->
             <form action="FormularioServlet" method="POST" style="color: #757575;">
-                <input type="hidden" name="loginProjetista" value="${requestScope.loginProjetista}">
                 <input type="hidden" name="idOrientador" value="${requestScope.orientador.getId()}">
                 <input type="hidden" name="idProjeto" value="${requestScope.projeto.getId()}">
                 <h2><b>Dados do Orientador:</b></h2>
@@ -94,9 +94,9 @@
                     <div class="input-group col">
                         <label class="input-group" for="matriculaProjetista">Matrícula do Projetista</label>
                         
-                        <input type="text" class="input-group form-control ${matriculaProjetistaStatus}" id="matriculaProjetista" name="matriculaProjetista" value="${ not empty requestScope.projeto ? requestScope.projeto.getProjetista().getMatricula() : param.matriculaProjetista}" placeholder="Matrícula do Projetista" ${not empty requestScope.loginProjetista ? 'readonly' : ''}>
+                        <input type="text" class="input-group form-control ${matriculaProjetistaStatus}" id="matriculaProjetista" name="matriculaProjetista" value="${ not empty requestScope.projeto ? requestScope.projeto.getProjetista().getMatricula() : param.matriculaProjetista}" placeholder="Matrícula do Projetista" ${fn:containsIgnoreCase(sessionScope.login.getClass().getName() , "Projetista") ? 'readonly' : ''}>
                         <span class="input-group-btn"> 
-                            <button type="button" class="btn btn-info btn-block form-control" name="btnProcurarProjetistaPorMatricula" onclick="javascript:ProcurarProjetistaPorMatricula()" ${not empty requestScope.loginProjetista ? 'disabled' : ''}>BUSCAR</button>
+                            <button type="button" class="btn btn-info btn-block form-control" name="btnProcurarProjetistaPorMatricula" onclick="javascript:ProcurarProjetistaPorMatricula()" ${fn:containsIgnoreCase(sessionScope.login.getClass().getName() , "Projetista") ? 'disabled' : ''}>BUSCAR</button>
                         </span>
                     </div>
                     <!-- Default input -->

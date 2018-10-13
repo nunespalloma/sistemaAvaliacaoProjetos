@@ -1,4 +1,5 @@
 <%-- any content can be specified here e.g.: --%>
+<%@include file="head.jspf"%>
 <!--Navbar-->
 <nav class="navbar navbar-dark navbar-expand-lg indigo">
 
@@ -37,9 +38,22 @@
         </ul>
                 
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="Login.jsp">Login</a>
-            </li>
+            <core:choose>
+                <core:when test="${not empty sessionScope.login}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${sessionScope.login.getNome()}</a>
+                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="LogoutServlet">Logout</a>
+                        </div>
+                    </li>
+                </core:when>
+                <core:otherwise>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Login.jsp">Login</a>
+                    </li>
+                </core:otherwise>
+            </core:choose>
+            
         </ul>
 
         <!-- Links -->

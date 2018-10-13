@@ -5,7 +5,8 @@
 <!-- Bootstrap Code -->
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core" %> 
-        
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!-- Bootstrap Code -->
 <link rel="stylesheet" href="bootstrap/css/font-awesome.min.css">
 <!-- Bootstrap core CSS -->

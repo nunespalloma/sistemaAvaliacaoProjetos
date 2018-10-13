@@ -37,7 +37,6 @@ public class FormularioServlet extends HttpServlet {
         String idOrientadorString = req.getParameter("idOrientador");
         String idProjetoString = req.getParameter("idProjeto");
         String idProjetistaString = req.getParameter("idProjetista");
-        String loginProjetista = req.getParameter("loginProjetista");
         String nomeProjetista = req.getParameter("nomeProjetista");
         String nomeProjeto = req.getParameter("nomeProjeto");
         String descricaoProjeto = req.getParameter("descricaoProjeto");
@@ -801,7 +800,7 @@ public class FormularioServlet extends HttpServlet {
             }catch (Exception e) {
                 e.printStackTrace();
             }
-            if (loginProjetista.equals("true")) {
+            if (req.getSession().getAttribute("login") instanceof Projetista) {
                 projetista = ProjetistaController.findProjetista(projetista);
                 req.setAttribute("projetista", projetista);
                 req.getRequestDispatcher("Projetista.jsp").forward(req, resp);
@@ -815,7 +814,6 @@ public class FormularioServlet extends HttpServlet {
             //reportar erro dispachando para a jsp.
             req.setAttribute("orientador", orientador);
             req.setAttribute("projeto", projeto);
-            req.setAttribute("loginProjetista", loginProjetista);
             req.getRequestDispatcher("Formulario.jsp").forward(req, resp);
         }
     }
