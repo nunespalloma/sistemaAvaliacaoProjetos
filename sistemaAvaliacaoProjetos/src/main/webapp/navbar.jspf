@@ -43,6 +43,17 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${sessionScope.login.getNome()}</a>
                         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                            <core:choose>
+                                <core:when test="${fn:containsIgnoreCase(sessionScope.login.getClass().getName() , 'Projetista')}">
+                                    <core:set scope="request" var="projetista" value="${sessionScope.login}"/>
+                                    <a class="dropdown-item" href="Projetista.jsp">Meus Projetos</a>
+                                </core:when>
+                                <core:otherwise>
+                                    <core:set scope="request" var="orientador" value="${sessionScope.login}"/>
+                                    <a class="dropdown-item" href="Orientador.jsp">Meus Projetos</a>
+                                </core:otherwise>
+                            </core:choose>
+                            
                             <a class="dropdown-item" href="LogoutServlet">Logout</a>
                         </div>
                     </li>

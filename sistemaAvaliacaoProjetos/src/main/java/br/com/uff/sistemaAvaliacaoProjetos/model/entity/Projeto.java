@@ -36,7 +36,7 @@ public class Projeto implements Serializable{
     @Column(nullable = false)
     private String nome;
     
-    @Column(nullable = false)
+    @Column(length = 2000,nullable = false)
     private String descricao;
     
     @Column(nullable = false)

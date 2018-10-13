@@ -1,5 +1,6 @@
 <%@page import="br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projeto"%>
 <%@page import="br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projetista"%>
+<%@page import="br.com.uff.sistemaAvaliacaoProjetos.utils.FormatarDadosUtils"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -48,7 +49,7 @@
                     <!-- Default input -->
                     <div class="form-group col-md-6">
                         <label for="inputCPF">CPF</label>
-                        <input type="text" class="form-control" id="inputCPF" name="cpfOrientador" value="${ not empty requestScope.orientador ? requestScope.orientador.getCpf() : param.cpfOrientador}" placeholder="CPF" ${ not empty requestScope.orientador ? 'disabled': ''}>
+                        <input type="text" class="form-control" id="inputCPF" name="cpfOrientador" value="${ not empty requestScope.orientador ? FormatarDadosUtils.formatarCpf(requestScope.orientador.getCpf()) : FormatarDadosUtils.formatarCpf(param.cpfOrientador)}" placeholder="CPF" ${ not empty requestScope.orientador ? 'disabled': ''}>
                     </div>
                 </div>
                 <!-- Grid row -->
@@ -58,12 +59,12 @@
                     <!-- Default input -->
                     <div class="form-group col-md-6">
                         <label for="inputIdentidade">Identidade</label>
-                        <input type="text" class="form-control" id="inputIdentidade" name="identidadeOrientador" value="${ not empty requestScope.orientador ? requestScope.orientador.getIdentidade() : param.identidadeOrientador}" placeholder="Identidade" ${ not empty requestScope.orientador ? 'disabled': ''}>
+                        <input type="text" class="form-control" id="inputIdentidade" name="identidadeOrientador" value="${ not empty requestScope.orientador ? FormatarDadosUtils.formatarIdentidade(requestScope.orientador.getIdentidade()) : FormatarDadosUtils.formatarIdentidade(param.identidadeOrientador)}" placeholder="Identidade" ${ not empty requestScope.orientador ? 'disabled': ''}>
                     </div>
                     <!-- Default input -->
                     <div class="form-group col-md-6">
                         <label for="inputTelefone">Telefone</label>
-                        <input type="text" class="form-control" id="inputTelefone" name="telefoneOrientador" value="${ not empty requestScope.orientador ? requestScope.orientador.getTelefone() : param.telefoneOrientador}" placeholder="Telefone" ${ not empty requestScope.orientador ? 'disabled': ''}>
+                        <input type="text" class="form-control" id="inputTelefone" name="telefoneOrientador" value="${ not empty requestScope.orientador ? FormatarDadosUtils.formatarTelefone(requestScope.orientador.getTelefone()) : FormatarDadosUtils.formatarTelefone(param.telefoneOrientador)}" placeholder="Telefone" ${ not empty requestScope.orientador ? 'disabled': ''}>
                     </div>
                 </div>
                 <!-- Grid row -->
@@ -94,7 +95,7 @@
                     <div class="input-group col">
                         <label class="input-group" for="matriculaProjetista">Matrícula do Projetista</label>
                         
-                        <input type="text" class="input-group form-control ${matriculaProjetistaStatus}" id="matriculaProjetista" name="matriculaProjetista" value="${ not empty requestScope.projeto ? requestScope.projeto.getProjetista().getMatricula() : param.matriculaProjetista}" placeholder="Matrícula do Projetista" ${fn:containsIgnoreCase(sessionScope.login.getClass().getName() , "Projetista") ? 'readonly' : ''}>
+                        <input type="text" class="input-group form-control ${matriculaProjetistaStatus}" id="matriculaProjetista" name="matriculaProjetista" value="${ not empty requestScope.projeto ? requestScope.projeto.getProjetista().getMatricula() : param.matriculaProjetista}" placeholder="Matrícula do Projetista" ${fn:containsIgnoreCase(sessionScope.login.getClass().getName() , "Projetista") ? 'readonly' : ''} maxlength="9">
                         <span class="input-group-btn"> 
                             <button type="button" class="btn btn-info btn-block form-control" name="btnProcurarProjetistaPorMatricula" onclick="javascript:ProcurarProjetistaPorMatricula()" ${fn:containsIgnoreCase(sessionScope.login.getClass().getName() , "Projetista") ? 'disabled' : ''}>BUSCAR</button>
                         </span>
@@ -128,7 +129,7 @@
                 
                 <div class="form-row">
                     <p>Descrição do projeto (máximo de 2.000 caracteres)</p>
-                    <textarea class="form-control ${requestScope.descricaoProjetoStatus}" id="descricaoProjeto" rows="10" name="descricaoProjeto">${not empty requestScope.projeto.getDescricao() ? requestScope.projeto.getDescricao() : param.descricaoProjeto}</textarea>
+                    <textarea class="form-control ${requestScope.descricaoProjetoStatus}" id="descricaoProjeto" rows="10" name="descricaoProjeto" maxlength="2000">${not empty requestScope.projeto.getDescricao() ? requestScope.projeto.getDescricao() : param.descricaoProjeto}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.descricaoProjetoMsgErro}
                     </div>
@@ -434,7 +435,7 @@
                 
                 <div class="form-row">
                     <p>Caso seja uma continuação do projeto, apresente aqui os resultados alcançados até o momento (máximo de 2.000 caracteres)</p>
-                    <textarea class="form-control ${requestScope.resultadosContinuacaoStatus}"  id="descricaoContinuacao" rows="10" name="resultadosContinuacao" ${requestScope.projeto.getTipoProjeto() eq "CONTINUAÇÃO" ? '' : 'disabled'}>${not empty requestScope.projeto.getResultadosContinuacaoProjeto() ? requestScope.projeto.getResultadosContinuacaoProjeto() : param.resultadosContinuacao}</textarea>
+                    <textarea class="form-control ${requestScope.resultadosContinuacaoStatus}"  id="descricaoContinuacao" rows="10" name="resultadosContinuacao" ${requestScope.projeto.getTipoProjeto() eq "CONTINUAÇÃO" ? '' : 'disabled'} maxlength="2000">${not empty requestScope.projeto.getResultadosContinuacaoProjeto() ? requestScope.projeto.getResultadosContinuacaoProjeto() : param.resultadosContinuacao}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.resultadosContinuacaoMsgErro}
                     </div>
@@ -447,7 +448,7 @@
                 
                 <div class="form-row">
                     <p>2) Qual é o problema de mercado ou da sociedade que o seu projeto pretende resolver? (máximo de 2.000 caracteres)</p>
-                    <textarea class="form-control ${requestScope.problemaStatus}" id="descricaoProblema" rows="10" name="problema">${not empty requestScope.projeto.getProblemaProjeto() ? requestScope.projeto.getProblemaProjeto() : param.problema}</textarea>
+                    <textarea class="form-control ${requestScope.problemaStatus}" id="descricaoProblema" rows="10" name="problema" maxlength="2000">${not empty requestScope.projeto.getProblemaProjeto() ? requestScope.projeto.getProblemaProjeto() : param.problema}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.problemaMsgErro}
                     </div>
@@ -460,7 +461,7 @@
                 
                 <div class="form-row">
                     <p>3) Como você pretende desenvolver a solução para o problema identificado? (máximo de 2.000 caracteres)</p>
-                    <textarea class="form-control ${requestScope.solucaoStatus}" id="descricaoSolucao" rows="10" name="solucao">${not empty requestScope.projeto.getSolucaoProjeto() ? requestScope.projeto.getSolucaoProjeto() : param.solucao}</textarea>
+                    <textarea class="form-control ${requestScope.solucaoStatus}" id="descricaoSolucao" rows="10" name="solucao" maxlength="2000">${not empty requestScope.projeto.getSolucaoProjeto() ? requestScope.projeto.getSolucaoProjeto() : param.solucao}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.solucaoMsgErro}
                     </div>
@@ -473,7 +474,7 @@
                 
                 <div class="form-row">
                     <p>4) Resumo do currículo do professor orientador com foco na inovação proposta (máximo de 2.000 caracteres)</p>
-                    <textarea class="form-control ${requestScope.resumoCurriculoOrientadorStatus}" id="descricaoCurriculo" rows="10" name="resumoCurriculoOrientador">${not empty requestScope.projeto.getResumoCurriculoOrientador() ? requestScope.projeto.getResumoCurriculoOrientador() : param.resumoCurriculoOrientador}</textarea>
+                    <textarea class="form-control ${requestScope.resumoCurriculoOrientadorStatus}" id="descricaoCurriculo" rows="10" name="resumoCurriculoOrientador" maxlength="2000">${not empty requestScope.projeto.getResumoCurriculoOrientador() ? requestScope.projeto.getResumoCurriculoOrientador() : param.resumoCurriculoOrientador}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.resumoCurriculoOrientadorMsgErro}
                     </div>
@@ -486,7 +487,7 @@
                 
                 <div class="form-row">
                     <p>5) Apresente de forma resumida o potencial de transferência das tecnologias/conhecimentos para o mercado/sociedade a partir do projeto desenvolvido (máximo de 2.000 caracteres)</p>
-                    <textarea class="form-control ${requestScope.potencialStatus}" id="descricaoPotencial" rows="10" name="potencial">${not empty requestScope.projeto.getPotencialProjeto() ? requestScope.projeto.getPotencialProjeto() : param.potencial}</textarea>
+                    <textarea class="form-control ${requestScope.potencialStatus}" id="descricaoPotencial" rows="10" name="potencial" maxlength="2000">${not empty requestScope.projeto.getPotencialProjeto() ? requestScope.projeto.getPotencialProjeto() : param.potencial}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.potencialMsgErro}
                     </div>
@@ -499,7 +500,7 @@
                 
                 <div class="form-row">
                     <p>6) Plano de trabalho do bolsista: Descrever as atividades que serão desenvolvidas pelo bolsista (até dez atividades) e os respectivos produtos associados a cada etapa. Apresentar gráfico de Gantt das atividades propostas distribuídas nos 12 meses do projeto. (máximo de 2.000 caracteres) </p>
-                    <textarea class="form-control ${requestScope.planoTrabalhoBolsistaStatus}" id="descricaoPlanoAtividades" rows="10" name="planoTrabalhoBolsista">${not empty requestScope.projeto.getPlanoTrabalhoBolsista() ? requestScope.projeto.getPlanoTrabalhoBolsista() : param.planoTrabalhoBolsista}</textarea>
+                    <textarea class="form-control ${requestScope.planoTrabalhoBolsistaStatus}" id="descricaoPlanoAtividades" rows="10" name="planoTrabalhoBolsista" maxlength="2000">${not empty requestScope.projeto.getPlanoTrabalhoBolsista() ? requestScope.projeto.getPlanoTrabalhoBolsista() : param.planoTrabalhoBolsista}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.planoTrabalhoBolsistaMsgErro}
                     </div>
@@ -908,22 +909,3 @@
         <%@include file="scripts.jspf"%>
     </body>
 </html>
-
-<script type="text/javascript"> 
-    function verificaMultidisciplinar () { 
-        if( $("#multidisciplinar").is(":checked") === true ) {
-            $("#inputAreaMultidisciplinar").attr("disabled", false);
-        }else {
-            $("#inputAreaMultidisciplinar").attr("disabled", true);
-            $("#inputAreaMultidisciplinar").val("");
-        }    
-    }
-    function verificaContinuacao () { 
-        if( $("#tipoContinuacao").is(":checked") === true ) {
-            $("#descricaoContinuacao").attr("disabled", false);
-        }else {
-            $("#descricaoContinuacao").attr("disabled", true);
-            $("#descricaoContinuacao").val("");
-        }    
-    }
-</script>

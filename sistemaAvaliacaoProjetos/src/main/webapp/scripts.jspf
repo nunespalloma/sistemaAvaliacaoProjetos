@@ -18,4 +18,30 @@
        
     }
     
+    function verificaMultidisciplinar () { 
+        if( $("#multidisciplinar").is(":checked") === true ) {
+            $("#inputAreaMultidisciplinar").attr("disabled", false);
+        }else {
+            $("#inputAreaMultidisciplinar").attr("disabled", true);
+            $("#inputAreaMultidisciplinar").val("");
+        }    
+    }
+    
+    function verificaContinuacao () { 
+        if( $("#tipoContinuacao").is(":checked") === true ) {
+            $("#descricaoContinuacao").attr("disabled", false);
+        }else {
+            $("#descricaoContinuacao").attr("disabled", true);
+            $("#descricaoContinuacao").val("");
+        }    
+    }
+    
+    $(document).ready(function () {
+        $('#matriculaOrientador').mask('9999999');
+        $('#matriculaProjetista').mask('999999999');
+        $('#cpfOrientador').mask('999.999.999-99');
+        $('#identidadeOrientador').mask('99.999.999-9');
+        $('#telefoneOrientador').mask('(99)99999-9999');
+    });
+    
 </script>

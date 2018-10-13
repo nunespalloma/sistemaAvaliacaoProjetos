@@ -35,7 +35,7 @@
                     
                     <!-- Matricula do projetista -->
                     <div class="md-form">
-                        <input type="text" name="matriculaProjetista" id="matriculaProjetista" class="form-control ${requestScope.matriculaProjetistaStatus}" value="${param.matriculaProjetista}">
+                        <input type="text" name="matriculaProjetista" id="matriculaProjetista" class="form-control ${requestScope.matriculaProjetistaStatus}" value="${param.matriculaProjetista}" maxlength="9">
                         <div class="invalid-feedback">
                             ${requestScope.matriculaProjetistaMsgErro}
                         </div>
@@ -186,5 +186,6 @@
         
         <%@include file="footer.jspf"%>
         <%@include file="finalBody.jspf"%>
+        <%@include file="scripts.jspf"%>
     </body>
 </html>

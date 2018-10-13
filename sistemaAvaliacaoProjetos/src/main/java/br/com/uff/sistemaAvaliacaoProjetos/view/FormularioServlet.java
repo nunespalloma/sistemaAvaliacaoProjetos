@@ -792,9 +792,9 @@ public class FormularioServlet extends HttpServlet {
             projeto.setProjetista(projetista);
             try {
                 if (ValidUtils.validConvertStringToInt(idProjetoString) && !idProjetoString.equals("0")) {
-                    //ProjetoController.updateProjeto(projeto);
+                    ProjetoController.updateProjeto(projeto);
                 }else {
-                    //ProjetoController.insertProjeto(projeto);
+                    ProjetoController.insertProjeto(projeto);
                     orientador.getProjetos().add(projeto);
                 }
             }catch (Exception e) {
@@ -803,10 +803,12 @@ public class FormularioServlet extends HttpServlet {
             if (req.getSession().getAttribute("login") instanceof Projetista) {
                 projetista = ProjetistaController.findProjetista(projetista);
                 req.setAttribute("projetista", projetista);
+                req.getSession().setAttribute("login", projetista);
                 req.getRequestDispatcher("Projetista.jsp").forward(req, resp);
             }else {
                 orientador = OrientadorController.findOrientador(orientador);
                 req.setAttribute("orientador", orientador);
+                req.getSession().setAttribute("login", orientador);
                 req.getRequestDispatcher("Orientador.jsp").forward(req, resp);
             }
             

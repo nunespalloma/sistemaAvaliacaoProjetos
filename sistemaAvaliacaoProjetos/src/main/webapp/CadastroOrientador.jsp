@@ -35,7 +35,7 @@
 
                     <!-- Nome do orientador -->
                     <div class="md-form">
-                        <input type="text" name="nomeOrientador" id="nomeOrientador" class="form-control ${requestScope.nomeOrientadorStatus}" value="${param.nomeOrientador}">
+                        <input type="text" name="nomeOrientador" id="nomeOrientador" class="form-control ${requestScope.nomeOrientadorStatus}" value="${param.nomeOrientador}" maxlength="50">
                         <div class="invalid-feedback">
                             ${requestScope.nomeOrientadorMsgErro}
                         </div>
@@ -49,20 +49,20 @@
                         <div class="col">
                             <!-- Matricula do Orientador -->
                             <div class="md-form">
-                                <input type="text" name="matriculaOrientador" id="matriculaOrientador" class="form-control ${requestScope.matriculaOrientadorStatus}" value="${param.matriculaOrientador}">
+                                <input type="text" name="matriculaOrientador" id="matriculaOrientador" class="form-control ${requestScope.matriculaOrientadorStatus}" value="${param.matriculaOrientador}" maxlength="7">
                                 <div class="invalid-feedback">
                                     ${requestScope.matriculaOrientadorMsgErro}
                                 </div>
                                 <label for="matriculaOrientador">Matrícula SIAPE</label>
                                 <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
-                                    Digite algo entre 2 e 50 caracateres
+                                    Digite 7 caracateres
                                 </small>
                             </div>
                         </div>
                         <div class="col">
                             <!-- CPF do Orientador -->
                             <div class="md-form">
-                                <input type="text" name="cpfOrientador" id="cpfOrientador" class="form-control ${requestScope.cpfOrientadorStatus}" value="${param.cpfOrientador}">
+                                <input type="text" name="cpfOrientador" id="cpfOrientador" class="form-control ${requestScope.cpfOrientadorStatus}" value="${param.cpfOrientador}" maxlength="14">
                                 <div class="invalid-feedback">
                                     ${requestScope.cpfOrientadorMsgErro}
                                 </div>
@@ -78,7 +78,7 @@
                         <div class="col">
                             <!-- Identidade do Orientador -->
                             <div class="md-form">
-                                <input type="text" name="identidadeOrientador" id="identidadeOrientador" class="form-control ${requestScope.identidadeOrientadorStatus}" value="${param.identidadeOrientador}">
+                                <input type="text" name="identidadeOrientador" id="identidadeOrientador" class="form-control ${requestScope.identidadeOrientadorStatus}" value="${param.identidadeOrientador}" maxlength="13">
                                 <div class="invalid-feedback">
                                     ${requestScope.identidadeOrientadorMsgErro}
                                 </div>
@@ -91,13 +91,13 @@
                         <div class="col">
                             <!-- Telefone do Orientador -->
                             <div class="md-form">
-                                <input type="text" name="telefoneOrientador" id="telefoneOrientador" class="form-control ${requestScope.telefoneOrientadorStatus}" value="${param.telefoneOrientador}">
+                                <input type="text" name="telefoneOrientador" id="telefoneOrientador" class="form-control ${requestScope.telefoneOrientadorStatus}" value="${param.telefoneOrientador}" maxlength="14">
                                 <div class="invalid-feedback">
                                     ${requestScope.telefoneOrientadorMsgErro}
                                 </div>
                                 <label for="telefoneOrientador">Telefone</label>
                                 <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-                                    Digite algo entre 8 e 13 caracteres
+                                    Digite 10 ou 11 caracteres
                                 </small>
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                     
                     <!-- Departamento do Orientador -->
                     <div class="md-form">
-                        <input type="text" name="departamentoOrientador" id="departamentoOrientador" class="form-control ${requestScope.departamentoOrientadorStatus}" value="${param.departamentoOrientador}">
+                        <input type="text" name="departamentoOrientador" id="departamentoOrientador" class="form-control ${requestScope.departamentoOrientadorStatus}" value="${param.departamentoOrientador}" maxlength="50">
                         <div class="invalid-feedback">
                             ${requestScope.departamentoOrientadorMsgErro}
                         </div>
@@ -131,7 +131,7 @@
                         <div class="col">
                             <!-- E-mail do Orientador -->
                             <div class="md-form">
-                                <input type="text" name="emailOrientador" id="emailOrientador" class="form-control ${requestScope.emailOrientadorStatus}" value="${param.emailOrientador}">
+                                <input type="text" name="emailOrientador" id="emailOrientador" class="form-control ${requestScope.emailOrientadorStatus}" value="${param.emailOrientador}" maxlength="50">
                                 <div class="invalid-feedback">
                                     ${requestScope.emailOrientadorMsgErro}
                                 </div>
@@ -172,5 +172,6 @@
         
         <%@include file="footer.jspf"%>
         <%@include file="finalBody.jspf"%>
+        <%@include file="scripts.jspf"%>
     </body>
 </html>

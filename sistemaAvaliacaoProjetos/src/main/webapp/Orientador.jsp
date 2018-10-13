@@ -30,7 +30,7 @@
                 <core:when test="${not empty requestScope.orientador.getProjetos()}">
                     <div class="container-fluid">
                         <table class="table">
-                            <thead class="black white-text"></thead>
+                            <thead class="white black-text" border="1">
                                 <tr>
                                     <td scope="col"><h5><b> # </b></h5></td>
                                     <td scope="col"><h5><b> NOME PROJETO </b></h5></td>
@@ -39,6 +39,8 @@
                                     <td scope="col"><h5><b> DURAÇÃO </b></h5></td>
                                     <td scope="col"><h5><b> Formulario </b></h5></td>
                                 </tr>
+                            </thead>
+                            <tbody>
                                 <form action="EditarFormularioOrientadorServlet" method="POST">
                                     <core:forEach items="${requestScope.orientador.getProjetos()}" var="projeto" varStatus="status">
                                         <tr>
@@ -53,7 +55,7 @@
                                         </tr>
                                     </core:forEach>
                                 </form>
-
+                            </tbody>
                             <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdProjeto}</h6>
                             <br>
                             <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdOrientador}</h6>

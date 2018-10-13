@@ -98,7 +98,7 @@ public class ValidUtils {
     public static boolean validTelefoneSize (String telefone) {
         boolean valid = false;
         telefone = FormatarDadosUtils.filtrarTelefone(telefone);
-        if (telefone.length() >= 8 && telefone.length() <= 13) {
+        if (telefone.length() >= 10 && telefone.length() <= 11) {
             valid = true;
         }
         return valid;
