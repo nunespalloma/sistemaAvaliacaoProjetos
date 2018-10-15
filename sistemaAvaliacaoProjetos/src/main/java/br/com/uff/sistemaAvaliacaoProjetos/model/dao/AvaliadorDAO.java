@@ -32,6 +32,21 @@ public class AvaliadorDAO extends GenericDAO<Avaliador>{
         
     }
     
+    public Avaliador buscaAvaliadorPorLogin (Avaliador avaliador) {
+        try {
+            Avaliador avaliadorBD = (Avaliador) manager.createQuery(
+                    "SELECT a FROM Avaliador a WHERE a.email = :email AND a.senha = :senha")
+                    .setParameter("email", avaliador.getEmail())
+                    .setParameter("senha", avaliador.getSenha())
+                    .getSingleResult();
+            
+            return avaliadorBD;
+        } catch (NoResultException nre) {
+            return null;
+        }
+        
+    }
+    
     public boolean buscaVerificacaoEmailCadastrado (Avaliador avaliador) {
         try {
             Avaliador avaliadorBD = (Avaliador) manager.createQuery(

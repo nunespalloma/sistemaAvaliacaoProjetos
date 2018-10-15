@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 
 public class PersistenceManager {
 
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("sistemaAvaliacaoProjetosPU");
+    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("sistemaAPJPAPU");
     private static EntityManager manager = factory.createEntityManager();
 
     public static EntityManager getEntityManager() {

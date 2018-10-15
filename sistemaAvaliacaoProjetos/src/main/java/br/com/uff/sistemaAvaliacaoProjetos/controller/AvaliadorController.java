@@ -31,6 +31,11 @@ public class AvaliadorController {
         return avaliadorDAO.buscaVerificacaoLogin(avaliador);
     }
     
+    public static Avaliador buscaAvaliadorPorLogin (Avaliador avaliador) {
+        AvaliadorDAO avaliadorDAO = new AvaliadorDAO();
+        return avaliadorDAO.buscaAvaliadorPorLogin(avaliador);
+    }
+    
     public static boolean buscaVerificacaoEmailCadastrado (Avaliador avaliador) {
         AvaliadorDAO avaliadorDAO = new AvaliadorDAO();
         return avaliadorDAO.buscaVerificacaoEmailCadastrado(avaliador);

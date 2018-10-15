@@ -17,7 +17,22 @@
         <br>
         <br>
         <br>
-        
+        <core:if test="${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado()}">
+            <div class="container-fluid">
+                <h2 class="text-center text-danger"> Projeto Submetido Para Avaliação </h2>
+            </div>
+            <br>
+            <br>
+            <br>
+        </core:if>
+        <core:if test="${requestScope.projeto.isAvaliado()}">
+            <div class="container-fluid">
+                <h2 class="text-center text-primary"> Projeto Avaliado </h2>
+            </div>
+            <br>
+            <br>
+            <br>
+        </core:if>
         <!--Card content-->
         <div class="card-body px-lg-5 pt-0">
 
@@ -95,9 +110,9 @@
                     <div class="input-group col">
                         <label class="input-group" for="matriculaProjetista">Matrícula do Projetista</label>
                         
-                        <input type="text" class="input-group form-control ${matriculaProjetistaStatus}" id="matriculaProjetista" name="matriculaProjetista" value="${ not empty requestScope.projeto ? requestScope.projeto.getProjetista().getMatricula() : param.matriculaProjetista}" placeholder="Matrícula do Projetista" ${fn:containsIgnoreCase(sessionScope.login.getClass().getName() , "Projetista") ? 'readonly' : ''} maxlength="9">
+                        <input type="text" class="input-group form-control ${matriculaProjetistaStatus}" id="matriculaProjetista" name="matriculaProjetista" value="${ not empty requestScope.projeto ? requestScope.projeto.getProjetista().getMatricula() : param.matriculaProjetista}" placeholder="Matrícula do Projetista" ${fn:containsIgnoreCase(sessionScope.login.getClass().getName() , "Projetista") or requestScope.projeto.isSubmetido() ? 'readonly' : ''} maxlength="9">
                         <span class="input-group-btn"> 
-                            <button type="button" class="btn btn-info btn-block form-control" name="btnProcurarProjetistaPorMatricula" onclick="javascript:ProcurarProjetistaPorMatricula()" ${fn:containsIgnoreCase(sessionScope.login.getClass().getName() , "Projetista") ? 'disabled' : ''}>BUSCAR</button>
+                            <button type="button" class="btn btn-info btn-block form-control" name="btnProcurarProjetistaPorMatricula" onclick="javascript:ProcurarProjetistaPorMatricula()" ${fn:containsIgnoreCase(sessionScope.login.getClass().getName() , "Projetista") or requestScope.projeto.isSubmetido() ? 'disabled' : ''}>BUSCAR</button>
                         </span>
                     </div>
                     <!-- Default input -->
@@ -121,7 +136,7 @@
                 <!-- Default input -->
                 <div class="form-group">
                     <label for="inputNomeProjeto">Nome Projeto</label>
-                    <input type="text" class="form-control ${requestScope.nomeProjetoStatus}" id="inputNomeProjeto" name="nomeProjeto" value="${ not empty requestScope.projeto ? requestScope.projeto.getNome() : param.nomeProjeto}" placeholder="Nome Projeto">
+                    <input type="text" class="form-control ${requestScope.nomeProjetoStatus}" id="inputNomeProjeto" name="nomeProjeto" value="${ not empty requestScope.projeto ? requestScope.projeto.getNome() : param.nomeProjeto}" placeholder="Nome Projeto" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                     <div class="invalid-feedback">
                         ${requestScope.nomeProjetoMsgErro}
                     </div>
@@ -129,7 +144,7 @@
                 
                 <div class="form-row">
                     <p>Descrição do projeto (máximo de 2.000 caracteres)</p>
-                    <textarea class="form-control ${requestScope.descricaoProjetoStatus}" id="descricaoProjeto" rows="10" name="descricaoProjeto" maxlength="2000">${not empty requestScope.projeto.getDescricao() ? requestScope.projeto.getDescricao() : param.descricaoProjeto}</textarea>
+                    <textarea class="form-control ${requestScope.descricaoProjetoStatus}" id="descricaoProjeto" rows="10" name="descricaoProjeto" maxlength="2000" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>${not empty requestScope.projeto.getDescricao() ? requestScope.projeto.getDescricao() : param.descricaoProjeto}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.descricaoProjetoMsgErro}
                     </div>
@@ -140,7 +155,7 @@
                 
                 <div class="form-group">
                     <label for="inputDuracaoProjeto">Duração do Projeto</label>
-                    <input type="text" class="form-control ${requestScope.duracaoProjetoStatus}" id="inputDuracaoProjeto" name="duracaoProjeto" value="${ not empty requestScope.projeto ? requestScope.projeto.getDuracao() : param.duracaoProjeto}" placeholder="Duração do Projeto">
+                    <input type="text" class="form-control ${requestScope.duracaoProjetoStatus}" id="inputDuracaoProjeto" name="duracaoProjeto" value="${ not empty requestScope.projeto ? requestScope.projeto.getDuracao() : param.duracaoProjeto}" placeholder="Duração do Projeto" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                     <div class="invalid-feedback">
                         ${requestScope.duracaoProjetoMsgErro}
                     </div>
@@ -155,7 +170,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:12px">
-                                    <input type="radio" name="areaOrigem" value="CIÊNCIAS SOCIAIS E APLICADAS" ${not empty requestScope.projeto ? requestScope.projeto.getAreaOrigemProjeto() eq "CIÊNCIAS SOCIAIS E APLICADAS" ? 'checked' : '' : 'checked'} onclick="javascript:verificaMultidisciplinar()">
+                                    <input type="radio" name="areaOrigem" value="CIÊNCIAS SOCIAIS E APLICADAS" ${not empty requestScope.projeto ? requestScope.projeto.getAreaOrigemProjeto() eq "CIÊNCIAS SOCIAIS E APLICADAS" ? 'checked' : '' : 'checked'} onclick="javascript:verificaMultidisciplinar()" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Ciências Sociais e Aplicadas
                                 </span>
@@ -168,7 +183,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:149.8px">
-                                    <input type="radio" name="areaOrigem" value="CIÊNCIAS HUMANAS" ${requestScope.projeto.getAreaOrigemProjeto() eq "CIÊNCIAS HUMANAS" ? 'checked' : ''}  onclick="javascript:verificaMultidisciplinar()">
+                                    <input type="radio" name="areaOrigem" value="CIÊNCIAS HUMANAS" ${requestScope.projeto.getAreaOrigemProjeto() eq "CIÊNCIAS HUMANAS" ? 'checked' : ''}  onclick="javascript:verificaMultidisciplinar()" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Ciências Humanas
                                 </span>
@@ -185,7 +200,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:12px">
-                                    <input type="radio" name="areaOrigem" value="CIÊNCIAS BIOLÓGICAS" ${requestScope.projeto.getAreaOrigemProjeto() eq "CIÊNCIAS BIOLÓGICAS" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()">
+                                    <input type="radio" name="areaOrigem" value="CIÊNCIAS BIOLÓGICAS" ${requestScope.projeto.getAreaOrigemProjeto() eq "CIÊNCIAS BIOLÓGICAS" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Ciências Biológicas
                                 </span>
@@ -198,7 +213,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:212.5px">
-                                    <input type="radio" name="areaOrigem" value="CIÊNCIAS DA SAÚDE" ${requestScope.projeto.getAreaOrigemProjeto() eq "CIÊNCIAS DA SAÚDE" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()">
+                                    <input type="radio" name="areaOrigem" value="CIÊNCIAS DA SAÚDE" ${requestScope.projeto.getAreaOrigemProjeto() eq "CIÊNCIAS DA SAÚDE" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Ciências da Saúde 
                                 </span>
@@ -215,7 +230,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:12px">
-                                    <input type="radio" name="areaOrigem" value="ENGENHARIA" ${requestScope.projeto.getAreaOrigemProjeto() eq "ENGENHARIA" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()">
+                                    <input type="radio" name="areaOrigem" value="ENGENHARIA" ${requestScope.projeto.getAreaOrigemProjeto() eq "ENGENHARIA" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Engenharia
                                 </span>
@@ -228,7 +243,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:270px">
-                                    <input type="radio" name="areaOrigem" value="CIÊNCIAS EXATAS E DA TERRA" ${requestScope.projeto.getAreaOrigemProjeto() eq "CIÊNCIAS EXATAS E DA TERRA" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()">
+                                    <input type="radio" name="areaOrigem" value="CIÊNCIAS EXATAS E DA TERRA" ${requestScope.projeto.getAreaOrigemProjeto() eq "CIÊNCIAS EXATAS E DA TERRA" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Ciências Exatas e da Terra 
                                 </span>
@@ -245,7 +260,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:12px">
-                                    <input type="radio" name="areaOrigem" value="CIÊNCIAS AGRÁRIAS" ${requestScope.projeto.getAreaOrigemProjeto() eq "CIÊNCIAS AGRÁRIAS" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()">
+                                    <input type="radio" name="areaOrigem" value="CIÊNCIAS AGRÁRIAS" ${requestScope.projeto.getAreaOrigemProjeto() eq "CIÊNCIAS AGRÁRIAS" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Ciências Agrárias
                                 </span>
@@ -258,7 +273,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:227px">
-                                    <input type="radio" name="areaOrigem" value="LINGUÍSTICA, LETRAS E ARTES" ${requestScope.projeto.getAreaOrigemProjeto() eq "LINGUÍSTICA, LETRAS E ARTES" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()">
+                                    <input type="radio" name="areaOrigem" value="LINGUÍSTICA, LETRAS E ARTES" ${requestScope.projeto.getAreaOrigemProjeto() eq "LINGUÍSTICA, LETRAS E ARTES" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Linguística, Letras e Artes  
                                 </span>
@@ -275,7 +290,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:12px">
-                                    <input type="radio" name="areaOrigem" id="multidisciplinar" value="MULTIDISCIPLINAR" ${requestScope.projeto.getAreaOrigemProjeto() eq "MULTIDISCIPLINAR" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()">
+                                    <input type="radio" name="areaOrigem" id="multidisciplinar" value="MULTIDISCIPLINAR" ${requestScope.projeto.getAreaOrigemProjeto() eq "MULTIDISCIPLINAR" ? 'checked' : ''} onclick="javascript:verificaMultidisciplinar()" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Multidisciplinar:
                                 </span>
@@ -288,7 +303,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:15px">
-                                    <input type="text" class="form-control ${requestScope.descricaoMultidisciplinarStatus}" id="inputAreaMultidisciplinar" name="descricaoMultidisciplinar" value="${not empty requestScope.projeto.getDescricaoMultidisciplinar() ? requestScope.projeto.getDescricaoMultidisciplinar() : param.descricaoMultidisciplinar}" placeholder="" ${requestScope.projeto.getAreaOrigemProjeto() eq "MULTIDISCIPLINAR" ? '' : 'disabled'}>
+                                    <input type="text" class="form-control ${requestScope.descricaoMultidisciplinarStatus}" id="inputAreaMultidisciplinar" name="descricaoMultidisciplinar" value="${not empty requestScope.projeto.getDescricaoMultidisciplinar() ? requestScope.projeto.getDescricaoMultidisciplinar() : param.descricaoMultidisciplinar}" placeholder="" ${requestScope.projeto.getAreaOrigemProjeto() eq "MULTIDISCIPLINAR" ? '' : 'disabled'} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <div class="invalid-feedback">
                                         ${requestScope.descricaoMultidisciplinarMsgErro}
                                     </div>
@@ -311,7 +326,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:12px">
-                                    <input type="radio" name="areaAtuacao" value="CIÊNCIAS HUMANAS/SOCIAIS/LINGUÍSTICA" ${not empty requestScope.projeto ? requestScope.projeto.getAreaAtuacaoProjeto() eq "CIÊNCIAS HUMANAS/SOCIAIS/LINGUÍSTICA" ? 'checked' : '' : 'checked'}>
+                                    <input type="radio" name="areaAtuacao" value="CIÊNCIAS HUMANAS/SOCIAIS/LINGUÍSTICA" ${not empty requestScope.projeto ? requestScope.projeto.getAreaAtuacaoProjeto() eq "CIÊNCIAS HUMANAS/SOCIAIS/LINGUÍSTICA" ? 'checked' : '' : 'checked'} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Ciências Humanas/Sociais/Linguística
                                 </span>
@@ -324,7 +339,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:77px">
-                                    <input type="radio" name="areaAtuacao" value="CIÊNCIAS EXATAS E DA TERRA/ENGENHARIA/AGRÁRIAS" ${requestScope.projeto.getAreaAtuacaoProjeto() eq "CIÊNCIAS EXATAS E DA TERRA/ENGENHARIA/AGRÁRIAS" ? 'checked' : ''}>
+                                    <input type="radio" name="areaAtuacao" value="CIÊNCIAS EXATAS E DA TERRA/ENGENHARIA/AGRÁRIAS" ${requestScope.projeto.getAreaAtuacaoProjeto() eq "CIÊNCIAS EXATAS E DA TERRA/ENGENHARIA/AGRÁRIAS" ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Ciências Exatas e da Terra/Engenharia/Agrárias
                                 </span>
@@ -341,7 +356,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:12px">
-                                    <input type="radio" name="areaAtuacao" value="CIÊNCIAS BIOLÓGICAS/SAÚDE" ${requestScope.projeto.getAreaAtuacaoProjeto() eq "CIÊNCIAS BIOLÓGICAS/SAÚDE" ? 'checked' : ''}>
+                                    <input type="radio" name="areaAtuacao" value="CIÊNCIAS BIOLÓGICAS/SAÚDE" ${requestScope.projeto.getAreaAtuacaoProjeto() eq "CIÊNCIAS BIOLÓGICAS/SAÚDE" ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Ciências Biológicas/Saúde
                                 </span>
@@ -363,7 +378,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:12px">
-                                    <input type="radio" name="destinacao" value="INOVAÇÃO MERCADOLÓGICA" ${not empty requestScope.projeto ? requestScope.projeto.getDestinacaoProjeto() eq "INOVAÇÃO MERCADOLÓGICA" ? 'checked' : '' : 'checked'}>
+                                    <input type="radio" name="destinacao" value="INOVAÇÃO MERCADOLÓGICA" ${not empty requestScope.projeto ? requestScope.projeto.getDestinacaoProjeto() eq "INOVAÇÃO MERCADOLÓGICA" ? 'checked' : '' : 'checked'} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Inovação Mercadológica
                                 </span>
@@ -376,7 +391,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:177px">
-                                    <input type="radio" name="destinacao" value="INOVAÇÃO PARA O DESENVOLVIMENTO SOCIAL" ${requestScope.projeto.getDestinacaoProjeto() eq "INOVAÇÃO PARA O DESENVOLVIMENTO SOCIAL" ? 'checked' : ''}>
+                                    <input type="radio" name="destinacao" value="INOVAÇÃO PARA O DESENVOLVIMENTO SOCIAL" ${requestScope.projeto.getDestinacaoProjeto() eq "INOVAÇÃO PARA O DESENVOLVIMENTO SOCIAL" ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Inovação para o Desenvolvimento Social
                                 </span>
@@ -409,7 +424,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:20px">
-                                    <input type="radio" name="tipo" value="NOVO" ${not empty requestScope.projeto ? requestScope.projeto.getTipoProjeto() eq "NOVO" ? 'checked' : '' : 'checked'} onclick="javascrip:verificaContinuacao()">
+                                    <input type="radio" name="tipo" value="NOVO" ${not empty requestScope.projeto ? requestScope.projeto.getTipoProjeto() eq "NOVO" ? 'checked' : '' : 'checked'} onclick="javascrip:verificaContinuacao()" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Novo
                                 </span>
@@ -422,7 +437,7 @@
                         <div class="switch mdb-color-switch">
                             <label>
                                 <span style="padding-left:100px">
-                                    <input type="radio" id="tipoContinuacao" name="tipo" value="CONTINUAÇÃO" ${requestScope.projeto.getTipoProjeto() eq "CONTINUAÇÃO" ? 'checked' : ''} onclick="javascrip:verificaContinuacao()">
+                                    <input type="radio" id="tipoContinuacao" name="tipo" value="CONTINUAÇÃO" ${requestScope.projeto.getTipoProjeto() eq "CONTINUAÇÃO" ? 'checked' : ''} onclick="javascrip:verificaContinuacao()" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}>
                                     <span class="lever"></span>
                                     Continuação
                                 </span>
@@ -435,7 +450,7 @@
                 
                 <div class="form-row">
                     <p>Caso seja uma continuação do projeto, apresente aqui os resultados alcançados até o momento (máximo de 2.000 caracteres)</p>
-                    <textarea class="form-control ${requestScope.resultadosContinuacaoStatus}"  id="descricaoContinuacao" rows="10" name="resultadosContinuacao" ${requestScope.projeto.getTipoProjeto() eq "CONTINUAÇÃO" ? '' : 'disabled'} maxlength="2000">${not empty requestScope.projeto.getResultadosContinuacaoProjeto() ? requestScope.projeto.getResultadosContinuacaoProjeto() : param.resultadosContinuacao}</textarea>
+                    <textarea class="form-control ${requestScope.resultadosContinuacaoStatus}"  id="descricaoContinuacao" rows="10" name="resultadosContinuacao" ${requestScope.projeto.getTipoProjeto() eq "CONTINUAÇÃO" ? '' : 'disabled'} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'disabled' : ''} maxlength="2000">${not empty requestScope.projeto.getResultadosContinuacaoProjeto() ? requestScope.projeto.getResultadosContinuacaoProjeto() : param.resultadosContinuacao}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.resultadosContinuacaoMsgErro}
                     </div>
@@ -448,7 +463,7 @@
                 
                 <div class="form-row">
                     <p>2) Qual é o problema de mercado ou da sociedade que o seu projeto pretende resolver? (máximo de 2.000 caracteres)</p>
-                    <textarea class="form-control ${requestScope.problemaStatus}" id="descricaoProblema" rows="10" name="problema" maxlength="2000">${not empty requestScope.projeto.getProblemaProjeto() ? requestScope.projeto.getProblemaProjeto() : param.problema}</textarea>
+                    <textarea class="form-control ${requestScope.problemaStatus}" id="descricaoProblema" rows="10" name="problema" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'disabled' : ''} maxlength="2000">${not empty requestScope.projeto.getProblemaProjeto() ? requestScope.projeto.getProblemaProjeto() : param.problema}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.problemaMsgErro}
                     </div>
@@ -461,7 +476,7 @@
                 
                 <div class="form-row">
                     <p>3) Como você pretende desenvolver a solução para o problema identificado? (máximo de 2.000 caracteres)</p>
-                    <textarea class="form-control ${requestScope.solucaoStatus}" id="descricaoSolucao" rows="10" name="solucao" maxlength="2000">${not empty requestScope.projeto.getSolucaoProjeto() ? requestScope.projeto.getSolucaoProjeto() : param.solucao}</textarea>
+                    <textarea class="form-control ${requestScope.solucaoStatus}" id="descricaoSolucao" rows="10" name="solucao" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'disabled' : ''} maxlength="2000">${not empty requestScope.projeto.getSolucaoProjeto() ? requestScope.projeto.getSolucaoProjeto() : param.solucao}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.solucaoMsgErro}
                     </div>
@@ -474,7 +489,7 @@
                 
                 <div class="form-row">
                     <p>4) Resumo do currículo do professor orientador com foco na inovação proposta (máximo de 2.000 caracteres)</p>
-                    <textarea class="form-control ${requestScope.resumoCurriculoOrientadorStatus}" id="descricaoCurriculo" rows="10" name="resumoCurriculoOrientador" maxlength="2000">${not empty requestScope.projeto.getResumoCurriculoOrientador() ? requestScope.projeto.getResumoCurriculoOrientador() : param.resumoCurriculoOrientador}</textarea>
+                    <textarea class="form-control ${requestScope.resumoCurriculoOrientadorStatus}" id="descricaoCurriculo" rows="10" name="resumoCurriculoOrientador" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'disabled' : ''} maxlength="2000">${not empty requestScope.projeto.getResumoCurriculoOrientador() ? requestScope.projeto.getResumoCurriculoOrientador() : param.resumoCurriculoOrientador}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.resumoCurriculoOrientadorMsgErro}
                     </div>
@@ -487,7 +502,7 @@
                 
                 <div class="form-row">
                     <p>5) Apresente de forma resumida o potencial de transferência das tecnologias/conhecimentos para o mercado/sociedade a partir do projeto desenvolvido (máximo de 2.000 caracteres)</p>
-                    <textarea class="form-control ${requestScope.potencialStatus}" id="descricaoPotencial" rows="10" name="potencial" maxlength="2000">${not empty requestScope.projeto.getPotencialProjeto() ? requestScope.projeto.getPotencialProjeto() : param.potencial}</textarea>
+                    <textarea class="form-control ${requestScope.potencialStatus}" id="descricaoPotencial" rows="10" name="potencial" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'disabled' : ''} maxlength="2000">${not empty requestScope.projeto.getPotencialProjeto() ? requestScope.projeto.getPotencialProjeto() : param.potencial}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.potencialMsgErro}
                     </div>
@@ -500,7 +515,7 @@
                 
                 <div class="form-row">
                     <p>6) Plano de trabalho do bolsista: Descrever as atividades que serão desenvolvidas pelo bolsista (até dez atividades) e os respectivos produtos associados a cada etapa. Apresentar gráfico de Gantt das atividades propostas distribuídas nos 12 meses do projeto. (máximo de 2.000 caracteres) </p>
-                    <textarea class="form-control ${requestScope.planoTrabalhoBolsistaStatus}" id="descricaoPlanoAtividades" rows="10" name="planoTrabalhoBolsista" maxlength="2000">${not empty requestScope.projeto.getPlanoTrabalhoBolsista() ? requestScope.projeto.getPlanoTrabalhoBolsista() : param.planoTrabalhoBolsista}</textarea>
+                    <textarea class="form-control ${requestScope.planoTrabalhoBolsistaStatus}" id="descricaoPlanoAtividades" rows="10" name="planoTrabalhoBolsista" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'disabled' : ''} maxlength="2000">${not empty requestScope.projeto.getPlanoTrabalhoBolsista() ? requestScope.projeto.getPlanoTrabalhoBolsista() : param.planoTrabalhoBolsista}</textarea>
                     <div class="invalid-feedback">
                         ${requestScope.planoTrabalhoBolsistaMsgErro}
                     </div>
@@ -535,18 +550,18 @@
                                     <core:if test="${projeto.getNome() eq 'ATIVIDADE 1'}">
                                         <tr>
                                             <td scope="col"><h5><b><center>At. 1</center></b></h5></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade1Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade1Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade1Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade1Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade1Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade1Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade1Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade1Marco" ${projeto.isMarco() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade1Abril" ${projeto.isAbril() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade1Maio" ${projeto.isMaio() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade1Junho" ${projeto.isJunho() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade1Julho" ${projeto.isJulho() eq true ? 'checked' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade1Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade1Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade1Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade1Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade1Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade1Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade1Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade1Marco" ${projeto.isMarco() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade1Abril" ${projeto.isAbril() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade1Maio" ${projeto.isMaio() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade1Junho" ${projeto.isJunho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade1Julho" ${projeto.isJulho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
                                         </tr>
                                     </core:if>
                                 </core:forEach>
@@ -554,18 +569,18 @@
                                     <core:if test="${projeto.getNome() eq 'ATIVIDADE 2'}">
                                         <tr>
                                             <td scope="col"><h5><b><center>At. 2</center></b></h5></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade2Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade2Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade2Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade2Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade2Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade2Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade2Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade2Marco" ${projeto.isMarco() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade2Abril" ${projeto.isAbril() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade2Maio" ${projeto.isMaio() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade2Junho" ${projeto.isJunho() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade2Julho" ${projeto.isJulho() eq true ? 'checked' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade2Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade2Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade2Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade2Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade2Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade2Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade2Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade2Marco" ${projeto.isMarco() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade2Abril" ${projeto.isAbril() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade2Maio" ${projeto.isMaio() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade2Junho" ${projeto.isJunho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade2Julho" ${projeto.isJulho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
                                         </tr>
                                     </core:if>
                                 </core:forEach>
@@ -573,18 +588,18 @@
                                     <core:if test="${projeto.getNome() eq 'ATIVIDADE 3'}">
                                         <tr>
                                             <td scope="col"><h5><b><center>At. 3</center></b></h5></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade3Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade3Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade3Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade3Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade3Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade3Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade3Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade3Marco" ${projeto.isMarco() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade3Abril" ${projeto.isAbril() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade3Maio" ${projeto.isMaio() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade3Junho" ${projeto.isJunho() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade3Julho" ${projeto.isJulho() eq true ? 'checked' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade3Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade3Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade3Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade3Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade3Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade3Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade3Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade3Marco" ${projeto.isMarco() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade3Abril" ${projeto.isAbril() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade3Maio" ${projeto.isMaio() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade3Junho" ${projeto.isJunho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade3Julho" ${projeto.isJulho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
                                         </tr>
                                     </core:if>
                                 </core:forEach>
@@ -592,18 +607,18 @@
                                     <core:if test="${projeto.getNome() eq 'ATIVIDADE 4'}">
                                         <tr>
                                             <td scope="col"><h5><b><center>At. 4</center></b></h5></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade4Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade4Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade4Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade4Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade4Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade4Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade4Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade4Marco" ${projeto.isMarco() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade4Abril" ${projeto.isAbril() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade4Maio" ${projeto.isMaio() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade4Junho" ${projeto.isJunho() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade4Julho" ${projeto.isJulho() eq true ? 'checked' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade4Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade4Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade4Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade4Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade4Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade4Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade4Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade4Marco" ${projeto.isMarco() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade4Abril" ${projeto.isAbril() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade4Maio" ${projeto.isMaio() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade4Junho" ${projeto.isJunho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade4Julho" ${projeto.isJulho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
                                         </tr>
                                     </core:if>
                                 </core:forEach>
@@ -611,18 +626,18 @@
                                     <core:if test="${projeto.getNome() eq 'ATIVIDADE 5'}">
                                         <tr>
                                             <td scope="col"><h5><b><center>At. 5</center></b></h5></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade5Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade5Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade5Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade5Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade5Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade5Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade5Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade5Marco" ${projeto.isMarco() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade5Abril" ${projeto.isAbril() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade5Maio" ${projeto.isMaio() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade5Junho" ${projeto.isJunho() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade5Julho" ${projeto.isJulho() eq true ? 'checked' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade5Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade5Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade5Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade5Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade5Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade5Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade5Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade5Marco" ${projeto.isMarco() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade5Abril" ${projeto.isAbril() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade5Maio" ${projeto.isMaio() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade5Junho" ${projeto.isJunho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade5Julho" ${projeto.isJulho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
                                         </tr>
                                     </core:if>
                                 </core:forEach>
@@ -630,18 +645,18 @@
                                     <core:if test="${projeto.getNome() eq 'ATIVIDADE 6'}">
                                         <tr>
                                             <td scope="col"><h5><b><center>At. 6</center></b></h5></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade6Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade6Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade6Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade6Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade6Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade6Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade6Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade6Marco" ${projeto.isMarco() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade6Abril" ${projeto.isAbril() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade6Maio" ${projeto.isMaio() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade6Junho" ${projeto.isJunho() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade6Julho" ${projeto.isJulho() eq true ? 'checked' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade6Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade6Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade6Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade6Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade6Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade6Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade6Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade6Marco" ${projeto.isMarco() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade6Abril" ${projeto.isAbril() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade6Maio" ${projeto.isMaio() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade6Junho" ${projeto.isJunho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade6Julho" ${projeto.isJulho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
                                         </tr>
                                     </core:if>
                                 </core:forEach>
@@ -649,18 +664,18 @@
                                     <core:if test="${projeto.getNome() eq 'ATIVIDADE 7'}">
                                         <tr>
                                             <td scope="col"><h5><b><center>At. 7</center></b></h5></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade7Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade7Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade7Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade7Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade7Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade7Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade7Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade7Marco" ${projeto.isMarco() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade7Abril" ${projeto.isAbril() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade7Maio" ${projeto.isMaio() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade7Junho" ${projeto.isJunho() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade7Julho" ${projeto.isJulho() eq true ? 'checked' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade7Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade7Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade7Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade7Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade7Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade7Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade7Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade7Marco" ${projeto.isMarco() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade7Abril" ${projeto.isAbril() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade7Maio" ${projeto.isMaio() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade7Junho" ${projeto.isJunho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade7Julho" ${projeto.isJulho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
                                         </tr>
                                     </core:if>
                                 </core:forEach>
@@ -668,18 +683,18 @@
                                     <core:if test="${projeto.getNome() eq 'ATIVIDADE 8'}">
                                         <tr>
                                             <td scope="col"><h5><b><center>At. 8</center></b></h5></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade8Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade8Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade8Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade8Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade8Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade8Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade8Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade8Marco" ${projeto.isMarco() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade8Abril" ${projeto.isAbril() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade8Maio" ${projeto.isMaio() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade8Junho" ${projeto.isJunho() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade8Julho" ${projeto.isJulho() eq true ? 'checked' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade8Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade8Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade8Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade8Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade8Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade8Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade8Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade8Marco" ${projeto.isMarco() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade8Abril" ${projeto.isAbril() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade8Maio" ${projeto.isMaio() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade8Junho" ${projeto.isJunho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade8Julho" ${projeto.isJulho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
                                         </tr>
                                     </core:if>
                                 </core:forEach>
@@ -687,18 +702,18 @@
                                     <core:if test="${projeto.getNome() eq 'ATIVIDADE 9'}">
                                         <tr>
                                             <td scope="col"><h5><b><center>At. 9</center></b></h5></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade9Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade9Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade9Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade9Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade9Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade9Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade9Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade9Marco" ${projeto.isMarco() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade9Abril" ${projeto.isAbril() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade9Maio" ${projeto.isMaio() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade9Junho" ${projeto.isJunho() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade9Julho" ${projeto.isJulho() eq true ? 'checked' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade9Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade9Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade9Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade9Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade9Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade9Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade9Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade9Marco" ${projeto.isMarco() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade9Abril" ${projeto.isAbril() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade9Maio" ${projeto.isMaio() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade9Junho" ${projeto.isJunho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade9Julho" ${projeto.isJulho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
                                         </tr>
                                     </core:if>
                                 </core:forEach>
@@ -706,18 +721,18 @@
                                     <core:if test="${projeto.getNome() eq 'ATIVIDADE 10'}">
                                         <tr>
                                             <td scope="col"><h5><b><center>At. 10</center></b></h5></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade10Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade10Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade10Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade10Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade10Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade10Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade10Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade10Marco" ${projeto.isMarco() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade10Abril" ${projeto.isAbril() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade10Maio" ${projeto.isMaio() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade10Junho" ${projeto.isJunho() eq true ? 'checked' : ''}></center></td>
-                                            <td scope="col"><center><input type="checkbox" name="atividade10Julho" ${projeto.isJulho() eq true ? 'checked' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade10Agosto" ${projeto.isAgosto() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade10Setembro" ${projeto.isSetembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade10Outubro" ${projeto.isOutubro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade10Novembro" ${projeto.isNovembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade10Dezembro"${projeto.isDezembro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade10Janeiro" ${projeto.isJaneiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade10Fevereiro" ${projeto.isFevereiro() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade10Marco" ${projeto.isMarco() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade10Abril" ${projeto.isAbril() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade10Maio" ${projeto.isMaio() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade10Junho" ${projeto.isJunho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
+                                            <td scope="col"><center><input type="checkbox" name="atividade10Julho" ${projeto.isJulho() eq true ? 'checked' : ''} ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'readonly' : ''}></center></td>
                                         </tr>
                                     </core:if>
                                 </core:forEach>
@@ -881,16 +896,22 @@
                 
                 <font color="red"><i>Obs.: Todos os campos deste formulário são obrigatórios</i></font>
                 
-                
-                
+                <core:if test="${requestScope.projeto.isAvaliado()}">
+                    <br>
+                    <br>
+                    <div class="form-row">
+                        <p>Avaliação</p>
+                        <textarea class="form-control" id="descricaoAvaliacao" rows="10" name="avaliacao" maxlength="2000" readonly>${requestScope.projeto.getAvaliacao()}</textarea>
+                    </div>
+                </core:if>
                 <br>
                 <br>
                 <br>
                 <br>
                 
                 <!-- Sign in button -->
-                <button class="btn btn-indigo btn-block" type="submit">ENVIAR</button>
-            
+                <button class="btn btn-indigo btn-block" type="submit" ${requestScope.projeto.isSubmetido() and not requestScope.projeto.isAvaliado() ? 'disabled' : ''}>EDITAR</button>
+                
             </form>
             <!-- Form -->
         </div>

@@ -84,6 +84,18 @@ public class Projeto implements Serializable{
     @Column(nullable = false)
     private boolean requisitoApresentacaoResultados;
     
+    @Column(nullable = false)
+    private boolean submetido;
+    
+    @Column(nullable = false)
+    private boolean enviadoAvaliacao;
+    
+    @Column(nullable = false)
+    private boolean avaliado;
+    
+    @Column(length = 2000 , nullable = true)
+    private String avaliacao;
+    
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Orientador orientador;
     
@@ -116,6 +128,30 @@ public class Projeto implements Serializable{
         this.requisitoRelatoriosParciais = requisitoRelatoriosParciais;
         this.requisitoTarefasDesenvolvimento = requisitoTarefasDesenvolvimento;
         this.requisitoApresentacaoResultados = requisitoApresentacaoResultados;
+        this.orientador = orientador;
+        this.projetista = projetista;
+        this.atividades = atividades;
+    }
+
+    public Projeto(String nome, String descricao, String duracao, String areaOrigemProjeto, String descricaoMultidisciplinar, String areaAtuacaoProjeto, String destinacaoProjeto, String tipoProjeto, String resultadosContinuacaoProjeto, String problemaProjeto, String solucaoProjeto, String resumoCurriculoOrientador, String potencialProjeto, String planoTrabalhoBolsista, boolean submetido, boolean enviadoAvaliacao, boolean avaliado, String avaliacao, Orientador orientador, Projetista projetista, List<Atividade> atividades) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.duracao = duracao;
+        this.areaOrigemProjeto = areaOrigemProjeto;
+        this.descricaoMultidisciplinar = descricaoMultidisciplinar;
+        this.areaAtuacaoProjeto = areaAtuacaoProjeto;
+        this.destinacaoProjeto = destinacaoProjeto;
+        this.tipoProjeto = tipoProjeto;
+        this.resultadosContinuacaoProjeto = resultadosContinuacaoProjeto;
+        this.problemaProjeto = problemaProjeto;
+        this.solucaoProjeto = solucaoProjeto;
+        this.resumoCurriculoOrientador = resumoCurriculoOrientador;
+        this.potencialProjeto = potencialProjeto;
+        this.planoTrabalhoBolsista = planoTrabalhoBolsista;
+        this.submetido = submetido;
+        this.enviadoAvaliacao = enviadoAvaliacao;
+        this.avaliado = avaliado;
+        this.avaliacao = avaliacao;
         this.orientador = orientador;
         this.projetista = projetista;
         this.atividades = atividades;
@@ -179,6 +215,38 @@ public class Projeto implements Serializable{
         this.requisitoApresentacaoResultados = requisitoApresentacaoResultados;
     }
 
+    public boolean isSubmetido() {
+        return submetido;
+    }
+
+    public void setSubmetido(boolean submetido) {
+        this.submetido = submetido;
+    }
+
+    public boolean isEnviadoAvaliacao() {
+        return enviadoAvaliacao;
+    }
+
+    public void setEnviadoAvaliacao(boolean enviadoAvaliacao) {
+        this.enviadoAvaliacao = enviadoAvaliacao;
+    }
+
+    public boolean isAvaliado() {
+        return avaliado;
+    }
+
+    public void setAvaliado(boolean avaliado) {
+        this.avaliado = avaliado;
+    }
+
+    public String getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(String avaliacao) {
+        this.avaliacao = avaliacao;
+    }
+    
     public String getAreaOrigemProjeto() {
         return areaOrigemProjeto;
     }

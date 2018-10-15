@@ -31,6 +31,11 @@ public class AdministradorController {
         return administradorDAO.buscaVerificacaoLogin(administrador);
     }
     
+    public static Administrador buscaAdministradorPorLogin (Administrador administrador) {
+        AdministradorDAO administradorDAO = new AdministradorDAO();
+        return administradorDAO.buscaAdministradorPorLogin(administrador);
+    }
+    
     public static boolean buscaVerificacaoEmailCadastrado (Administrador administrador) {
         AdministradorDAO administradorDAO = new AdministradorDAO();
         return administradorDAO.buscaVerificacaoEmailCadastrado(administrador);

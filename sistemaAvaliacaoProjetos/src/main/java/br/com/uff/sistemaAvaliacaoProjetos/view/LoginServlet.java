@@ -94,6 +94,8 @@ public class LoginServlet extends HttpServlet {
                 administrador.setEmail(email);
                 administrador.setSenha(senha);
                 if (AdministradorController.buscaVerificacaoLogin(administrador)) {
+                    administrador = AdministradorController.buscaAdministradorPorLogin(administrador);
+                    req.getSession().setAttribute("login", administrador);
                     req.getRequestDispatcher("Administrador.jsp").forward(req, resp);
                 }else {
                     req.setAttribute("loginMsgErro", "Email ou senha não encontrados de Administrador!");
@@ -104,6 +106,8 @@ public class LoginServlet extends HttpServlet {
                 avaliador.setEmail(email);
                 avaliador.setSenha(senha);
                 if (AvaliadorController.buscaVerificacaoLogin(avaliador)) {
+                    avaliador = AvaliadorController.buscaAvaliadorPorLogin(avaliador);
+                    req.getSession().setAttribute("login", avaliador);
                     req.getRequestDispatcher("Avaliador.jsp").forward(req, resp);
                 }else {
                     req.setAttribute("loginMsgErro", "Email ou senha não encontrados de Avaliador!");

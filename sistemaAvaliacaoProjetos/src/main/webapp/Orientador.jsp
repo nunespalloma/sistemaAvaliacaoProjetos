@@ -37,24 +37,49 @@
                                     <td scope="col"><h5><b> ALUNO RESPONSÁVEL </b></h5></td>
                                     <td scope="col"><h5><b> DESCRIÇÃO </b></h5></td>
                                     <td scope="col"><h5><b> DURAÇÃO </b></h5></td>
-                                    <td scope="col"><h5><b> Formulario </b></h5></td>
+                                    <td scope="col"><h5><b> EDITAR </b></h5></td>
+                                    <td scope="col"><h5><b> SUBMETER </b></h5></td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <form action="EditarFormularioOrientadorServlet" method="POST">
-                                    <core:forEach items="${requestScope.orientador.getProjetos()}" var="projeto" varStatus="status">
+                                <core:forEach items="${requestScope.orientador.getProjetos()}" var="projeto" varStatus="status">
+                                    <core:if test="${not projeto.isAvaliado()}">    
                                         <tr>
                                             <td scope="col">${status.count}</td>
                                             <td scope="col">${projeto.getNome()}</td>
                                             <td scope="col">${projeto.getProjetista().getNome()}</td>
                                             <td scope="col">${projeto.getDescricao()}</td>
                                             <td scope="col">${projeto.getDuracao()}</td>
-                                            <td scope="col">
-                                                <input type="hidden" name="idOrientador" value="${requestScope.orientador.getId()}">
-                                                <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">EDITAR</button></td>
+                                            <core:choose>
+                                                <core:when test="${projeto.isSubmetido()}">
+                                                    <form action="EditarFormularioOrientadorServlet" method="POST">
+                                                        <td scope="col">
+                                                            <input type="hidden" name="idOrientador" value="${requestScope.orientador.getId()}">
+                                                            <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">VER</button></td>
+                                                    </form>
+                                                    <form action="SubmeterProjetoOrientadorServlet" method="POST">
+                                                        <td scope="col">
+                                                            <input type="hidden" name="idOrientador" value="${requestScope.orientador.getId()}">
+                                                            <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}" disabled>SUBMETER</button></td>
+                                                    </form>
+                                                </core:when>
+                                                <core:otherwise>
+                                                    <form action="EditarFormularioOrientadorServlet" method="POST">
+                                                        <td scope="col">
+                                                            <input type="hidden" name="idOrientador" value="${requestScope.orientador.getId()}">
+                                                            <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">EDITAR</button></td>
+                                                    </form>
+                                                    <form action="SubmeterProjetoOrientadorServlet" method="POST">
+                                                        <td scope="col">
+                                                            <input type="hidden" name="idOrientador" value="${requestScope.orientador.getId()}">
+                                                            <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">SUBMETER</button></td>                                                
+                                                    </form>
+                                                </core:otherwise>
+                                            </core:choose>
                                         </tr>
-                                    </core:forEach>
-                                </form>
+                                    </core:if>
+                                </core:forEach>
+                                
                             </tbody>
                             <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdProjeto}</h6>
                             <br>
