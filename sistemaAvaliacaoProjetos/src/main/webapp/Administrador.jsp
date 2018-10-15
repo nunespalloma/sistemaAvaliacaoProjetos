@@ -13,7 +13,7 @@
     </head>
     <body>
         <%@include file="navbar.jspf"%>
-                <!-- Material form register -->
+        <!-- Material form register -->
         <div class="card">
 
             <h5 class="card-header indigo white-text text-center py-4">
@@ -105,6 +105,7 @@
             
             <br>
             <br>
+        </div>
         <%@include file="footer.jspf"%>
         <%@include file="finalBody.jspf"%>
     </body>

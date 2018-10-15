@@ -39,7 +39,7 @@
                                     <td scope="col"><h5><b> ORIENTADOR RESPONSÁVEL </b></h5></td>
                                     <td scope="col"><h5><b> DESCRIÇÃO </b></h5></td>
                                     <td scope="col"><h5><b> DURAÇÃO </b></h5></td>
-                                    <td scope="col"><h5><b> Formulario </b></h5></td>
+                                    <td scope="col"><h5><b> EDITAR </b></h5></td>
                                 </tr>
                                 <form action="EditarFormularioProjetistaServlet" method="POST">
                                     <core:forEach items="${requestScope.projetista.getProjetos()}" var="projeto" varStatus="status">

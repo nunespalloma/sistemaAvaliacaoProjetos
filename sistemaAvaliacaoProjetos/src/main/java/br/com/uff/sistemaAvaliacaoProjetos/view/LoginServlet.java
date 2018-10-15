@@ -114,6 +114,10 @@ public class LoginServlet extends HttpServlet {
                 avaliador.setSenha(senha);
                 if (AvaliadorController.buscaVerificacaoLogin(avaliador)) {
                     avaliador = AvaliadorController.buscaAvaliadorPorLogin(avaliador);
+                    List<Projeto> projetosParaAvaliacao = ProjetoController.buscarProjetosParaAvaliacao(avaliador);
+                    List<Projeto> projetosAvaliados = ProjetoController.buscarProjetosAvaliados(avaliador);
+                    req.setAttribute("projetosParaAvaliacao", projetosParaAvaliacao);
+                    req.setAttribute("projetosAvaliados", projetosAvaliados);
                     req.getSession().setAttribute("login", avaliador);
                     req.getRequestDispatcher("Avaliador.jsp").forward(req, resp);
                 }else {
