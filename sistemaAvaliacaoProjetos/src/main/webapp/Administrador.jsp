@@ -28,24 +28,68 @@
             </div>
             <br>
             
-            <div class="container-fluid">
-                <table class="table">
-                    <thead class="black white-text"></thead>
-                        <tr>
-                            <td scope="col"><h5><b> NOME PROJETO </b></h5></td>
-                            <td scope="col"><h5><b> ALUNO RESPONSÁVEL </b></h5></td>
-                            <td scope="col"><h5><b> DESCRIÇÃO </b></h5></td>
-                            <td scope="col"><h5><b> DURAÇÃO </b></h5></td>
-                        </tr>
-                        <tr>
-                            <td scope="col">XXX</td>
-                            <td scope="col">XXX</td>
-                            <td scope="col">XXX</td>
-                            <td scope="col">XXX</td>
-                        </tr>
-                    </table>
-                </table>
-            </div>
+            <core:choose>
+                <core:when test="${not empty requestScope.projetos}">
+                    <div class="container-fluid">
+                        <table class="table">
+                            <thead class="white black-text" border="1">
+                                <tr>
+                                    <td scope="col"><h5><b> # </b></h5></td>
+                                    <td scope="col"><h5><b> NOME PROJETO </b></h5></td>
+                                    <td scope="col"><h5><b> ORIENTADOR </b></h5></td>
+                                    <td scope="col"><h5><b> ALUNO RESPONSÁVEL </b></h5></td>
+                                    <td scope="col"><h5><b> DESCRIÇÃO </b></h5></td>
+                                    <td scope="col"><h5><b> AVALIADOR </b></h5></td>
+                                    <td scope="col"><h5><b> ENVIAR PARA AVALIAÇÃO </b></h5></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <core:forEach items="${requestScope.projetos}" var="projeto" varStatus="status">
+                                    <tr>
+                                        <form action="SubmeterProjetoAvaliacaoAdministradorServlet" method="POST">
+                                            <td scope="col">${status.count}</td>
+                                            <td scope="col">${projeto.getNome()}</td>
+                                            <td scope="col">${projeto.getOrientador().getNome()}</td>
+                                            <td scope="col">${projeto.getProjetista().getNome()}</td>
+                                            <td scope="col">${projeto.getDescricao()}</td>
+                                            <td scope="col">
+                                            <core:choose>
+                                                <core:when test="${not empty requestScope.avaliadores}">                                                            
+                                                    <select class="browser-default custom-select" name="idAvaliador">        
+                                                        <core:forEach var="avaliador" items="${requestScope.avaliadores}" varStatus="status">
+                                                            <option value="${avaliador.getId()}">${avaliador.getNome()}</option>
+                                                        </core:forEach>        
+                                                    </select>
+                                                </core:when>
+                                                <core:otherwise>
+                                                    NÃO HÁ AVALIADORES DISPONIVEIS
+                                                </core:otherwise>
+                                            </core:choose>
+                                            </td>
+                                            <td scope="col">
+                                                <input type="hidden" name="idAdministrador" value="${sessionScope.login.getId()}">
+                                                <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}" ${not empty requestScope.avaliadores ? '' : 'disabled'}>SUBMETER</button>
+                                            </td>
+                                        </form>        
+                                    </tr>
+                                </core:forEach>
+                            </tbody>
+                            <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdProjeto}</h6>
+                            <br>
+                            <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdAvaliador}</h6>
+                        </table>
+                    </div>
+                </core:when>
+                <core:otherwise>
+                    <div class="container-fluid">
+                        <br>
+                        Você não possui nenhum projeto submetido para enviar para avaliação.
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </core:otherwise>
+            </core:choose>
             
             <br>
             <br>

@@ -9,12 +9,15 @@ import br.com.uff.sistemaAvaliacaoProjetos.controller.AdministradorController;
 import br.com.uff.sistemaAvaliacaoProjetos.controller.AvaliadorController;
 import br.com.uff.sistemaAvaliacaoProjetos.controller.OrientadorController;
 import br.com.uff.sistemaAvaliacaoProjetos.controller.ProjetistaController;
+import br.com.uff.sistemaAvaliacaoProjetos.controller.ProjetoController;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Administrador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Avaliador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Orientador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projetista;
+import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projeto;
 import br.com.uff.sistemaAvaliacaoProjetos.utils.ValidUtils;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -95,6 +98,10 @@ public class LoginServlet extends HttpServlet {
                 administrador.setSenha(senha);
                 if (AdministradorController.buscaVerificacaoLogin(administrador)) {
                     administrador = AdministradorController.buscaAdministradorPorLogin(administrador);
+                    List<Projeto> projetos = ProjetoController.buscarProjetosParaSeresEnviadosAvaliacao();
+                    List<Avaliador> avaliadores = AvaliadorController.listAllAvaliadores();
+                    req.setAttribute("projetos", projetos);
+                    req.setAttribute("avaliadores", avaliadores);
                     req.getSession().setAttribute("login", administrador);
                     req.getRequestDispatcher("Administrador.jsp").forward(req, resp);
                 }else {

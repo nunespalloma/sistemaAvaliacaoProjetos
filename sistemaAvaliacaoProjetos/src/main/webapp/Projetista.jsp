@@ -43,17 +43,33 @@
                                 </tr>
                                 <form action="EditarFormularioProjetistaServlet" method="POST">
                                     <core:forEach items="${requestScope.projetista.getProjetos()}" var="projeto" varStatus="status">
-                                        <tr>
-                                            <td scope="col">${status.count}</td>
-                                            <td scope="col">${projeto.getNome()}</td>
-                                            <td scope="col">${projeto.getOrientador().getNome()}</td>
-                                            <td scope="col">${projeto.getDescricao()}</td>
-                                            <td scope="col">${projeto.getDuracao()}</td>
-                                            <td scope="col">
-                                            <input type="hidden" name="idProjetista" value="${requestScope.projetista.getId()}">
-                                            <input type="hidden" name="idOrientador" value="${projeto.getOrientador().getId()}">
-                                            <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">EDITAR</button></td>
-                                        </tr>
+                                        <core:if test="${not projeto.isAvaliado()}">
+                                        
+                                            <tr>
+                                                <td scope="col">${status.count}</td>
+                                                <td scope="col">${projeto.getNome()}</td>
+                                                <td scope="col">${projeto.getOrientador().getNome()}</td>
+                                                <td scope="col">${projeto.getDescricao()}</td>
+                                                <td scope="col">${projeto.getDuracao()}</td>
+                                                <core:choose>
+                                                    <core:when test="${projeto.isSubmetido()}">
+                                                        <td scope="col">
+                                                            <input type="hidden" name="idProjetista" value="${requestScope.projetista.getId()}">
+                                                            <input type="hidden" name="idOrientador" value="${projeto.getOrientador().getId()}">
+                                                            <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">VER</button>
+                                                        </td>
+                                                    </core:when>
+                                                    <core:otherwise>
+                                                        <td scope="col">
+                                                            <input type="hidden" name="idProjetista" value="${requestScope.projetista.getId()}">
+                                                            <input type="hidden" name="idOrientador" value="${projeto.getOrientador().getId()}">
+                                                            <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">EDITAR</button>
+                                                        </td>
+                                                    </core:otherwise>
+                                                </core:choose>
+                                                
+                                            </tr>
+                                        </core:if>
                                     </core:forEach>
                                 </form>
 

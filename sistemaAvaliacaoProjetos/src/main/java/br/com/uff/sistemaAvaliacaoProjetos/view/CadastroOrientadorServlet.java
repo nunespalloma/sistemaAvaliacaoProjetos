@@ -234,6 +234,7 @@ public class CadastroOrientadorServlet extends HttpServlet {
                     OrientadorController.insertOrientador(orientador);
                     orientador = OrientadorController.buscaOrientadorPorLogin(orientador);
                     req.setAttribute("orientador", orientador);
+                    req.getSession().setAttribute("login", orientador);
                     req.getRequestDispatcher("Orientador.jsp").forward(req, resp);
                 }else {
                     req.setAttribute("cadastroMsgErro", "Email de Orientador já cadastrado!");
