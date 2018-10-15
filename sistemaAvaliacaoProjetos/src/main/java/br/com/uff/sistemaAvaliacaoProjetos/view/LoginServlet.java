@@ -130,6 +130,10 @@ public class LoginServlet extends HttpServlet {
                 orientador.setSenha(senha);
                 if (OrientadorController.buscaVerificacaoLogin(orientador)) {
                     orientador = OrientadorController.buscaOrientadorPorLogin(orientador);
+                    List<Projeto> projetosNaoAvaliados = ProjetoController.buscarProjetosNaoAvaliados(orientador);
+                    List<Projeto> projetosAvaliados = ProjetoController.buscarProjetosAvaliados(orientador);
+                    req.setAttribute("projetosNaoAvaliados", projetosNaoAvaliados);
+                    req.setAttribute("projetosAvaliados", projetosAvaliados);
                     req.setAttribute("orientador", orientador);
                     req.getSession().setAttribute("login", orientador);
                     req.getRequestDispatcher("Orientador.jsp").forward(req, resp);
@@ -143,6 +147,10 @@ public class LoginServlet extends HttpServlet {
                 projetista.setSenha(senha);
                 if (ProjetistaController.buscaVerificacaoLogin(projetista)) {
                     projetista = ProjetistaController.buscaProjetistaPorLogin(projetista);
+                    List<Projeto> projetosNaoAvaliados = ProjetoController.buscarProjetosNaoAvaliados(projetista);
+                    List<Projeto> projetosAvaliados = ProjetoController.buscarProjetosAvaliados(projetista);
+                    req.setAttribute("projetosNaoAvaliados", projetosNaoAvaliados);
+                    req.setAttribute("projetosAvaliados", projetosAvaliados);
                     req.setAttribute("projetista", projetista);
                     req.getSession().setAttribute("login", projetista);
                     req.getRequestDispatcher("Projetista.jsp").forward(req, resp);

@@ -6,10 +6,13 @@
 package br.com.uff.sistemaAvaliacaoProjetos.view;
 
 import br.com.uff.sistemaAvaliacaoProjetos.controller.OrientadorController;
+import br.com.uff.sistemaAvaliacaoProjetos.controller.ProjetoController;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Orientador;
+import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projeto;
 import br.com.uff.sistemaAvaliacaoProjetos.utils.FormatarDadosUtils;
 import br.com.uff.sistemaAvaliacaoProjetos.utils.ValidUtils;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -233,6 +236,10 @@ public class CadastroOrientadorServlet extends HttpServlet {
                 if (!OrientadorController.buscaVerificacaoEmailCadastrado(orientador)) {
                     OrientadorController.insertOrientador(orientador);
                     orientador = OrientadorController.buscaOrientadorPorLogin(orientador);
+                    List<Projeto> projetosNaoAvaliados = ProjetoController.buscarProjetosNaoAvaliados(orientador);
+                    List<Projeto> projetosAvaliados = ProjetoController.buscarProjetosAvaliados(orientador);
+                    req.setAttribute("projetosNaoAvaliados", projetosNaoAvaliados);
+                    req.setAttribute("projetosAvaliados", projetosAvaliados);
                     req.setAttribute("orientador", orientador);
                     req.getSession().setAttribute("login", orientador);
                     req.getRequestDispatcher("Orientador.jsp").forward(req, resp);

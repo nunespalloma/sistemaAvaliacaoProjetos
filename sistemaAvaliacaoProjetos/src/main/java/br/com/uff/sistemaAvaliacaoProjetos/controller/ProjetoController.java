@@ -9,6 +9,8 @@ import br.com.uff.sistemaAvaliacaoProjetos.model.dao.GenericDAO;
 import br.com.uff.sistemaAvaliacaoProjetos.model.dao.PersistenceManager;
 import br.com.uff.sistemaAvaliacaoProjetos.model.dao.ProjetoDAO;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Avaliador;
+import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Orientador;
+import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projetista;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projeto;
 import java.util.List;
 
@@ -40,6 +42,26 @@ public class ProjetoController {
     public static List<Projeto> buscarProjetosAvaliados (Avaliador avaliador) {
         ProjetoDAO projetoDAO = new ProjetoDAO();
         return projetoDAO.buscarProjetosAvaliados(avaliador);
+    }
+    
+    public static List<Projeto> buscarProjetosAvaliados (Projetista projetista){
+        ProjetoDAO projetoDAO = new ProjetoDAO();
+        return projetoDAO.buscarProjetosAvaliados(projetista);
+    }
+    
+    public static List<Projeto> buscarProjetosAvaliados (Orientador orientador){
+        ProjetoDAO projetoDAO = new ProjetoDAO();
+        return projetoDAO.buscarProjetosAvaliados(orientador);
+    }
+    
+    public static List<Projeto> buscarProjetosNaoAvaliados (Projetista projetista){
+        ProjetoDAO projetoDAO = new ProjetoDAO();
+        return projetoDAO.buscarProjetosNaoAvaliados(projetista);
+    }
+    
+    public static List<Projeto> buscarProjetosNaoAvaliados (Orientador orientador){
+        ProjetoDAO projetoDAO = new ProjetoDAO();
+        return projetoDAO.buscarProjetosNaoAvaliados(orientador);
     }
     
     public static void insertProjeto(Projeto projeto) {

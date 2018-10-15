@@ -802,11 +802,19 @@ public class FormularioServlet extends HttpServlet {
             }
             if (req.getSession().getAttribute("login") instanceof Projetista) {
                 projetista = ProjetistaController.findProjetista(projetista);
+                List<Projeto> projetosNaoAvaliados = ProjetoController.buscarProjetosNaoAvaliados(projetista);
+                List<Projeto> projetosAvaliados = ProjetoController.buscarProjetosAvaliados(projetista);
+                req.setAttribute("projetosNaoAvaliados", projetosNaoAvaliados);
+                req.setAttribute("projetosAvaliados", projetosAvaliados);
                 req.setAttribute("projetista", projetista);
                 req.getSession().setAttribute("login", projetista);
                 req.getRequestDispatcher("Projetista.jsp").forward(req, resp);
             }else {
                 orientador = OrientadorController.findOrientador(orientador);
+                List<Projeto> projetosNaoAvaliados = ProjetoController.buscarProjetosNaoAvaliados(orientador);
+                List<Projeto> projetosAvaliados = ProjetoController.buscarProjetosAvaliados(orientador);
+                req.setAttribute("projetosNaoAvaliados", projetosNaoAvaliados);
+                req.setAttribute("projetosAvaliados", projetosAvaliados);
                 req.setAttribute("orientador", orientador);
                 req.getSession().setAttribute("login", orientador);
                 req.getRequestDispatcher("Orientador.jsp").forward(req, resp);

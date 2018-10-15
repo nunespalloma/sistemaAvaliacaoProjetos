@@ -23,66 +23,130 @@
             </h5>
             <input type="hidden" name="projetista" value="${requestScope.projetista}">
             <br>
-            <div class="container-fluid">
-                <h1> Projetos </h1>
-            </div>
-            <br>
+                    
             
             <core:choose>
-                <core:when test="${not empty requestScope.projetista.getProjetos()}">
+                <core:when test="${empty requestScope.projetosNaoAvaliados and empty requestScope.projetosAvaliados}">
                     <div class="container-fluid">
-                        <table class="table">
-                            <thead class="black white-text"></thead>
-                                <tr>
-                                    <td scope="col"><h5><b> # </b></h5></td>
-                                    <td scope="col"><h5><b> NOME PROJETO </b></h5></td>
-                                    <td scope="col"><h5><b> ORIENTADOR RESPONSÁVEL </b></h5></td>
-                                    <td scope="col"><h5><b> DESCRIÇÃO </b></h5></td>
-                                    <td scope="col"><h5><b> DURAÇÃO </b></h5></td>
-                                    <td scope="col"><h5><b> EDITAR </b></h5></td>
-                                </tr>
-                                <form action="EditarFormularioProjetistaServlet" method="POST">
-                                    <core:forEach items="${requestScope.projetista.getProjetos()}" var="projeto" varStatus="status">
-                                        <core:if test="${not projeto.isAvaliado()}">
-                                        
-                                            <tr>
-                                                <td scope="col">${status.count}</td>
-                                                <td scope="col">${projeto.getNome()}</td>
-                                                <td scope="col">${projeto.getOrientador().getNome()}</td>
-                                                <td scope="col">${projeto.getDescricao()}</td>
-                                                <td scope="col">${projeto.getDuracao()}</td>
-                                                <core:choose>
-                                                    <core:when test="${projeto.isSubmetido()}">
-                                                        <td scope="col">
-                                                            <input type="hidden" name="idProjetista" value="${requestScope.projetista.getId()}">
-                                                            <input type="hidden" name="idOrientador" value="${projeto.getOrientador().getId()}">
-                                                            <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">VER</button>
-                                                        </td>
-                                                    </core:when>
-                                                    <core:otherwise>
-                                                        <td scope="col">
-                                                            <input type="hidden" name="idProjetista" value="${requestScope.projetista.getId()}">
-                                                            <input type="hidden" name="idOrientador" value="${projeto.getOrientador().getId()}">
-                                                            <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">EDITAR</button>
-                                                        </td>
-                                                    </core:otherwise>
-                                                </core:choose>
-                                                
-                                            </tr>
-                                        </core:if>
-                                    </core:forEach>
-                                </form>
-
-                            <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdProjeto}</h6>
-                            <br>
-                            <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdProjetista}</h6>
-                        </table>
+                        <br>
+                        <br>
+                        <p>Você não possui nenhum projeto cadastrado</p>
+                        <br>
+                        
                     </div>
                 </core:when>
                 <core:otherwise>
                     <div class="container-fluid">
-                        Você não possui nenhum projeto cadastrado
+                        <h1> Projetos ainda não avaliados </h1>
                     </div>
+                    <br>
+                    <core:choose>
+                        <core:when test="${not empty requestScope.projetosNaoAvaliados}">
+                            <div class="container-fluid">
+                                <table class="table">
+                                    <thead class="black white-text"></thead>
+                                        <tr>
+                                            <td scope="col"><h5><b> # </b></h5></td>
+                                            <td scope="col"><h5><b> NOME PROJETO </b></h5></td>
+                                            <td scope="col"><h5><b> ORIENTADOR RESPONSÁVEL </b></h5></td>
+                                            <td scope="col"><h5><b> DESCRIÇÃO </b></h5></td>
+                                            <td scope="col"><h5><b> DURAÇÃO </b></h5></td>
+                                            <td scope="col"><h5><b> EDITAR </b></h5></td>
+                                        </tr>
+                                        <form action="EditarFormularioProjetistaServlet" method="POST">
+                                            <core:forEach items="${requestScope.projetosNaoAvaliados}" var="projeto" varStatus="status">
+                                                <tr>
+                                                    <td scope="col">${status.count}</td>
+                                                    <td scope="col">${projeto.getNome()}</td>
+                                                    <td scope="col">${projeto.getOrientador().getNome()}</td>
+                                                    <td scope="col">${projeto.getDescricao()}</td>
+                                                    <td scope="col">${projeto.getDuracao()}</td>
+                                                    <core:choose>
+                                                        <core:when test="${projeto.isSubmetido()}">
+                                                            <td scope="col">
+                                                                <input type="hidden" name="idProjetista" value="${requestScope.projetista.getId()}">
+                                                                <input type="hidden" name="idOrientador" value="${projeto.getOrientador().getId()}">
+                                                                <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">VER</button>
+                                                            </td>
+                                                        </core:when>
+                                                        <core:otherwise>
+                                                            <td scope="col">
+                                                                <input type="hidden" name="idProjetista" value="${requestScope.projetista.getId()}">
+                                                                <input type="hidden" name="idOrientador" value="${projeto.getOrientador().getId()}">
+                                                                <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">EDITAR</button>
+                                                            </td>
+                                                        </core:otherwise>
+                                                    </core:choose>
+
+                                                </tr>
+                                            </core:forEach>
+                                        </form>
+
+                                    <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdProjeto}</h6>
+                                    <br>
+                                    <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdProjetista}</h6>
+                                </table>
+                            </div>
+                        </core:when>
+                        <core:otherwise>
+                            <div class="container-fluid">
+                                Você não possui nenhum projeto ainda não avaliado
+                            </div>
+                        </core:otherwise>
+                    </core:choose>
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                    <div class="container-fluid">
+                        <h1> Projetos avaliados </h1>
+                    </div>
+                    <br>
+
+                    <core:choose>
+                        <core:when test="${not empty requestScope.projetosAvaliados}">
+                            <div class="container-fluid">
+                                <table class="table">
+                                    <thead class="black white-text"></thead>
+                                        <tr>
+                                            <td scope="col"><h5><b> # </b></h5></td>
+                                            <td scope="col"><h5><b> NOME PROJETO </b></h5></td>
+                                            <td scope="col"><h5><b> ORIENTADOR RESPONSÁVEL </b></h5></td>
+                                            <td scope="col"><h5><b> DESCRIÇÃO </b></h5></td>
+                                            <td scope="col"><h5><b> DURAÇÃO </b></h5></td>
+                                            <td scope="col"><h5><b> EDITAR </b></h5></td>
+                                        </tr>
+                                        <form action="EditarFormularioProjetistaServlet" method="POST">
+                                            <core:forEach items="${requestScope.projetosAvaliados}" var="projeto" varStatus="status">
+                                                <tr>
+                                                    <td scope="col">${status.count}</td>
+                                                    <td scope="col">${projeto.getNome()}</td>
+                                                    <td scope="col">${projeto.getOrientador().getNome()}</td>
+                                                    <td scope="col">${projeto.getDescricao()}</td>
+                                                    <td scope="col">${projeto.getDuracao()}</td>
+                                                    <td scope="col">
+                                                        <input type="hidden" name="idProjetista" value="${requestScope.projetista.getId()}">
+                                                        <input type="hidden" name="idOrientador" value="${projeto.getOrientador().getId()}">
+                                                        <button type="submit" class="btn btn-indigo btn-block" name="idProjeto" value="${projeto.getId()}">EDITAR</button>
+                                                    </td>
+                                                </tr>
+                                            </core:forEach>
+                                        </form>
+
+                                    <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdProjeto}</h6>
+                                    <br>
+                                    <h6 class="text-center" style="color: #ff0219">${requestScope.editarMsgErroIdProjetista}</h6>
+                                </table>
+                            </div>
+                        </core:when>
+                        <core:otherwise>
+                            <div class="container-fluid">
+                                Você não possui nenhum projeto ainda não avaliado
+                            </div>
+                        </core:otherwise>
+                    </core:choose>
                 </core:otherwise>
             </core:choose>
             

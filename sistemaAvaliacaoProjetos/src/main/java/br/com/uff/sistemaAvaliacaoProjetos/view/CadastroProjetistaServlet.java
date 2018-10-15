@@ -6,9 +6,12 @@
 package br.com.uff.sistemaAvaliacaoProjetos.view;
 
 import br.com.uff.sistemaAvaliacaoProjetos.controller.ProjetistaController;
+import br.com.uff.sistemaAvaliacaoProjetos.controller.ProjetoController;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projetista;
+import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projeto;
 import br.com.uff.sistemaAvaliacaoProjetos.utils.ValidUtils;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -133,6 +136,10 @@ public class CadastroProjetistaServlet extends HttpServlet {
                 if (!ProjetistaController.buscaVerificacaoEmailCadastrado(projetista)) {
                     ProjetistaController.insertProjetista(projetista);
                     projetista = ProjetistaController.buscaProjetistaPorLogin(projetista);
+                    List<Projeto> projetosNaoAvaliados = ProjetoController.buscarProjetosNaoAvaliados(projetista);
+                    List<Projeto> projetosAvaliados = ProjetoController.buscarProjetosAvaliados(projetista);
+                    req.setAttribute("projetosNaoAvaliados", projetosNaoAvaliados);
+                    req.setAttribute("projetosAvaliados", projetosAvaliados);
                     req.setAttribute("projetista", projetista);
                     req.getSession().setAttribute("login", projetista);
                     req.getRequestDispatcher("Projetista.jsp").forward(req, resp);

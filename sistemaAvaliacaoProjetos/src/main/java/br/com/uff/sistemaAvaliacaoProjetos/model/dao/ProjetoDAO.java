@@ -6,6 +6,8 @@
 package br.com.uff.sistemaAvaliacaoProjetos.model.dao;
 
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Avaliador;
+import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Orientador;
+import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projetista;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projeto;
 import java.util.List;
 import javax.persistence.NoResultException;
@@ -47,6 +49,54 @@ public class ProjetoDAO extends GenericDAO<Projeto>{
             List<Projeto> projetosBD = (List<Projeto>) manager.createQuery(
                     "SELECT p from Projeto p where p.id = (SELECT distinct cap.projeto.id FROM Avaliador a join ControleAvaliadorProjetos cap on cap.avaliador.id = :idAvaliador) and p.avaliado = true")
                     .setParameter("idAvaliador", avaliador.getId())
+                    .getResultList();
+            return projetosBD;
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
+    
+    public List<Projeto> buscarProjetosAvaliados (Projetista projetista){
+        try {
+            List<Projeto> projetosBD = (List<Projeto>) manager.createQuery(
+                    "SELECT p from Projeto p where p.avaliado = true and p.projetista.id = :idProjetista")
+                    .setParameter("idProjetista", projetista.getId())
+                    .getResultList();
+            return projetosBD;
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
+    
+    public List<Projeto> buscarProjetosAvaliados (Orientador orientador){
+        try {
+            List<Projeto> projetosBD = (List<Projeto>) manager.createQuery(
+                    "SELECT p from Projeto p where p.avaliado = true and p.orientador.id = :idOrientador")
+                    .setParameter("idOrientador", orientador.getId())
+                    .getResultList();
+            return projetosBD;
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
+    
+    public List<Projeto> buscarProjetosNaoAvaliados (Projetista projetista){
+        try {
+            List<Projeto> projetosBD = (List<Projeto>) manager.createQuery(
+                    "SELECT p from Projeto p where p.avaliado = false and p.projetista.id = :idProjetista")
+                    .setParameter("idProjetista", projetista.getId())
+                    .getResultList();
+            return projetosBD;
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
+    
+    public List<Projeto> buscarProjetosNaoAvaliados (Orientador orientador){
+        try {
+            List<Projeto> projetosBD = (List<Projeto>) manager.createQuery(
+                    "SELECT p from Projeto p where p.avaliado = false and p.orientador.id = :idOrientador")
+                    .setParameter("idOrientador", orientador.getId())
                     .getResultList();
             return projetosBD;
         } catch (NoResultException nre) {
