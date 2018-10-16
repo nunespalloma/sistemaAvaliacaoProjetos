@@ -1,5 +1,7 @@
 <%-- any content can be specified here e.g.: --%>
 <%@include file="head.jspf"%>
+<%@page import="br.com.uff.sistemaAvaliacaoProjetos.controller.ProjetoController"%>
+<%@page import="br.com.uff.sistemaAvaliacaoProjetos.controller.AvaliadorController"%>
 <!--Navbar-->
 <nav class="navbar navbar-dark navbar-expand-lg indigo">
 
@@ -44,11 +46,26 @@
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${sessionScope.login.getNome()}</a>
                         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                             <core:choose>
+                                <core:when test="${fn:containsIgnoreCase(sessionScope.login.getClass().getName() , 'Administrador')}">
+                                    <core:set scope="request" var="projetosParaEnviar" value="${ProjetoController.buscarProjetosParaSeresEnviadosAvaliacao()}"/>
+                                    <core:set scope="request" var="projetosEnviados" value="${ProjetoController.buscarProjetosEnviadosParaAvaliacao(sessionScope.login)}"/>
+                                    <core:set scope="request" var="avaliadores" value="${AvaliadorController.listAllAvaliadores()}"/>
+                                    <a class="dropdown-item" href="Administrador.jsp">Meus Projetos</a>
+                                </core:when>
+                                <core:when test="${fn:containsIgnoreCase(sessionScope.login.getClass().getName() , 'Avaliador')}">
+                                    <core:set scope="request" var="projetosParaAvaliacao" value="${ProjetoController.buscarProjetosParaAvaliacao(sessionScope.login)}"/>
+                                    <core:set scope="request" var="projetosAvaliados" value="${ProjetoController.buscarProjetosAvaliados(sessionScope.login)}"/>
+                                    <a class="dropdown-item" href="Avaliador.jsp">Meus Projetos</a>
+                                </core:when>
                                 <core:when test="${fn:containsIgnoreCase(sessionScope.login.getClass().getName() , 'Projetista')}">
+                                    <core:set scope="request" var="projetosNaoAvaliados" value="${ProjetoController.buscarProjetosNaoAvaliados(sessionScope.login)}"/>
+                                    <core:set scope="request" var="projetosAvaliados" value="${ProjetoController.buscarProjetosAvaliados(sessionScope.login)}"/>
                                     <core:set scope="request" var="projetista" value="${sessionScope.login}"/>
                                     <a class="dropdown-item" href="Projetista.jsp">Meus Projetos</a>
                                 </core:when>
                                 <core:otherwise>
+                                    <core:set scope="request" var="projetosNaoAvaliados" value="${ProjetoController.buscarProjetosNaoAvaliados(sessionScope.login)}"/>
+                                    <core:set scope="request" var="projetosAvaliados" value="${ProjetoController.buscarProjetosAvaliados(sessionScope.login)}"/>
                                     <core:set scope="request" var="orientador" value="${sessionScope.login}"/>
                                     <a class="dropdown-item" href="Orientador.jsp">Meus Projetos</a>
                                 </core:otherwise>

@@ -8,6 +8,7 @@ package br.com.uff.sistemaAvaliacaoProjetos.controller;
 import br.com.uff.sistemaAvaliacaoProjetos.model.dao.GenericDAO;
 import br.com.uff.sistemaAvaliacaoProjetos.model.dao.PersistenceManager;
 import br.com.uff.sistemaAvaliacaoProjetos.model.dao.ProjetoDAO;
+import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Administrador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Avaliador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Orientador;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projetista;
@@ -32,6 +33,11 @@ public class ProjetoController {
     public static List<Projeto> buscarProjetosParaSeresEnviadosAvaliacao () {
         ProjetoDAO projetoDAO = new ProjetoDAO();
         return projetoDAO.buscarProjetosParaSeresEnviadosAvaliacao();
+    }
+    
+    public static List<Projeto> buscarProjetosEnviadosParaAvaliacao (Administrador administrador) {
+        ProjetoDAO projetoDAO = new ProjetoDAO();
+        return projetoDAO.buscarProjetosEnviadosParaAvaliacao(administrador);
     }
     
     public static List<Projeto> buscarProjetosParaAvaliacao (Avaliador avaliador) {

@@ -98,9 +98,11 @@ public class LoginServlet extends HttpServlet {
                 administrador.setSenha(senha);
                 if (AdministradorController.buscaVerificacaoLogin(administrador)) {
                     administrador = AdministradorController.buscaAdministradorPorLogin(administrador);
-                    List<Projeto> projetos = ProjetoController.buscarProjetosParaSeresEnviadosAvaliacao();
+                    List<Projeto> projetosParaEnviar = ProjetoController.buscarProjetosParaSeresEnviadosAvaliacao();
+                    List<Projeto> projetosEnviados = ProjetoController.buscarProjetosEnviadosParaAvaliacao(administrador);
                     List<Avaliador> avaliadores = AvaliadorController.listAllAvaliadores();
-                    req.setAttribute("projetos", projetos);
+                    req.setAttribute("projetosParaEnviar", projetosParaEnviar);
+                    req.setAttribute("projetosEnviados", projetosEnviados);
                     req.setAttribute("avaliadores", avaliadores);
                     req.getSession().setAttribute("login", administrador);
                     req.getRequestDispatcher("Administrador.jsp").forward(req, resp);

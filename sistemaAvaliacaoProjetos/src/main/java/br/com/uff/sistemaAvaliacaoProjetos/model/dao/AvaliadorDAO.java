@@ -6,6 +6,8 @@
 package br.com.uff.sistemaAvaliacaoProjetos.model.dao;
 
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Avaliador;
+import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projeto;
+import java.util.List;
 import javax.persistence.NoResultException;
 
 /**
@@ -59,5 +61,17 @@ public class AvaliadorDAO extends GenericDAO<Avaliador>{
             return false;
         }
         
+    }
+    
+    public Avaliador buscarAvaliadorPorProjetoAvaliacao (Projeto projeto){
+        try {
+            Avaliador avaliadorBD = (Avaliador) manager.createQuery(
+                    "SELECT a from Avaliador a where a.id = (SELECT distinct cap.avaliador.id FROM Projeto p join ControleAvaliadorProjetos cap on cap.projeto.id = :idProjeto)")
+                    .setParameter("idProjeto", projeto.getId())
+                    .getSingleResult();
+            return avaliadorBD;
+        } catch (NoResultException nre) {
+            return null;
+        }
     }
 }

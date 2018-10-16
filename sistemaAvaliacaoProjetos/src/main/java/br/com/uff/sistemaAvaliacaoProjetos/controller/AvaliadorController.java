@@ -9,6 +9,7 @@ import br.com.uff.sistemaAvaliacaoProjetos.model.dao.AvaliadorDAO;
 import br.com.uff.sistemaAvaliacaoProjetos.model.dao.GenericDAO;
 import br.com.uff.sistemaAvaliacaoProjetos.model.dao.PersistenceManager;
 import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Avaliador;
+import br.com.uff.sistemaAvaliacaoProjetos.model.entity.Projeto;
 import java.util.List;
 
 /**
@@ -39,6 +40,11 @@ public class AvaliadorController {
     public static boolean buscaVerificacaoEmailCadastrado (Avaliador avaliador) {
         AvaliadorDAO avaliadorDAO = new AvaliadorDAO();
         return avaliadorDAO.buscaVerificacaoEmailCadastrado(avaliador);
+    }
+    
+    public static Avaliador buscarAvaliadorPorProjetoAvaliacao (Projeto projeto){
+        AvaliadorDAO avaliadorDAO = new AvaliadorDAO();
+        return avaliadorDAO.buscarAvaliadorPorProjetoAvaliacao(projeto);
     }
     
     public static void insertAvaliador(Avaliador avaliador) {
